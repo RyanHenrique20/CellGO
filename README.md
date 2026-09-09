@@ -18,6 +18,7 @@
 
 ## 2. Caracterização da empresa
 
+
 ## 3. Justificativa da escolha
 
 ## 4. Problemas identificados
@@ -26,7 +27,7 @@
 
 ## 6. Requisitos funcionais
 
-## 7. Requisitos funcionais
+## 7. Requisitos não funcionais
 
 ## 8. Regras de negócio
 

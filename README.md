@@ -2,17 +2,19 @@
 
 ## 1. Identificação da equipe
 
-- Bernardo Fárias de Jesus
-- Bruno Ferreira Gonçalves
-- Gabriely Moreira Manna
-- Henrique Santos da Rocha
-- Henry Gonçalves dos Santos
-- João Wyctor França dos Santos
-- Katharine Louise de Oliveira Guedes
-- Murilo Alves de Sousa
-- Rafaela Teresa de Oliveira Corrente
-- Ryan Henrique de Aguiar dos Santos
-- Victor Rodrigues da Costa
+| Nº | Integrante |
+|---:|---|
+| 01 | Bernardo Farias de Jesus |
+| 02 | Bruno Ferreira Gonçalves |
+| 03 | Gabriely Moreira Manna |
+| 04 | Henrique Santos da Rocha |
+| 05 | Henry Gonçalves dos Santos |
+| 06 | João Wyctor França dos Santos |
+| 07 | Katharine Louise de Oliveira Guedes |
+| 08 | Murilo Alves de Sousa |
+| 09 | Rafaela Teresa de Oliveira Corrente |
+| 10 | Ryan Henrique de Aguiar dos Santos |
+| 11 | Victor Rodrigues da Costa |
 
 ## 2. Caracterização da empresa
 

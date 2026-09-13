@@ -20,58 +20,27 @@
 
 ## 2. Caracterização da Empresa
 
-### 2.1 Identificação
+**Qual é o nome da empresa?**  
+CellGo Comércio de Celulares Ltda. (nome fantasia: CellGo).
 
-- **Razão Social:** CellGo Comércio de Celulares Ltda.
-- **Nome Fantasia:** CellGo
-- **CNPJ:** 48.920.852/0001-23
-- **Data de Fundação:** 01/09/2026
-- **Endereço:** Rua das Comunicações, 245 – Centro, São Paulo/SP – CEP 01000-000
-- **Setor de Atuação:** Comércio varejista de produtos de telefonia móvel (novos e seminovos)
+**Qual é o segmento?**  
+Comércio varejista de produtos de telefonia móvel, atuando com aparelhos novos e seminovos.
 
-### 2.2 Natureza Jurídica
+**O que ela vende ou oferece?**  
+Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos revisados e certificados, com garantia própria da loja; acessórios como capinhas, películas, fones e carregadores; pagamento parcelado em cartão de crédito; e vendas por canal online, além do ponto físico.
 
-- **Tipo Societário:** LTDA (Sociedade Empresária Limitada)
-- **Regime Tributário:** Simples Nacional
-- **Porte da Empresa:** Pequena Empresa (EPP)
+**Quem são seus principais clientes?**  
+Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos — tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
 
-### 2.3 Perfil do Negócio
+**Quais são seus principais setores?**  
+A empresa é organizada em cinco áreas: Diretoria (2 sócios, decisão estratégica e autorização de exceções); Vendas e Atendimento (registro de vendas e contato com o cliente); Estoque e Logística (cadastro de aparelhos, controle de disponibilidade e envio); Assistência Técnica (avaliação de aparelhos, diagnóstico de defeitos e garantia); e Financeiro/Administrativo (estornos, nota fiscal e controle de pagamentos).
 
-- **Ramo de Atividade:** Compra e venda de smartphones novos e seminovos, com comércio complementar de acessórios.
-- **Produtos/Serviços Oferecidos:**
-  - Smartphones novos, lacrados e com garantia de fábrica;
-  - Smartphones seminovos revisados e certificados, com garantia própria;
-  - Acessórios, como capinhas, películas, fones e carregadores;
-  - Pagamento parcelado;
-  - Vendas online.
+**Como funciona atualmente?**  
+Hoje a operação depende de controles manuais e dispersos: o cadastro de clientes e aparelhos, o controle de estoque e o acompanhamento financeiro não estão centralizados em um único sistema. Isso significa que informações como status do aparelho (disponível, vendido, em avaliação), histórico de vendas de cada cliente, prazos de garantia e pedidos de estorno acabam sendo controlados separadamente — dificultando saber rapidamente se um aparelho já foi vendido, se uma garantia ainda está no prazo, ou se um estorno está atrasado. É justamente essa falta de integração entre vendas, estoque, pós-venda e financeiro que motiva o desenvolvimento do ERP.
 
-- **Missão:** Democratizar o acesso à tecnologia móvel, oferecendo smartphones de qualidade — novos ou seminovos — com procedência garantida, preço justo e atendimento transparente.
+**Quais informações são importantes para o negócio?**  
+Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identificação única de cada aparelho por IMEI/número de série, com sua condição (novo/seminovo) e status atual; dados de cada venda (valor, forma de pagamento, parcelas, status); prazos e cobertura de garantia por aparelho; registros de trocas, devoluções e estornos com seus prazos; e trilha de auditoria de quem realizou cada operação sensível no sistema.
 
-- **Visão:** Ser referência regional em compra e venda de celulares até 2028, reconhecida pela confiabilidade e pelo compromisso com a sustentabilidade tecnológica.
-
-- **Valores:**
-  - Transparência;
-  - Procedência garantida;
-  - Sustentabilidade e economia circular;
-  - Acessibilidade;
-  - Atendimento humanizado.
-
-### 2.4 Estrutura Organizacional
-
-- **Quadro Societário:** 2 sócios, com participação de 50% cada.
-- **Número de Funcionários:** 8 colaboradores.
-- **Principais Áreas:**
-  - Diretoria;
-  - Vendas e Atendimento;
-  - Estoque e Logística;
-  - Assistência Técnica;
-  - Financeiro/Administrativo.
-
-### 2.5 Histórico
-
-A CellGo foi fundada em 2026 por dois sócios que identificaram uma lacuna no mercado local: a falta de lojas que oferecessem, com a mesma seriedade, celulares novos e seminovos com garantia.
-
-Iniciando as operações em um pequeno ponto comercial, a empresa cresceu investindo em processos próprios de certificação de aparelhos seminovos. Atualmente, conta também com um canal de vendas online, consolidando-se como uma alternativa confiável frente ao mercado informal de celulares usados.
 
 
 

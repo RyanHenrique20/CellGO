@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Mapa Mental — Regras de Negócio CellGo</title>
+<style>
+  :root{
+    --bg: #F7F6F2;
+    --panel: #FFFFFF;
+    --ink: #23241F;
+    --ink-soft: #5B5C55;
+    --line: #D8D6CC;
+    --root: #1D3B36;
+    --root-ink: #FFFFFF;
+    --accent: #C46A3B;
+  }
+  * { box-sizing: border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 32px 16px 64px;
+  }
+  .wrap{ max-width: 1180px; margin: 0 auto; }
+  header{ margin-bottom: 28px; }
+  h1{
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .sub{ color: var(--ink-soft); font-size: 14px; margin:0; }
+  .controls{ margin: 16px 0 28px; display:flex; gap:10px; flex-wrap:wrap; }
+  .controls button{
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .controls button:hover{ border-color: var(--accent); color: var(--accent); }
+
+  .map{ display:flex; flex-direction:column; gap:0; }
+
+  .root-row{
+    display:flex; align-items:center; gap: 18px;
+    margin-bottom: 6px;
+  }
+  .root-node{
+    background: var(--root);
+    color: var(--root-ink);
+    padding: 16px 26px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .root-caption{ color: var(--ink-soft); font-size: 13px; max-width: 420px; }
+
+  .modules{
+    margin-left: 24px;
+    border-left: 2px solid var(--line);
+    padding-left: 24px;
+    display:flex; flex-direction:column;
+  }
+
+  .module{
+    position: relative;
+    margin: 10px 0;
+  }
+  .module::before{
+    content:"";
+    position:absolute;
+    left:-24px; top: 22px;
+    width: 24px; height: 2px;
+    background: var(--line);
+  }
+
+  .module-head{
+    display:flex; align-items:center; gap:10px;
+    cursor:pointer;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 14px;
+    max-width: 560px;
+  }
+  .module-head:hover{ border-color: var(--accent); }
+  .toggle{
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    flex-shrink:0;
+    transition: transform .15s ease;
+  }
+  .module.open .toggle{ transform: rotate(90deg); }
+  .module-title{ font-size: 14px; font-weight: 600; }
+  .module-count{
+    font-size: 11px; color: var(--ink-soft);
+    background: var(--bg); border-radius: 10px; padding: 2px 8px;
+  }
+
+  .rules{
+    margin-left: 33px;
+    border-left: 2px solid var(--line);
+    padding-left: 20px;
+    display:none;
+    flex-direction:column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .module.open .rules{ display:flex; }
+
+  .rule{
+    position:relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor:pointer;
+  }
+  .rule::before{
+    content:"";
+    position:absolute; left:-20px; top:18px;
+    width:20px; height:2px; background:var(--line);
+  }
+  .rule-top{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .rule-code{ font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: .02em; }
+  .rule-title{ font-size: 13.5px; font-weight: 600; }
+  .rule-detail{
+    display:none;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .rule-detail ul{ margin: 6px 0 0; padding-left: 18px; }
+  .rule-detail li{ margin: 3px 0; }
+  .rule.open .rule-detail{ display:block; }
+  .rule.open{ border-left-color:#8A4A28; }
+
+  footer{
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa mental — Regras de negócio</h1>
+    <p class="sub">Projeto ERP CellGo · branch <code>feature/readme</code> · repositório RyanHenrique20/cellgo</p>
+  </header>
+
+  <div class="controls">
+    <button onclick="setAll(true)">Expandir tudo</button>
+    <button onclick="setAll(false)">Recolher tudo</button>
+  </div>
+
+  <div class="map">
+    <div class="root-row">
+      <div class="root-node">CellGo — Regras de negócio</div>
+      <div class="root-caption">22 regras (RN-01 a RN-22) organizadas em 8 módulos do ERP.</div>
+    </div>
+
+    <div class="modules" id="modules"></div>
+  </div>
+
+  <footer>Clique nos módulos para abrir/fechar os ramos, e nas regras para ver a descrição resumida de cada uma.</footer>
+</div>
+
+<script>
+const data = [
+  { m: "Módulo 1 — Cadastro", rules: [
+    { code:"RN-01", title:"Cadastro de cliente", detail:"PF ou PJ. CPF/CNPJ único. Busca por CPF/CNPJ, e-mail ou nº da venda. Dados atualizáveis pelo cliente ou usuário autorizado." },
+    { code:"RN-02", title:"Cadastro de aparelho/produto", detail:"Modelo, marca, IMEI único, condição (novo/seminovo), preço, custo, status inicial. Cadastro restrito a usuários autorizados (RN-22)." },
+  ]},
+  { m: "Módulo 2 — Estoque", rules: [
+    { code:"RN-03", title:"Controle de estoque", detail:"Sem reserva prévia. Só vende aparelho 'Disponível'. Vendido não retorna automaticamente. Toda mudança de status é registrada no histórico." },
+    { code:"RN-04", title:"Validação de disponibilidade no fechamento", detail:"Checagem atômica no momento do pagamento, para evitar que dois clientes concluam a compra do mesmo aparelho." },
+  ]},
+  { m: "Módulo 3 — Venda", rules: [
+    { code:"RN-05", title:"Venda de aparelho", detail:"Exige cliente, aparelho, data, valores, forma de pagamento e status. Confirmado o pagamento, aparelho vira 'Vendido' e gera comprovante." },
+    { code:"RN-06", title:"À vista ou parcelada", detail:"Parcelamento só no cartão de crédito, até 12x. Sistema calcula o valor das parcelas automaticamente." },
+    { code:"RN-07", title:"Cálculo do valor da venda", detail:"Valor final = valor do produto − desconto + taxas. Sem desconto manual de vendedor (modelo e-commerce); único desconto é o do Pix (RN-08)." },
+    { code:"RN-08", title:"Desconto por pagamento via Pix", detail:"5% até R$1.000; 7% de R$1.001 a R$2.500; 10% acima de R$2.500. Só para produtos elegíveis, configurável no cadastro do aparelho." },
+    { code:"RN-09", title:"Formas de pagamento", detail:"Aceita Pix, cartão de crédito e boleto. Não aceita cartão de débito. Venda só é 'Finalizada' após confirmação do pagamento." },
+    { code:"RN-10", title:"Parcelamento", detail:"Mínimo 1, máximo 12 parcelas (cartão de crédito). Valor total permanece registrado independente da quantidade de parcelas." },
+  ]},
+  { m: "Módulo 4 — Pós-venda: cancelamento", rules: [
+    { code:"RN-11", title:"Cancelamento da venda", detail:"Até 7 dias corridos, somente enquanto entrega estiver 'Aguardando envio'. Após envio, segue fluxo de devolução (RN-13/14). Gera estorno (RN-17) e reavaliação de estoque." },
+  ]},
+  { m: "Módulo 5 — Pós-venda: troca e devolução", rules: [
+    { code:"RN-12", title:"Troca por defeito coberto pela garantia", detail:"Até 30 dias. Exige avaliação técnica e defeito coberto (RN-15). Mau uso não é elegível (RN-16). Sem aparelho equivalente, aplica-se devolução (RN-14)." },
+    { code:"RN-13", title:"Devolução por arrependimento", detail:"Até 7 dias do recebimento, sem necessidade de defeito (Art. 49 CDC, e-commerce). Reembolso integral (RN-17). Aparelho avaliado antes de voltar ao estoque." },
+    { code:"RN-14", title:"Devolução por defeito", detail:"Quando a troca não é possível ou o aparelho já foi entregue. Exige avaliação técnica; mau uso não autoriza a devolução (RN-16)." },
+  ]},
+  { m: "Módulo 6 — Pós-venda: garantia e avaliação de danos", rules: [
+    { code:"RN-15", title:"Garantia do aparelho", detail:"Novo: 30 dias loja + 1 ano fabricante. Seminovo: 30 dias loja, sem garantia extra salvo indicação do fabricante. Início conta a partir da venda." },
+    { code:"RN-16", title:"Avaliação de dano e elegibilidade", detail:"Classifica o dano (fabricação, mau uso, acidental, outros). Mau uso (tela quebrada, amassado, líquido, alteração não autorizada) não é coberto." },
+  ]},
+  { m: "Módulo 7 — Financeiro e fiscal", rules: [
+    { code:"RN-17", title:"Estorno e restituição", detail:"Segue a forma de pagamento original. Prazo de 7 a 15 dias corridos. Atraso além de 15 dias sinaliza status 'Atrasado' e notifica o Financeiro." },
+    { code:"RN-18", title:"Emissão de nota fiscal", detail:"Vinculada à venda. Cancelamento em até 24h é direto; fora do prazo, segue devolução. Troca gera duas notas (entrada + saída)." },
+    { code:"RN-19", title:"Comissão de vendedores — não aplicável", detail:"Modelo e-commerce sem vendedor associado; não há cálculo nem lançamento de comissão." },
+  ]},
+  { m: "Módulo 8 — Histórico, auditoria e acesso", rules: [
+    { code:"RN-20", title:"Histórico do cliente", detail:"Compras, pagamentos, cancelamentos, trocas, devoluções, garantias e estornos concedidos, tudo vinculado ao cliente." },
+    { code:"RN-21", title:"Auditoria das operações", detail:"Registra usuário, data/hora, operação, venda e aparelho afetados, valores antes/depois — principalmente em preço, cancelamento, troca, devolução e estorno." },
+    { code:"RN-22", title:"Perfis de acesso e autorizações", detail:"2 níveis: Operacional (uma área por perfil, 8 colaboradores) e Estratégico (Diretoria, 2 sócios, acesso total e único autorizado a criar/editar perfis)." },
+  ]},
+];
+
+const container = document.getElementById('modules');
+data.forEach((mod, i) => {
+  const modEl = document.createElement('div');
+  modEl.className = 'module';
+  modEl.innerHTML = `
+    <div class="module-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="toggle">&#8250;</div>
+      <div class="module-title">${mod.m}</div>
+      <div class="module-count">${mod.rules.length} regra${mod.rules.length>1?'s':''}</div>
+    </div>
+    <div class="rules"></div>
+  `;
+  const rulesEl = modEl.querySelector('.rules');
+  mod.rules.forEach(r => {
+    const ruleEl = document.createElement('div');
+    ruleEl.className = 'rule';
+    ruleEl.innerHTML = `
+      <div class="rule-top" onclick="this.parentElement.classList.toggle('open')">
+        <span class="rule-title">${r.title}</span>
+        <span class="rule-code">${r.code}</span>
+      </div>
+      <div class="rule-detail">${r.detail}</div>
+    `;
+    rulesEl.appendChild(ruleEl);
+  });
+  container.appendChild(modEl);
+});
+
+function setAll(open){
+  document.querySelectorAll('.module').forEach(m => m.classList.toggle('open', open));
+  document.querySelectorAll('.rule').forEach(r => r.classList.toggle('open', open));
+}
+setAll(true);
+</script>
+</body>
+</html>

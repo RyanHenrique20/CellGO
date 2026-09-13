@@ -671,6 +671,34 @@ Fechar a lacuna de definição de quem é o "usuário autorizado" ou "usuário r
 
 ## 9. Restrições e Políticas Organizacionais
 
+| **Política de Aquisição de Aparelhos**  |
+- **Verificação de procedencia:** consultar o IMEI antes da compra.
+- **Recusa de aparelhos irregulares:**  não aceitar celulares com IMEI irregulares ou com indicios de celulares clonados.
+- **Identificação de vendedor:** exigir documentos com foto e CPF.
+- **Limite de compras por CPF/dia:** o vendedor poderá vender X aparelhos por dia, para evitar lavagem de aparelhos de origem ilicita.
+- **Documentação obrigatória:** emissão de nota fiscal ou termo de compra e venda, mesmo entre pessoas visicas.
+
+| **Politica de Avaliação Tecnica** |
+- **Checklist tecnico:**  avaliação de bataria, tela, cameras, botões, conectatividade, autenticidade das peças.
+- **Verificação de bloqueios de contas:** checagem de bloqueio iCloud/Google (FRP); recusa de aparelho caso não seja possivel desbloquear.
+
+| **Politica de Revenda:**  |
+- **Reset de fábrica:** remoção de contas, dados pessoais e bloqueios (FRP/iCloud) antes de expor para venda.
+- **Prazo de quarentena:** periodo em que o celulares recebidos em troca, para confirmar que não ira haver uma contestação de furto.
+- **Restrição etária:** não fazer a venda para menores de 18 anos sem uma presença legal.
+
+| **Politica Fiscal e Documental**  |
+- **Emissão de nota fiscal**
+- **Rastreabilidade por IMEI:** registro de garantia e historico do aparelho vinculado ao IMEI.
+- **Retenção de comprovantes:** guarda de comprovantes por prazo minimo fical.
+
+| **Politica de Proteção de Dados (LGPD)**  |
+- **Termo de responsabilidade do cliente:** declaração de que o cliente removeu contas e dados pessoais antes da entrega.
+- **Minimização de dados:** não armazenamento de dados pessoais extraidos alem do estritamente necessario.
+
+| **Restrições Operacionais** |
+- **Seguro de estoque:**  contratação de seguro contra roubo para estoque de alto valor.
+- **Segregação de estoque:** definição de limite de itens expostos em vitrine versus estoque em cofre. 
 
 ## 10. Fluxogramas
 

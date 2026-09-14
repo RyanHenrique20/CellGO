@@ -21,10 +21,10 @@
 ## 2. Caracterização da Empresa
 
 **Qual é o nome da empresa?**  
-CellGo Comércio de Celulares Ltda. (nome fantasia: CellGo).
+CellGo Comércio de Celulares Ltda.
 
 **Qual é o segmento?**  
-Comércio varejista de produtos de telefonia móvel, atuando com aparelhos novos e seminovos.
+Comércio varejista de celulares , atuando com aparelhos novos e seminovos.
 
 **O que ela vende ou oferece?**  
 Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos revisados e certificados, com garantia própria da loja; acessórios como capinhas, películas, fones e carregadores; pagamento parcelado em cartão de crédito; e vendas por canal online, além do ponto físico.
@@ -58,10 +58,89 @@ Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identific
 
 ## 6. Requisitos Funcionais
 
+**RF-01 — Cadastrar clientes**  
+O sistema deve permitir o cadastro de clientes pessoa física (nome, CPF, e-mail, telefone, endereço) ou pessoa jurídica (razão social, CNPJ, e-mail, telefone, endereço), com CPF/CNPJ único, e permitir localizar o cliente por CPF/CNPJ, e-mail ou número da venda (RN-01).
+
+**RF-02 — Cadastrar aparelhos**  
+O sistema deve permitir o cadastro de aparelhos com modelo, marca, IMEI único, condição (novo/seminovo), preço de venda, custo de aquisição e status inicial, restrito a usuários autorizados (RN-02).
+
+**RF-03 — Controlar status do aparelho**  
+O sistema deve controlar o status individual de cada aparelho (Disponível, Vendido, Em avaliação, Em manutenção, Inativo) e impedir a venda de aparelhos inexistentes, já vendidos ou indisponíveis, registrando todo o histórico de mudança de status (RN-03).
+
+**RF-04 — Validar disponibilidade no fechamento da venda**  
+O sistema deve revalidar, de forma atômica junto à confirmação do pagamento, se o aparelho ainda está disponível, bloqueando a compra caso outra venda já o tenha adquirido (RN-04).
+
+**RF-05 — Registrar venda**  
+O sistema deve registrar a venda vinculando cliente, aparelho(s), data, valor do produto, desconto, valor final, forma de pagamento e status; ao confirmar o pagamento, deve alterar o status do aparelho para Vendido e gerar um comprovante (RN-05).
+
+**RF-06 — Processar venda à vista ou parcelada**  
+O sistema deve permitir venda à vista ou parcelada em cartão de crédito (até 12x), calculando automaticamente o valor de cada parcela (RN-06, RN-10).
+
+**RF-07 — Calcular valor final da venda**  
+O sistema deve calcular o valor final como valor do produto menos desconto mais taxas, sem permitir desconto manual por vendedor (RN-07).
+
+**RF-08 — Aplicar desconto por Pix**  
+O sistema deve aplicar automaticamente o desconto (5%, 7% ou 10%, conforme faixa de valor) quando o pagamento for via Pix e o produto for elegível, registrando o percentual e valor do desconto na venda (RN-08).
+
+**RF-09 — Processar formas de pagamento**  
+O sistema deve aceitar Pix, cartão de crédito e boleto (não aceitando cartão de débito), registrando o status do pagamento e só finalizando a venda após a confirmação (RN-09).
+
+**RF-10 — Processar cancelamento de venda**  
+O sistema deve permitir o cancelamento da venda em até 7 dias corridos, apenas enquanto o status de entrega for "Aguardando envio", registrando o motivo, abrindo o estorno quando já houver pagamento, e reenviando o aparelho para avaliação de estoque (RN-11).
+
+**RF-11 — Processar troca por defeito coberto pela garantia**  
+O sistema deve permitir a troca do aparelho por um equivalente em até 30 dias, mediante avaliação técnica e confirmação de que o defeito está coberto pela garantia (RN-12).
+
+**RF-12 — Processar devolução por arrependimento**  
+O sistema deve permitir a devolução em até 7 dias corridos do recebimento, sem exigência de defeito, com restituição integral do valor pago após avaliação do aparelho (RN-13).
+
+**RF-13 — Processar devolução por defeito**  
+O sistema deve permitir a devolução com reembolso quando a troca não for possível ou o aparelho já tiver sido entregue, mediante avaliação técnica que confirme a cobertura da garantia (RN-14).
+
+**RF-14 — Controlar garantia do aparelho**  
+O sistema deve calcular e controlar o prazo de garantia de cada aparelho (30 dias loja + 1 ano fabricante para novos; 30 dias loja para seminovos), permitindo consultar se está vigente (RN-15).
+
+**RF-15 — Classificar avaliação de dano**  
+O sistema deve registrar a avaliação técnica de cada aparelho danificado, classificando o dano como defeito de fabricação, mau uso, acidental ou outros, e bloquear troca/devolução em casos de mau uso (RN-16).
+
+**RF-16 — Processar estorno e restituição**  
+O sistema deve processar o estorno conforme a forma de pagamento original (Pix, cartão ou boleto), registrando valor, data de abertura, prazo-limite e status, e sinalizar como "Atrasado" quando ultrapassar 15 dias (RN-17).
+
+**RF-17 — Emitir nota fiscal**  
+O sistema deve emitir nota fiscal vinculada à venda, com tratamento fiscal específico para cancelamento (cancelamento direto ou nota de entrada, conforme prazo), devolução (nota de entrada) e troca (nota de entrada + nota de saída) (RN-18).
+
+**RF-18 — Manter histórico do cliente**  
+O sistema deve manter o histórico completo de cada cliente: compras, pagamentos, cancelamentos, trocas, devoluções, garantias e estornos concedidos (RN-20).
+
+**RF-19 — Registrar auditoria das operações**  
+O sistema deve registrar, para cada operação sensível, o usuário responsável, data/hora, operação realizada, venda e aparelho afetados, e valores antes/depois, quando aplicável (RN-21).
+
+**RF-20 — Controlar perfis de acesso**  
+O sistema deve restringir operações sensíveis conforme o perfil do usuário (Operacional por área ou Estratégico/Diretoria), impedindo que usuários sem permissão adequada executem ações fora de sua área ou nível de autorização (RN-22).
 
 
 ## 7. Requisitos Não Funcionais
 
+**RNF-01 — Disponibilidade**  
+O sistema deve estar disponível para o usuário na maior parte do tempo, minimizando indisponibilidades que impactem vendas e atendimento.
+
+**RNF-02 — Segurança**  
+O sistema deve ser seguro para evitar vazamento e roubo de dados, cumprindo a Lei Geral de Proteção de Dados (LGPD), especialmente no armazenamento de dados de clientes (CPF/CNPJ) e no controle de acesso por perfil (RN-22).
+
+**RNF-03 — Usabilidade (intuitivo)**  
+O sistema deve ser intuitivo, para que qualquer usuário do ERP consiga entender e operar cada funcionalidade sem dificuldade, independentemente do seu setor.
+
+**RNF-04 — Desempenho**  
+O sistema deve ter bom desempenho, respondendo rapidamente inclusive na validação de disponibilidade no fechamento da venda (RN-04), para não travar o checkout e evitar insatisfação do cliente.
+
+**RNF-05 — Escalabilidade (flexível)**  
+O sistema deve ser flexível e escalável, suportando um volume crescente de dados (clientes, aparelhos, vendas) sem perda de desempenho.
+
+**RNF-06 — Confiabilidade**  
+O sistema deve garantir consistência nas operações críticas, impedindo inconsistências como a venda simultânea do mesmo aparelho para dois clientes (RN-04).
+
+**RNF-07 — Auditabilidade**  
+Os registros de auditoria (RN-21) devem ser imutáveis após gravados, garantindo rastreabilidade confiável de todas as operações sensíveis do sistema.
 
 
 ## 8. Regras de Negócio

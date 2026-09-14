@@ -1,4 +1,4 @@
-# Projeto ERP — CellGO
+# Projeto ERP - CellGO
 
 ## 1. Identificação da Equipe
 
@@ -30,13 +30,13 @@ Comércio varejista de celulares , atuando com aparelhos novos e seminovos.
 Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos revisados e certificados, com garantia própria da loja; acessórios como capinhas, películas, fones e carregadores; pagamento parcelado em cartão de crédito; e vendas por canal online, além do ponto físico.
 
 **Quem são seus principais clientes?**  
-Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos — tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
+Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos - tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
 
 **Quais são seus principais setores?**  
 A empresa é organizada em cinco áreas: Diretoria (2 sócios, decisão estratégica e autorização de exceções); Vendas e Atendimento (registro de vendas e contato com o cliente); Estoque e Logística (cadastro de aparelhos, controle de disponibilidade e envio); Assistência Técnica (avaliação de aparelhos, diagnóstico de defeitos e garantia); e Financeiro/Administrativo (estornos, nota fiscal e controle de pagamentos).
 
 **Como funciona atualmente?**  
-Hoje a operação depende de controles manuais e dispersos: o cadastro de clientes e aparelhos, o controle de estoque e o acompanhamento financeiro não estão centralizados em um único sistema. Isso significa que informações como status do aparelho (disponível, vendido, em avaliação), histórico de vendas de cada cliente, prazos de garantia e pedidos de estorno acabam sendo controlados separadamente — dificultando saber rapidamente se um aparelho já foi vendido, se uma garantia ainda está no prazo, ou se um estorno está atrasado. É justamente essa falta de integração entre vendas, estoque, pós-venda e financeiro que motiva o desenvolvimento do ERP.
+Hoje a operação depende de controles manuais e dispersos: o cadastro de clientes e aparelhos, o controle de estoque e o acompanhamento financeiro não estão centralizados em um único sistema. Isso significa que informações como status do aparelho (disponível, vendido, em avaliação), histórico de vendas de cada cliente, prazos de garantia e pedidos de estorno acabam sendo controlados separadamente - dificultando saber rapidamente se um aparelho já foi vendido, se uma garantia ainda está no prazo, ou se um estorno está atrasado. É justamente essa falta de integração entre vendas, estoque, pós-venda e financeiro que motiva o desenvolvimento do ERP.
 
 **Quais informações são importantes para o negócio?**  
 Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identificação única de cada aparelho por IMEI/número de série, com sua condição (novo/seminovo) e status atual; dados de cada venda (valor, forma de pagamento, parcelas, status); prazos e cobertura de garantia por aparelho; registros de trocas, devoluções e estornos com seus prazos; e trilha de auditoria de quem realizou cada operação sensível no sistema.
@@ -48,7 +48,7 @@ Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identific
 
 Escolhemos a CellGO porque alguns processos da empresa estão desunificados e não estão sendo guardados em um único sistema, isso está impactando a atualização de algumas informações que precisam ser dinâmicas assim que um evento acontece, como por exemplo: venda de aparelho e status do estoque, acompanhamento financeiro, prazos de garantia, pedidos de estorno e o histórico de compras de cada cliente.
 
-Está faltando a integração entre vendas, estoque, assistência técnica/pós-venda e financeiro, isso motiva a criação de um ERP para essa empresa, além de unificar tudo em um só sistema, atualizando os dados de forma dinâmica após a venda do aparelho — evitando que aconteça de um cliente comprar um aparelho que não há mais em estoque, que uma garantia vencida seja aceita por engano, ou que um pedido de estorno fique parado sem controle.
+Está faltando a integração entre vendas, estoque, assistência técnica/pós-venda e financeiro, isso motiva a criação de um ERP para essa empresa, além de unificar tudo em um só sistema, atualizando os dados de forma dinâmica após a venda do aparelho - evitando que aconteça de um cliente comprar um aparelho que não há mais em estoque, que uma garantia vencida seja aceita por engano, ou que um pedido de estorno fique parado sem controle.
 
 Esse projeto é adequado para um projeto de modelagem de dados, pois além de estarmos pegando um problema real e tentando propor uma solução, estamos reforçando cada vez mais os conceitos que a modelagem de dados possui, como entidades, atributos, relacionamentos, entre outros conceitos.
 
@@ -64,88 +64,88 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 ## 6. Requisitos Funcionais
 
-**RF-01 — Cadastrar clientes**  
+**RF-01 - Cadastrar clientes**  
 O sistema deve permitir o cadastro de clientes pessoa física (nome, CPF, e-mail, telefone, endereço) ou pessoa jurídica (razão social, CNPJ, e-mail, telefone, endereço), com CPF/CNPJ único, e permitir localizar o cliente por CPF/CNPJ, e-mail ou número da venda (RN-01).
 
-**RF-02 — Cadastrar aparelhos**  
+**RF-02 - Cadastrar aparelhos**  
 O sistema deve permitir o cadastro de aparelhos com modelo, marca, IMEI único, condição (novo/seminovo), preço de venda, custo de aquisição e status inicial, restrito a usuários autorizados (RN-02).
 
-**RF-03 — Controlar status do aparelho**  
+**RF-03 - Controlar status do aparelho**  
 O sistema deve controlar o status individual de cada aparelho (Disponível, Vendido, Em avaliação, Em manutenção, Inativo) e impedir a venda de aparelhos inexistentes, já vendidos ou indisponíveis, registrando todo o histórico de mudança de status (RN-03).
 
-**RF-04 — Validar disponibilidade no fechamento da venda**  
+**RF-04 - Validar disponibilidade no fechamento da venda**  
 O sistema deve revalidar, de forma atômica junto à confirmação do pagamento, se o aparelho ainda está disponível, bloqueando a compra caso outra venda já o tenha adquirido (RN-04).
 
-**RF-05 — Registrar venda**  
+**RF-05 - Registrar venda**  
 O sistema deve registrar a venda vinculando cliente, aparelho(s), data, valor do produto, desconto, valor final, forma de pagamento e status; ao confirmar o pagamento, deve alterar o status do aparelho para Vendido e gerar um comprovante (RN-05).
 
-**RF-06 — Processar venda à vista ou parcelada**  
+**RF-06 - Processar venda à vista ou parcelada**  
 O sistema deve permitir venda à vista ou parcelada em cartão de crédito (até 12x), calculando automaticamente o valor de cada parcela (RN-06, RN-10).
 
-**RF-07 — Calcular valor final da venda**  
+**RF-07 - Calcular valor final da venda**  
 O sistema deve calcular o valor final como valor do produto menos desconto mais taxas, sem permitir desconto manual por vendedor (RN-07).
 
-**RF-08 — Aplicar desconto por Pix**  
+**RF-08 - Aplicar desconto por Pix**  
 O sistema deve aplicar automaticamente o desconto (5%, 7% ou 10%, conforme faixa de valor) quando o pagamento for via Pix e o produto for elegível, registrando o percentual e valor do desconto na venda (RN-08).
 
-**RF-09 — Processar formas de pagamento**  
+**RF-09 - Processar formas de pagamento**  
 O sistema deve aceitar Pix, cartão de crédito e boleto (não aceitando cartão de débito), registrando o status do pagamento e só finalizando a venda após a confirmação (RN-09).
 
-**RF-10 — Processar cancelamento de venda**  
+**RF-10 - Processar cancelamento de venda**  
 O sistema deve permitir o cancelamento da venda em até 7 dias corridos, apenas enquanto o status de entrega for "Aguardando envio", registrando o motivo, abrindo o estorno quando já houver pagamento, e reenviando o aparelho para avaliação de estoque (RN-11).
 
-**RF-11 — Processar troca por defeito coberto pela garantia**  
+**RF-11 - Processar troca por defeito coberto pela garantia**  
 O sistema deve permitir a troca do aparelho por um equivalente em até 30 dias, mediante avaliação técnica e confirmação de que o defeito está coberto pela garantia (RN-12).
 
-**RF-12 — Processar devolução por arrependimento**  
+**RF-12 - Processar devolução por arrependimento**  
 O sistema deve permitir a devolução em até 7 dias corridos do recebimento, sem exigência de defeito, com restituição integral do valor pago após avaliação do aparelho (RN-13).
 
-**RF-13 — Processar devolução por defeito**  
+**RF-13 - Processar devolução por defeito**  
 O sistema deve permitir a devolução com reembolso quando a troca não for possível ou o aparelho já tiver sido entregue, mediante avaliação técnica que confirme a cobertura da garantia (RN-14).
 
-**RF-14 — Controlar garantia do aparelho**  
+**RF-14 - Controlar garantia do aparelho**  
 O sistema deve calcular e controlar o prazo de garantia de cada aparelho (30 dias loja + 1 ano fabricante para novos; 30 dias loja para seminovos), permitindo consultar se está vigente (RN-15).
 
-**RF-15 — Classificar avaliação de dano**  
+**RF-15 - Classificar avaliação de dano**  
 O sistema deve registrar a avaliação técnica de cada aparelho danificado, classificando o dano como defeito de fabricação, mau uso, acidental ou outros, e bloquear troca/devolução em casos de mau uso (RN-16).
 
-**RF-16 — Processar estorno e restituição**  
+**RF-16 - Processar estorno e restituição**  
 O sistema deve processar o estorno conforme a forma de pagamento original (Pix, cartão ou boleto), registrando valor, data de abertura, prazo-limite e status, e sinalizar como "Atrasado" quando ultrapassar 15 dias (RN-17).
 
-**RF-17 — Emitir nota fiscal**  
+**RF-17 - Emitir nota fiscal**  
 O sistema deve emitir nota fiscal vinculada à venda, com tratamento fiscal específico para cancelamento (cancelamento direto ou nota de entrada, conforme prazo), devolução (nota de entrada) e troca (nota de entrada + nota de saída) (RN-18).
 
-**RF-18 — Manter histórico do cliente**  
+**RF-18 - Manter histórico do cliente**  
 O sistema deve manter o histórico completo de cada cliente: compras, pagamentos, cancelamentos, trocas, devoluções, garantias e estornos concedidos (RN-20).
 
-**RF-19 — Registrar auditoria das operações**  
+**RF-19 - Registrar auditoria das operações**  
 O sistema deve registrar, para cada operação sensível, o usuário responsável, data/hora, operação realizada, venda e aparelho afetados, e valores antes/depois, quando aplicável (RN-21).
 
-**RF-20 — Controlar perfis de acesso**  
+**RF-20 - Controlar perfis de acesso**  
 O sistema deve restringir operações sensíveis conforme o perfil do usuário (Operacional por área ou Estratégico/Diretoria), impedindo que usuários sem permissão adequada executem ações fora de sua área ou nível de autorização (RN-22).
 
 
 ## 7. Requisitos Não Funcionais
 
-**RNF-01 — Disponibilidade**  
+**RNF-01 - Disponibilidade**  
 O sistema deve estar disponível para o usuário na maior parte do tempo, minimizando indisponibilidades que impactem vendas e atendimento.
 
-**RNF-02 — Segurança**  
+**RNF-02 - Segurança**  
 O sistema deve ser seguro para evitar vazamento e roubo de dados, cumprindo a Lei Geral de Proteção de Dados (LGPD), especialmente no armazenamento de dados de clientes (CPF/CNPJ) e no controle de acesso por perfil (RN-22).
 
-**RNF-03 — Usabilidade (intuitivo)**  
+**RNF-03 - Usabilidade (intuitivo)**  
 O sistema deve ser intuitivo, para que qualquer usuário do ERP consiga entender e operar cada funcionalidade sem dificuldade, independentemente do seu setor.
 
-**RNF-04 — Desempenho**  
+**RNF-04 - Desempenho**  
 O sistema deve ter bom desempenho, respondendo rapidamente inclusive na validação de disponibilidade no fechamento da venda (RN-04), para não travar o checkout e evitar insatisfação do cliente.
 
-**RNF-05 — Escalabilidade (flexível)**  
+**RNF-05 - Escalabilidade (flexível)**  
 O sistema deve ser flexível e escalável, suportando um volume crescente de dados (clientes, aparelhos, vendas) sem perda de desempenho.
 
-**RNF-06 — Confiabilidade**  
+**RNF-06 - Confiabilidade**  
 O sistema deve garantir consistência nas operações críticas, impedindo inconsistências como a venda simultânea do mesmo aparelho para dois clientes (RN-04).
 
-**RNF-07 — Auditabilidade**  
+**RNF-07 - Auditabilidade**  
 Os registros de auditoria (RN-21) devem ser imutáveis após gravados, garantindo rastreabilidade confiável de todas as operações sensíveis do sistema.
 
 
@@ -161,9 +161,9 @@ Os registros de auditoria (RN-21) devem ser imutáveis após gravados, garantind
 
 
 
-# Módulo 1 — Cadastro
+# Módulo 1 - Cadastro
 
-## RN-01 — Cadastro de Cliente
+## RN-01 - Cadastro de Cliente
 
 **Módulo:** Cadastro
 
@@ -183,7 +183,7 @@ Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro comple
 
 
 
-## RN-02 — Cadastro de Aparelho/Produto
+## RN-02 - Cadastro de Aparelho/Produto
 
 **Módulo:** Cadastro
 
@@ -211,9 +211,9 @@ Garantir que todo aparelho tenha um cadastro completo, permitindo o correto func
 
 
 
-# Módulo 2 — Estoque
+# Módulo 2 - Estoque
 
-## RN-03 — Controle de Estoque
+## RN-03 - Controle de Estoque
 
 **Módulo:** Estoque
 
@@ -239,7 +239,7 @@ Evitar vendas duplicadas e garantir rastreabilidade dos aparelhos comercializado
 
 
 
-## RN-04 — Validação de Disponibilidade no Fechamento da Venda
+## RN-04 - Validação de Disponibilidade no Fechamento da Venda
 
 **Módulo:** Estoque
 
@@ -256,9 +256,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
 
-# Módulo 3 — Venda
+# Módulo 3 - Venda
 
-## RN-05 — Venda de Aparelho
+## RN-05 - Venda de Aparelho
 
 **Módulo:** Venda
 
@@ -295,7 +295,7 @@ Garantir que toda venda seja registrada corretamente, vinculando cliente, aparel
 
 
 
-## RN-06 — Forma de Venda: À Vista ou Parcelada
+## RN-06 - Forma de Venda: À Vista ou Parcelada
 
 **Módulo:** Venda
 
@@ -313,7 +313,7 @@ O sistema deverá permitir a realização de vendas à vista ou parceladas, conf
 Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
 
 
-## RN-07 — Cálculo do Valor da Venda
+## RN-07 - Cálculo do Valor da Venda
 
 **Módulo:** Venda
 
@@ -332,7 +332,7 @@ Garantir que o valor cobrado seja calculado corretamente e de forma consistente 
 
 
 
-## RN-08 — Desconto para Pagamento via Pix
+## RN-08 - Desconto para Pagamento via Pix
 
 **Módulo:** Venda
 
@@ -358,7 +358,7 @@ Controlar os descontos concedidos para pagamentos via Pix, evitando descontos in
 
 
 
-## RN-09 — Formas de Pagamento
+## RN-09 - Formas de Pagamento
 
 **Módulo:** Venda
 
@@ -378,7 +378,7 @@ Garantir o controle dos pagamentos e a correta vinculação entre venda e financ
 
 
 
-## RN-10 — Parcelamento
+## RN-10 - Parcelamento
 
 **Módulo:** Venda
 
@@ -398,9 +398,9 @@ Permitir o parcelamento das vendas de forma transparente e controlada.
 
 
 
-# Módulo 4 — Pós-venda: Cancelamento
+# Módulo 4 - Pós-venda: Cancelamento
 
-## RN-11 — Cancelamento da Venda
+## RN-11 - Cancelamento da Venda
 
 **Módulo:** Pós-venda
 
@@ -411,7 +411,7 @@ O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias c
 
 - O sistema deverá verificar a data da venda antes de permitir o cancelamento.
 - O cancelamento por esta regra somente será permitido enquanto o status de entrega da venda for **Aguardando envio**.
-- A partir do momento em que o status de entrega passar para **Em transporte** ou **Entregue**, a solicitação do cliente deixa de ser tratada como cancelamento e passa a seguir o fluxo do **Módulo 5 — Devolução (RN-13/RN-14)**, conforme o caso.
+- A partir do momento em que o status de entrega passar para **Em transporte** ou **Entregue**, a solicitação do cliente deixa de ser tratada como cancelamento e passa a seguir o fluxo do **Módulo 5 - Devolução (RN-13/RN-14)**, conforme o caso.
 - O motivo do cancelamento deverá ser registrado.
 - Caso o pagamento já tenha sido realizado, deverá ser aberto o processo de estorno (ver **RN-17**).
 - Como o aparelho ainda não foi enviado, ele deverá ser diretamente direcionado a nova avaliação de estoque, com status **Em avaliação**, antes de retornar como **Disponível**.
@@ -421,9 +421,9 @@ O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias c
 Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
 
 
-# Módulo 5 — Pós-venda: Troca e Devolução
+# Módulo 5 - Pós-venda: Troca e Devolução
 
-## RN-12 — Troca por Defeito Coberto pela Garantia
+## RN-12 - Troca por Defeito Coberto pela Garantia
 
 **Módulo:** Pós-venda
 
@@ -446,7 +446,7 @@ Permitir trocas por defeito dentro do período de garantia da loja, evitando tro
 
 
 
-## RN-13 — Devolução por Arrependimento
+## RN-13 - Devolução por Arrependimento
 
 **Módulo:** Pós-venda
 
@@ -466,7 +466,7 @@ Garantir o cumprimento do direito de arrependimento do consumidor em compras de 
 
 
 
-## RN-14 — Devolução por Defeito
+## RN-14 - Devolução por Defeito
 
 **Módulo:** Pós-venda
 
@@ -487,13 +487,13 @@ O sistema deverá permitir a devolução, com reembolso, do aparelho quando for 
 - O processo deverá ficar registrado no histórico do cliente e do aparelho.
 
 **Resultado esperado:**  
-Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central — inclusive para os casos em que o aparelho já foi enviado e o cliente precisa acionar o pós-venda em vez do cancelamento.
+Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central - inclusive para os casos em que o aparelho já foi enviado e o cliente precisa acionar o pós-venda em vez do cancelamento.
 
 
 
-# Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
+# Módulo 6 - Pós-venda: Garantia e Avaliação de Danos
 
-## RN-15 — Garantia do Aparelho
+## RN-15 - Garantia do Aparelho
 
 **Módulo:** Pós-venda
 
@@ -518,7 +518,7 @@ Controlar os diferentes períodos de garantia e diferenciar claramente a cobertu
 
 
 
-## RN-16 — Avaliação de Dano e Elegibilidade para Cobertura
+## RN-16 - Avaliação de Dano e Elegibilidade para Cobertura
 
 **Módulo:** Pós-venda
 
@@ -549,9 +549,9 @@ Diferenciar de forma clara problemas cobertos pela garantia de danos causados po
 
 
 
-# Módulo 7 — Financeiro e Fiscal
+# Módulo 7 - Financeiro e Fiscal
 
-## RN-17 — Estorno e Restituição
+## RN-17 - Estorno e Restituição
 
 **Módulo:** Financeiro
 
@@ -587,7 +587,7 @@ Garantir que todo valor devido ao cliente em cancelamentos, devoluções ou troc
 
 
 
-## RN-18 — Emissão de Nota Fiscal
+## RN-18 - Emissão de Nota Fiscal
 
 **Módulo:** Fiscal
 
@@ -600,7 +600,7 @@ O sistema deverá possuir integração ou funcionalidade para emissão de nota f
 - A emissão deverá ocorrer conforme as regras fiscais aplicáveis.
 - O sistema deverá registrar o número e a chave de acesso da nota fiscal, quando disponíveis, e permitir consultar seu status.
 - Em caso de cancelamento (**RN-11**) dentro do prazo legal da SEFAZ para cancelamento direto, via de regra até 24 horas da emissão, a nota fiscal deverá ser cancelada diretamente. Fora desse prazo, o cancelamento deverá seguir o mesmo procedimento fiscal da devolução (nota de entrada).
-- Em caso de devolução (**RN-13 — arrependimento** ou **RN-14 — defeito**), o sistema deverá emitir uma Nota Fiscal de Entrada (devolução), referenciando a NF-e de venda original, para desfazer fiscalmente a operação. A liberação do estorno (**RN-17**) só deverá ocorrer após a emissão dessa nota de devolução.
+- Em caso de devolução (**RN-13 - arrependimento** ou **RN-14 - defeito**), o sistema deverá emitir uma Nota Fiscal de Entrada (devolução), referenciando a NF-e de venda original, para desfazer fiscalmente a operação. A liberação do estorno (**RN-17**) só deverá ocorrer após a emissão dessa nota de devolução.
 - Em caso de troca por defeito (**RN-12**), o sistema deverá emitir duas notas:
   1. Uma Nota Fiscal de Entrada (devolução), referenciando a NF-e original, para o aparelho defeituoso devolvido;
   2. Uma nova Nota Fiscal de Saída para o aparelho de reposição.
@@ -609,11 +609,11 @@ O sistema deverá possuir integração ou funcionalidade para emissão de nota f
 - O usuário deverá ser informado caso ocorra erro na emissão, e a venda deverá ficar sinalizada como **Nota fiscal pendente** até a regularização. Nesse caso, o estorno ou a troca correspondente também ficarão retidos até a regularização fiscal.
 
 **Resultado esperado:**  
-Garantir que todas as vendas e movimentações de pós-venda — incluindo cancelamento, troca e devolução — sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
+Garantir que todas as vendas e movimentações de pós-venda - incluindo cancelamento, troca e devolução - sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
 
 
 
-## RN-19 — Comissão de Vendedores — Não Aplicável
+## RN-19 - Comissão de Vendedores - Não Aplicável
 
 **Módulo:** Financeiro
 
@@ -630,9 +630,9 @@ Manter o módulo financeiro simplificado, coerente com a ausência de vendedores
 
 
 
-# Módulo 8 — Histórico, Auditoria e Acesso
+# Módulo 8 - Histórico, Auditoria e Acesso
 
-## RN-20 — Histórico do Cliente
+## RN-20 - Histórico do Cliente
 
 **Módulo:** Histórico
 
@@ -651,7 +651,7 @@ Permitir que a empresa tenha uma visão completa do relacionamento comercial com
 
 
 
-## RN-21 — Auditoria das Operações
+## RN-21 - Auditoria das Operações
 
 **Módulo:** Histórico
 
@@ -682,7 +682,7 @@ Garantir rastreabilidade de todas as operações relevantes realizadas no ERP.
 
 
 
-## RN-22 — Perfis de Acesso e Autorizações
+## RN-22 - Perfis de Acesso e Autorizações
 
 **Módulo:** Histórico
 
@@ -700,8 +700,8 @@ Os perfis seguem a estrutura organizacional do negócio:
 **Regras:**
 
 - São definidos 2 níveis hierárquicos de acesso:
-  - **Nível 1 — Operacional:** um perfil por área, destinado aos 8 colaboradores;
-  - **Nível 2 — Estratégico:** perfil único da Diretoria, destinado aos 2 sócios.
+  - **Nível 1 - Operacional:** um perfil por área, destinado aos 8 colaboradores;
+  - **Nível 2 - Estratégico:** perfil único da Diretoria, destinado aos 2 sócios.
 
 - Cada colaborador recebe o perfil operacional correspondente à sua área.
 - Os sócios recebem o perfil de Diretoria, com acesso a todas as áreas.
@@ -716,11 +716,11 @@ Fechar a lacuna de definição de quem é o "usuário autorizado" ou "usuário r
 
 | Perfil / Área | Colaboradores | Pode Realizar | Pode Autorizar / Aprovar |
 |---|---:|---|---|
-| **Diretoria — Nível 2 Estratégico** | 2 sócios | Todas as operações do sistema, em todas as áreas. | Qualquer operação sensível; exceções fora do fluxo automático em qualquer área, como cancelamento fora do prazo e troca sem aparelho equivalente (RN-12); ajustes financeiros extraordinários; criação/edição de perfis de acesso; elegibilidade de produtos ao desconto Pix (RN-08). |
-| **Vendas e Atendimento — Nível 1 Operacional** | 2 | Registrar vendas (RN-05 a RN-10); abrir cancelamento dentro do prazo padrão (RN-11); registrar solicitações de troca/devolução (RN-12/RN-13/RN-14) e encaminhá-las; consultar histórico do cliente (RN-20). | Cancelamento dentro da janela padrão, antes do envio e dentro de 7 dias — fluxo automático. Não autoriza exceções. |
-| **Estoque e Logística — Nível 1 Operacional** | 2 | Cadastrar aparelhos (RN-02); controlar e validar estoque (RN-03/RN-04); atualizar status de entrega da venda (Aguardando envio/Em transporte/Entregue). | Retorno do aparelho a Disponível após avaliação já concluída pela Assistência Técnica. Não autoriza troca, devolução ou estorno. |
-| **Assistência Técnica — Nível 1 Operacional** | 2 | Avaliação técnica de dano (RN-16); análise de cobertura de garantia (RN-15); emissão de parecer técnico para troca (RN-12) e devolução por defeito (RN-14). | Troca por defeito coberto pela garantia (RN-12) e devolução por defeito (RN-14), dentro dos critérios definidos nas regras. Escalona à Diretoria quando não há aparelho equivalente em estoque. |
-| **Financeiro/Administrativo — Nível 1 Operacional** | 2 | Processar estornos e restituições (RN-17); emitir nota fiscal (RN-18); lançar valores no módulo financeiro decorrentes de vendas, cancelamentos, trocas e devoluções; consultar auditoria financeira (RN-21). | Liberação de estornos e emissões de nota fiscal dentro dos valores e prazos definidos nas regras. Não autoriza mudanças de política comercial nem exceções fora do fluxo. |
+| **Diretoria - Nível 2 Estratégico** | 2 sócios | Todas as operações do sistema, em todas as áreas. | Qualquer operação sensível; exceções fora do fluxo automático em qualquer área, como cancelamento fora do prazo e troca sem aparelho equivalente (RN-12); ajustes financeiros extraordinários; criação/edição de perfis de acesso; elegibilidade de produtos ao desconto Pix (RN-08). |
+| **Vendas e Atendimento - Nível 1 Operacional** | 2 | Registrar vendas (RN-05 a RN-10); abrir cancelamento dentro do prazo padrão (RN-11); registrar solicitações de troca/devolução (RN-12/RN-13/RN-14) e encaminhá-las; consultar histórico do cliente (RN-20). | Cancelamento dentro da janela padrão, antes do envio e dentro de 7 dias - fluxo automático. Não autoriza exceções. |
+| **Estoque e Logística - Nível 1 Operacional** | 2 | Cadastrar aparelhos (RN-02); controlar e validar estoque (RN-03/RN-04); atualizar status de entrega da venda (Aguardando envio/Em transporte/Entregue). | Retorno do aparelho a Disponível após avaliação já concluída pela Assistência Técnica. Não autoriza troca, devolução ou estorno. |
+| **Assistência Técnica - Nível 1 Operacional** | 2 | Avaliação técnica de dano (RN-16); análise de cobertura de garantia (RN-15); emissão de parecer técnico para troca (RN-12) e devolução por defeito (RN-14). | Troca por defeito coberto pela garantia (RN-12) e devolução por defeito (RN-14), dentro dos critérios definidos nas regras. Escalona à Diretoria quando não há aparelho equivalente em estoque. |
+| **Financeiro/Administrativo - Nível 1 Operacional** | 2 | Processar estornos e restituições (RN-17); emitir nota fiscal (RN-18); lançar valores no módulo financeiro decorrentes de vendas, cancelamentos, trocas e devoluções; consultar auditoria financeira (RN-21). | Liberação de estornos e emissões de nota fiscal dentro dos valores e prazos definidos nas regras. Não autoriza mudanças de política comercial nem exceções fora do fluxo. |
 
 
 ## 9. Restrições e Políticas Organizacionais

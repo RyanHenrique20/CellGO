@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Mapa Mental — Regras de Negócio CellGo (v6)</title>
+<title>Mapa Mental — Regras de Negócio CellGo (v7)</title>
 <style>
   :root{
     --bg: #F7F6F2;
@@ -159,7 +159,7 @@
 <div class="wrap">
   <header>
     <h1>Mapa mental — Regras de negócio</h1>
-    <p class="sub">Projeto ERP CellGo · Documento "Regras de Negócio Consolidadas" — Versão 6 (unificação de RN-001–012 e RN-013–024)</p>
+    <p class="sub">Projeto ERP CellGo · Documento "Regras de Negócio Consolidadas" — Versão 7 (unificação de RN-001–012 e RN-013–024; prevalência do e-commerce, gatilho de entrega e política de troca confirmados)</p>
   </header>
 
   <div class="controls">
@@ -170,7 +170,7 @@
   <div class="map">
     <div class="root-row">
       <div class="root-node">CellGo — Regras de negócio</div>
-      <div class="root-caption">22 regras vigentes (RN-01 a RN-22) em 8 módulos, + 3 pontos ainda em aberto (v6).</div>
+      <div class="root-caption">22 regras vigentes (RN-01 a RN-22) em 8 módulos. Todos os pontos de negócio pendentes da v6 foram resolvidos na v7; restam apenas 2 recomendações de validação técnica/fiscal.</div>
     </div>
 
     <div class="modules" id="modules"></div>
@@ -198,10 +198,10 @@ const data = [
     { code:"RN-10", title:"Parcelamento", detail:"Mínimo 1, máximo 12 parcelas (cartão de crédito). Valor total permanece registrado independente da quantidade de parcelas." },
   ]},
   { m: "Módulo 4 — Pós-venda: cancelamento", rules: [
-    { code:"RN-11", title:"Cancelamento da venda", detail:"Até 7 dias corridos, somente enquanto entrega estiver 'Aguardando envio'. Após envio, segue fluxo de devolução (RN-13/14). Gera estorno (RN-17) e reavaliação de estoque." },
+    { code:"RN-11", title:"Cancelamento da venda ✔ v7", detail:"Até 7 dias corridos, somente enquanto entrega estiver 'Aguardando envio'. Após envio, segue fluxo de devolução (RN-13/14). Gera estorno (RN-17) e reavaliação de estoque. Gatilho de entrega definido na v7: integração via API com a transportadora atualiza automaticamente Aguardando envio → Em transporte → Entregue; fallback manual pelo perfil Estoque e Logística se a API falhar por mais de 48h." },
   ]},
   { m: "Módulo 5 — Pós-venda: troca e devolução", rules: [
-    { code:"RN-12", title:"Troca por defeito coberto pela garantia", detail:"Até 30 dias. Exige avaliação técnica e defeito coberto (RN-15). Mau uso não é elegível (RN-16). Sem aparelho equivalente, aplica-se devolução (RN-14)." },
+    { code:"RN-12", title:"Troca por defeito coberto pela garantia ✔ v7", detail:"Até 30 dias. Exige avaliação técnica e defeito coberto (RN-15). Mau uso não é elegível (RN-16). 'Aparelho equivalente' definido na v7: mesmo modelo/cor/capacidade ou, na ausência, especificação e valor igual ou superior, disponível em estoque (sem reserva). Política comercial: idêntico ou equivalente disponível → troca direta sem custo adicional; sem nenhum aparelho disponível (idêntico ou equivalente) → devolução imediata com restituição integral (RN-14 + RN-17 + RN-18), sem espera por reposição de estoque." },
     { code:"RN-13", title:"Devolução por arrependimento", detail:"Até 7 dias do recebimento, sem necessidade de defeito (Art. 49 CDC, e-commerce). Reembolso integral (RN-17). Aparelho avaliado antes de voltar ao estoque." },
     { code:"RN-14", title:"Devolução por defeito", detail:"Quando a troca não é possível ou o aparelho já foi entregue. Exige avaliação técnica; mau uso não autoriza a devolução (RN-16)." },
   ]},
@@ -219,10 +219,9 @@ const data = [
     { code:"RN-21", title:"Auditoria das operações", detail:"Registra usuário, data/hora, operação, venda e aparelho afetados, valores antes/depois — principalmente em preço, cancelamento, troca, devolução e estorno." },
     { code:"RN-22", title:"Perfis de acesso e autorizações", detail:"2 níveis: Operacional (uma área por perfil, 8 colaboradores) e Estratégico (Diretoria, 2 sócios, acesso total e único autorizado a criar/editar perfis)." },
   ]},
-  { m: "Módulo 9 — Pontos ainda em aberto (Seção 5, v6)", rules: [
-    { code:"PEND-01", title:"Política sem aparelho equivalente na troca (RN-12)", detail:"Falta definir a política comercial exata quando não há aparelho equivalente para troca por defeito. Hoje a venda segue por padrão para devolução com restituição (RN-14)." },
-    { code:"PEND-02", title:"Gatilho de 'Aguardando envio' → 'Em transporte'", detail:"Falta definir o mecanismo exato dessa transição (integração com transportadora, atualização manual etc.). É decisivo porque determina se o cliente usa cancelamento (RN-11) ou devolução (RN-13/14)." },
-    { code:"PEND-03", title:"Precedência e-commerce vs. loja física", detail:"Falta confirmar, de forma geral, que o modelo e-commerce prevalece sobre o modelo de loja física com vendedor em todo conflito ainda não explicitamente decidido nas regras." },
+  { m: "Módulo 9 — Validações técnicas recomendadas (Seção 5, v7)", rules: [
+    { code:"VAL-01", title:"Nota fiscal de troca/devolução (RN-18)", detail:"Validar com contabilidade/departamento fiscal se o modelo de nota de entrada (devolução) + nota de saída (reposição) está de acordo com a legislação fiscal vigente para o regime tributário da empresa. Não é mais uma lacuna de regra de negócio — apenas confirmação técnica." },
+    { code:"VAL-02", title:"Prazo de estorno (RN-17)", detail:"Confirmar junto às operadoras de cartão e instituições financeiras efetivamente contratadas se o prazo de 7 a 15 dias corridos definido é compatível com os prazos operacionais delas." },
   ]},
 ];
 

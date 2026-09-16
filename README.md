@@ -114,15 +114,15 @@ Iniciando as operações em um pequeno ponto comercial, a empresa cresceu invest
 **Módulo:** Cadastro
 
 **Descrição:**  
-O sistema deverá permitir o cadastro dos clientes que realizam compras, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cadastro poderá ser de pessoa física ou pessoa jurídica.
+O sistema deve permitir o cadastro dos clientes, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cliente pode ser pessoa física ou jurídica.
 
 **Regras:**
 
-- Pessoa física: o cadastro deverá conter, no mínimo, nome completo, CPF, e-mail, telefone e endereço.
-- Pessoa jurídica: o cadastro deverá conter, no mínimo, nome ou razão social, CNPJ, e-mail, telefone e endereço.
-- O CPF ou CNPJ deverá ser único por cliente.
-- O sistema deverá permitir localizar um cliente e suas vendas por CPF/CNPJ, e-mail ou número da venda.
-- Os dados cadastrais deverão poder ser atualizados pelo próprio cliente ou por usuário autorizado.
+- Pessoa física: nome completo, CPF, e-mail, telefone e endereço (mínimo).
+- Pessoa jurídica: razão social, CNPJ, e-mail, telefone e endereço (mínimo).
+- CPF ou CNPJ único por cliente.
+- Localização do cliente e de suas vendas por CPF/CNPJ, e-mail ou número da venda.
+- Dados atualizáveis pelo próprio cliente ou por usuário autorizado.
 
 **Resultado esperado:**  
 Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
@@ -134,7 +134,7 @@ Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro comple
 **Módulo:** Cadastro
 
 **Descrição:**  
-O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com as informações necessárias para estoque, garantia e nota fiscal.
+O sistema deve permitir o cadastro dos aparelhos disponíveis para venda. com as informações necessárias para estoque, garantia e nota fiscal.
 
 **Regras:**
 
@@ -148,9 +148,9 @@ O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com
   - Status inicial.
 
 - O IMEI/número de série deverá ser único no sistema.
-- A condição (Novo/Seminovo) é obrigatória e determina o período de garantia aplicável (ver **RN-15**).
-- A entrada do aparelho no estoque deverá registrar data de entrada, custo e identificador, conforme previsto no controle de estoque (**RN-03**).
-- O cadastro de aparelhos deverá ser realizado apenas por funcionários autorizados, de acordo com seu nível de acesso e permissão no sistema (ver **RN-22**).
+- A condição obrigatória (Novo/Seminovo) determina o período de garantia (**RN-15**).
+- A entrada no estoque registra data, c8usto e identificador do aparelho (**RN-03**).
+- O cadastro restrito a funcionários autorizados, conforme nível de acesso(**RN-22**).
 
 **Resultado esperado:**  
 Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
@@ -164,15 +164,15 @@ Garantir que todo aparelho tenha um cadastro completo, permitindo o correto func
 **Módulo:** Estoque
 
 **Descrição:**  
-O sistema deverá controlar a disponibilidade individual de cada aparelho comercializado pela empresa, sem uso de reserva prévia à confirmação da venda.
+Controle da disponibilidade individual de cada aparelho,  com possivel reserva prévia até confirmação da venda.
+O  cliente terá um prazo de uma semana para fazer a confirmar que irá adquirir o aparelho ou dar um sinal. Após o vencimento desse prazo o aparelho voltará a ficar disponivel para venda. 
 
 **Regras:**
 
 - Um aparelho com status **Disponível** poderá ser vendido.
-- O sistema não realizará reserva de aparelhos antes da confirmação do pagamento da venda.
 - Um aparelho com status **Vendido** não retorna automaticamente ao estoque.
-- Toda alteração de status do aparelho deverá ser registrada no histórico do aparelho, com data, hora e usuário responsável, quando aplicável.
-- O sistema deverá impedir a venda de um aparelho inexistente, já vendido ou indisponível.
+- Toda alteração de status é registrada no histórico (data, hora e usuário responsável).
+- É impedida a venda de aparelho inexistente, já vendido ou indisponível.
 - Status possíveis:
   - Disponível;
   - Vendido;
@@ -190,13 +190,12 @@ Evitar vendas duplicadas e garantir rastreabilidade dos aparelhos comercializado
 **Módulo:** Estoque
 
 **Descrição:**  
-O sistema deverá validar novamente a disponibilidade do aparelho no exato momento da finalização da venda, para evitar que dois clientes concluam a compra do mesmo aparelho.
+Validação da disponibilidade do aparelho, 2 antes da finalização da venda.
 
 **Regras:**
 
-- A validação de disponibilidade deverá ocorrer de forma atômica junto com a confirmação do pagamento, de modo que não seja possível duas vendas concluírem simultaneamente para o mesmo aparelho.
-- Caso o aparelho já tenha sido vendido por outra transação, a nova tentativa de compra deverá ser bloqueada e o cliente informado.
-
+- Cada aparelho é único. Por isso, o sistema precisa conferir se ele ainda está no estoque, antes do cliente confirma/fazer o pagamento.
+- Se o aparelho já tiver sido comprado por outra pessoa, a venda não é concluída. O cliente recebe um aviso explicando que aquele aparelho ja foi  vendido, e nada é cobrado dele.
 **Resultado esperado:**  
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
@@ -250,7 +249,7 @@ O sistema deverá permitir a realização de vendas à vista ou parceladas, conf
 
 **Regras:**
 
-- O cliente poderá optar por compra à vista ou parcelada.
+- O cliente poderá optar por compra à vista ou parcelado.
 - O parcelamento é permitido apenas para pagamento via cartão de crédito, em até 12 vezes.
 - O número de parcelas deverá ser informado antes da confirmação da venda.
 - O sistema deverá calcular automaticamente o valor de cada parcela.
@@ -269,9 +268,8 @@ O sistema deverá calcular automaticamente o valor final da venda considerando o
 **Regras:**
 
 - **Valor Final = Valor do Produto − Desconto + Taxas (quando houver).**
-- No modelo de e-commerce, não há desconto discricionário aplicado manualmente por um vendedor. O único desconto previsto é o desconto automático por pagamento via Pix, aplicável apenas aos produtos elegíveis (ver **RN-08**).
-- O valor final deverá ser apresentado ao cliente antes da confirmação da venda.
-- Após a confirmação, o valor da venda deverá ser registrado no módulo financeiro.
+-  Não há desconto discricionário manual; o único desconto possível é o automático via Pix  (**RN-08**).
+- O valor final é apresentado ao cliente antes da confirmação e registrado no módulo financeiro após a conclusão da venda.
 
 **Resultado esperado:**  
 Garantir que o valor cobrado seja calculado corretamente e de forma consistente com o modelo de e-commerce.
@@ -703,25 +701,33 @@ Fechar a lacuna de definição de quem é o "usuário autorizado" ou "usuário r
 ## 10. Fluxogramas
 
 
+
 ## 11. Entidades
+
 
 
 ## 12. Atributos
 
 
+
 ## 13. Relacionamentos
+
 
 
 ## 14. Cardinalidades
 
 
+
 ## 15. Dicionário de Dados Conceitual
+
 
 
 ## 16. DER
 
 
+
 ## 17. Justificativas Técnicas
+
 
 
 ## 18. Conclusão

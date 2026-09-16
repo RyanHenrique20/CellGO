@@ -428,12 +428,13 @@ Os registros de auditoria (RN-21) devem ser imutáveis após gravados, garantind
 
 **Matriz de Perfis de Acesso:**
 
-| Perfil / Área | Colaboradores | Pode Realizar | Pode Autorizar / Aprovar ||---:|---|---|
-| **Diretoria (Nível 2 - Estratégico)** | 2 sócios | Todas as operações, em todas as áreas | Qualquer operação sensível; exceções fora do fluxo automático (ex.: cancelamento fora do prazo, troca sem equivalente - RN-12); ajustes financeiros extraordinários; criação/edição de perfis; elegibilidade de produtos ao desconto Pix (RN-08) |
-| **Vendas e Atendimento (Nível 1)** | 2 | Registrar vendas (RN-05 a RN-10); abrir cancelamento dentro do prazo (RN-11); registrar e encaminhar solicitações de troca/devolução (RN-12/13/14); consultar histórico do cliente (RN-20) | Cancelamento dentro da janela padrão (fluxo automático). Não autoriza exceções |
-| **Estoque e Logística (Nível 1)** | 2 | Cadastrar aparelhos (RN-02); controlar/validar estoque (RN-03/04); atualizar status de entrega | Retorno do aparelho a Disponível após avaliação da Assistência Técnica. Não autoriza troca, devolução ou estorno |
-| **Assistência Técnica (Nível 1)** | 2 | Avaliação técnica de dano (RN-16); análise de garantia (RN-15); parecer técnico para troca (RN-12) e devolução por defeito (RN-14) | Troca por defeito (RN-12) e devolução por defeito (RN-14) dentro dos critérios definidos. Escalona à Diretoria quando não há equivalente |
-| **Financeiro/Administrativo (Nível 1)** | 2 | Processar estornos (RN-17); emitir nota fiscal (RN-18); lançar valores financeiros; consultar auditoria financeira (RN-21) | Liberação de estornos e emissões de NF dentro dos valores/prazos definidos. Não autoriza mudanças de política comercial |
+| Perfil / Área | Colaboradores | Pode Realizar | Pode Autorizar / Aprovar |
+|---|---:|---|---|
+| Diretoria (Nível 2 - Estratégico) | 2 sócios | Todas as operações, em todas as áreas | Qualquer operação sensível; exceções fora do fluxo automático (ex.: cancelamento fora do prazo, troca sem equivalente - RN-12); ajustes financeiros extraordinários; criação/edição de perfis; elegibilidade de produtos ao desconto Pix (RN-08) |
+| Vendas e Atendimento (Nível 1) | 2 | Registrar vendas (RN-05 a RN-10); abrir cancelamento dentro do prazo (RN-11); registrar e encaminhar solicitações de troca/devolução (RN-12/13/14); consultar histórico do cliente (RN-20) | Cancelamento dentro da janela padrão (fluxo automático). Não autoriza exceções |
+| Estoque e Logística (Nível 1) | 2 | Cadastrar aparelhos (RN-02); controlar/validar estoque (RN-03/04); atualizar status de entrega | Retorno do aparelho a Disponível após avaliação da Assistência Técnica. Não autoriza troca, devolução ou estorno |
+| Assistência Técnica (Nível 1) | 2 | Avaliação técnica de dano (RN-16); análise de garantia (RN-15); parecer técnico para troca (RN-12) e devolução por defeito (RN-14) | Troca por defeito (RN-12) e devolução por defeito (RN-14) dentro dos critérios definidos. Escalona à Diretoria quando não há equivalente |
+| Financeiro/Administrativo (Nível 1) | 2 | Processar estornos (RN-17); emitir nota fiscal (RN-18); lançar valores financeiros; consultar auditoria financeira (RN-21) | Liberação de estornos e emissões de NF dentro dos valores/prazos definidos. Não autoriza mudanças de política comercial |
 
 
 

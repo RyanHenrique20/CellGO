@@ -268,7 +268,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 - Venda deve conter: cliente, aparelho(s), data, valor do produto, desconto (quando aplicável), valor final, forma de pagamento, status.
 - Após confirmação do pagamento, aparelho muda para **Vendido**.
 - IMEI vinculado ao registro da venda.
-- Venda registrada no histórico do cliente (RN-20).
+- Venda registrada no histórico do cliente (**RN-20**).
 - Geração de comprovante de venda.
 - Status da venda: Aberta, Aguardando pagamento, Pago, Parcialmente pago, Finalizada, Cancelada.
 

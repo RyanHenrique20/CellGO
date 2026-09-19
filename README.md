@@ -15,8 +15,6 @@
 | 09 | Ryan Henrique de Aguiar dos Santos |
 | 10 | Victor Rodrigues da Costa |
 
-
-
 ## 2. Caracterização da Empresa
 
 **Qual é o nome da empresa?**  
@@ -40,9 +38,6 @@ Hoje a operação depende de controles manuais e dispersos: o cadastro de client
 **Quais informações são importantes para o negócio?**  
 Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identificação única de cada aparelho por IMEI/número de série, com sua condição (novo/seminovo) e status atual; dados de cada venda (valor, forma de pagamento, parcelas, status); prazos e cobertura de garantia por aparelho; registros de trocas, devoluções e estornos com seus prazos; e trilha de auditoria de quem realizou cada operação sensível no sistema.
 
-
-
-
 ## 3. Justificativa da Escolha
 
 Escolhemos a CellGO porque alguns processos da empresa estão manuais , desunificados e não estão sendo guardados em um único sistema, isso está impactando a atualização de algumas informações que precisam ser dinâmicas assim que um evento acontece, como por exemplo: venda de aparelho e status do estoque, acompanhamento financeiro, prazos de garantia, pedidos de estorno e o histórico de compras de cada cliente.
@@ -50,8 +45,6 @@ Escolhemos a CellGO porque alguns processos da empresa estão manuais , desunifi
 Está faltando a integração entre vendas, estoque, assistência técnica/pós-venda e financeiro, isso motiva a criação de um ERP para essa empresa, além de unificar tudo em um só sistema, atualizando os dados de forma dinâmica após a venda do aparelho - evitando que aconteça de um cliente comprar um aparelho que não há mais em estoque, que uma garantia vencida seja aceita por engano, ou que um pedido de estorno fique parado sem controle.
 
 Esse projeto é adequado para um projeto de modelagem de dados, pois além de estarmos pegando um problema real e tentando propor uma solução, estamos reforçando cada vez mais os conceitos que a modelagem de dados possui, como entidades, atributos, relacionamentos, entre outros conceitos.
-
-
 
 ## 4. Problemas Identificados
 
@@ -123,7 +116,6 @@ O sistema deve registrar, para cada operação sensível, o usuário responsáve
 **RF-20 - Controlar perfis de acesso**  
 O sistema deve restringir operações sensíveis conforme o perfil do usuário (Operacional por área ou Estratégico/Diretoria), impedindo que usuários sem permissão adequada executem ações fora de sua área ou nível de autorização (RN-22).
 
-
 ## 7. Requisitos Não Funcionais
 
 **RNF-01 - Disponibilidade**  
@@ -147,12 +139,9 @@ O sistema deve garantir consistência nas operações críticas, impedindo incon
 **RNF-07 - Auditabilidade**  
 Os registros de auditoria (RN-21) devem ser imutáveis após gravados, garantindo rastreabilidade confiável de todas as operações sensíveis do sistema.
 
-
 ## 8. Regras de Negócio
 
 # Regras de Negócio - ERP de Venda de Aparelhos (E-commerce)
-
-
 
 ## Módulo 1 - Cadastro
 
@@ -178,8 +167,6 @@ O sistema deve permitir o cadastro dos clientes, mantendo os dados necessários 
 
 **Resultado esperado:**  
 Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
-
-
 
 ## RN-02 — Cadastro de Aparelho/Produto
 
@@ -207,8 +194,6 @@ O sistema deve permitir o cadastro dos aparelhos disponíveis para venda. com as
 **Resultado esperado:**  
 Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
 
-
-
 ## Módulo 2 - Estoque
 
 ### RN-03 - Controle de Estoque
@@ -216,16 +201,9 @@ Garantir que todo aparelho tenha um cadastro completo, permitindo o correto func
 **Módulo:** Estoque
 
 **Descrição:**  
-Controle da disponibilidade individual de cada aparelho,  com possivel reserva prévia até confirmação da venda.
-O  cliente terá um prazo de uma semana para fazer a confirmar que irá adquirir o aparelho ou dar um sinal. Após o vencimento desse prazo o aparelho voltará a ficar disponivel para venda. 
+Controle da disponibilidade individual de cada aparelho. Não há reserva de aparelhos antes da confirmação do pagamento — a disponibilidade é validada no momento do fechamento da venda (RN-04). 
 
 **Regras:**
-- Aparelho **Disponível** pode ser vendido.
-- Não há reserva de aparelhos antes da confirmação do pagamento.
-- Aparelho **Vendido** não retorna automaticamente ao estoque.
-- Toda alteração de status registrada no histórico (data, hora, usuário responsável).
-- Impede venda de aparelho inexistente, já vendido ou indisponível.
-- Status possíveis: Disponível, Vendido, Em avaliação, Em manutenção, Inativo.
 
 - Um aparelho com status **Disponível** poderá ser vendido.
 - Um aparelho com status **Vendido** não retorna automaticamente ao estoque.
@@ -241,14 +219,12 @@ O  cliente terá um prazo de uma semana para fazer a confirmar que irá adquirir
 **Resultado esperado:**  
 Evitar vendas duplicadas e garantir rastreabilidade dos aparelhos comercializados, sem depender de um mecanismo de reserva.
 
-
-
 ## RN-04 — Validação de Disponibilidade no Fechamento da Venda
 
 **Módulo:** Estoque
 
 **Descrição:**  
-Validação da disponibilidade do aparelho, 2 antes da finalização da venda.
+Validação da disponibilidade do aparelho, 2 dias antes da finalização da venda.
 
 **Regras:**
 
@@ -256,8 +232,6 @@ Validação da disponibilidade do aparelho, 2 antes da finalização da venda.
 - Se o aparelho já tiver sido comprado por outra pessoa, a venda não é concluída. O cliente recebe um aviso explicando que aquele aparelho ja foi  vendido, e nada é cobrado dele.
 **Resultado esperado:**  
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
-
-
 
 ## Módulo 3 - Venda
 
@@ -275,10 +249,6 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 ### RN-06 - Forma de Venda: À Vista ou Parcelada
 
 **Regras:**
-- Cliente escolhe à vista ou parcelada.
-- Parcelamento só para cartão de crédito, em até 12 vezes.
-- Número de parcelas informado antes da confirmação.
-- Cálculo automático do valor de cada parcela.
 
 - O cliente poderá optar por compra à vista ou parcelado.
 - O parcelamento é permitido apenas para pagamento via cartão de crédito, em até 12 vezes.
@@ -287,7 +257,6 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 **Resultado esperado:**  
 Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
-
 
 ## RN-07 — Cálculo do Valor da Venda
 
@@ -349,8 +318,6 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 - Valor total da venda permanece registrado independente da quantidade de parcelas.
 - Juros/taxas apresentados antes da confirmação.
 
-
-
 ## Módulo 4 - Pós-venda: Cancelamento
 
 ### RN-11 - Cancelamento da Venda
@@ -365,8 +332,6 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 - Pagamento já realizado → abertura de processo de estorno (RN-17).
 - Aparelho direcionado a **Em avaliação** antes de retornar como **Disponível**.
 - Venda cancelada não é excluída; fica registrada no histórico para auditoria (RN-21).
-
-
 
 ## Módulo 5 - Pós-venda: Troca e Devolução
 
@@ -417,8 +382,6 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 - Registro do diagnóstico e decisão.
 - Processo registrado no histórico do cliente e do aparelho.
 
-
-
 ## Módulo 6 - Pós-venda: Garantia e Avaliação de Danos
 
 ### RN-15 - Garantia do Aparelho
@@ -444,8 +407,6 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 - Exemplos de mau uso (não cobertos): tela quebrada por impacto, aparelho amassado, danos por líquido não cobertos, alterações não autorizadas, outros danos por uso inadequado.
 - Defeito coberto → segue RN-15 e, conforme o caso, troca (RN-12) ou devolução (RN-14).
 - Mau uso → troca/devolução não autorizada; sem reparo pela empresa; cliente informado do diagnóstico.
-
-
 
 ## Módulo 7 - Financeiro e Fiscal
 
@@ -478,8 +439,6 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 **Regras:**
 - Sem cálculo ou lançamento financeiro de comissão.
 - Registro do usuário responsável por atendimentos de pós-venda apenas para auditoria (RN-21), sem gerar comissão.
-
-
 
 ## Módulo 8 - Histórico, Auditoria e Acesso
 

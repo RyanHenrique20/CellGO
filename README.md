@@ -230,6 +230,7 @@ Validação da disponibilidade do aparelho, 2 dias antes da finalização da ven
 
 - Cada aparelho é único. Por isso, o sistema precisa conferir se ele ainda está no estoque, antes do cliente confirma/fazer o pagamento.
 - Se o aparelho já tiver sido comprado por outra pessoa, a venda não é concluída. O cliente recebe um aviso explicando que aquele aparelho ja foi  vendido, e nada é cobrado dele.
+- 
 **Resultado esperado:**  
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 

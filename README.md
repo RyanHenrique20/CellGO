@@ -13,7 +13,8 @@
 | 07 | Murilo Alves de Sousa |
 | 08 | Rafaela Teresa de Oliveira Corrente |
 | 09 | Ryan Henrique de Aguiar dos Santos |
-| 10 | Victor Rodrigues da Costa |
+| 10 | Sarah Casas Nicolielo Ponti |
+| 11 | Victor Rodrigues da Costa |
 
 ## 2. Caracterização da Empresa
 
@@ -528,6 +529,18 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 
 
 ## 14. Cardinalidades
+
+CLIENTE (1,N) — possui — ENDEREÇO (1,1)
+CLIENTE (1,N) — efetua — PEDIDO (1,1)
+PEDIDO (1,1) — recebe — PAGAMENTO (1,1)
+PEDIDO (1,1) — emite — NOTA FISCAL (1,1)
+PEDIDO (1,1) —direcionado— SEPARAÇÃO (1,1) 
+SEPARAÇÃO (1,1) — envia — ENTREGA (1,1)
+PEDIDO (1,N) — contém — ITEM_PEDIDO (1,1)
+ITEM_PEDIDO (1,1) — identifica — APARELHO (1,1)
+APARELHO (1,N) — movimenta — ESTOQUE (1,1)
+ESTOQUE (N,1) — registra — USUÁRIO (1,N)
+USUÁRIO (1,N) — audita — LOG_AUDITORIA (1,1)
 
 
 

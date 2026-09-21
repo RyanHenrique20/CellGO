@@ -53,6 +53,8 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 ## 5. Processos de Negócios
 
+Cliente ⭢ Login/Cadastro ⭢ Seleção de aparelho ⭢ Estoque ⭢ Método de pagamento ⭢ Emissão de nota fiscal ⭢ Envio do aparelho ⭢ Entrega ao destinatário ⭢ Pós-venda ⭢ Solicitação de contato ⭢ Análise ⭢ Definição do procedimento ⭢ Coleta do aparelho ⭢ Recebimento ⭢ Análise de danos ⭢ Aprovação/Recusa ⭢ Estorno/Restituição da troca ⭢ Atualização de estoque ⭢ Atualização do histórico do cliente ⭢ Encerramento do pós-venda.
+
 
 
 ## 6. Requisitos Funcionais

@@ -542,6 +542,19 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 
 ## 13. Relacionamentos
 
+| # | Entidade | Relação | Entidade |
+|---|---|---|---|
+| 1 | CLIENTE | **POSSUI** | ENDEREÇO |
+| 2 | CLIENTE | **EFETUA** | PEDIDO |
+| 3 | PEDIDO | **EMITE** | NOTA FISCAL |
+| 4 | PEDIDO | **RECEBE** | PAGAMENTO |
+| 5 | PEDIDO | **CONTEM** | ITEM_PEDIDO |
+| 6 | PEDIDO | **SEPARA** | SEPARAÇÃO |
+| 7 | SEPARAÇÃO | **ENVIA** | ENTREGA |
+| 8 | ITEM_PEDIDO | **IDENTICA** | APARELHO |
+| 9 | APARELHO | **MOVIMENTA** | ESTOQUE |
+| 10 | ESTOQUE | **REGISTRA** | USUARIO |
+| 11 | USUARIO | **AUDITA** | LOG_AUDITORIA |
 
 
 ## 14. Cardinalidades

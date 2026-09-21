@@ -49,7 +49,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 ## 4. Problemas Identificados
 
-## 1. Ausência de sistema único e integrado
+### 1. Ausência de sistema único e integrado
 
 **Situação atual:** Os cadastros de clientes, aparelhos, estoque e financeiro são feitos em várias planilhas separadas, sem uma base de dados centralizada. As vendas também não são integradas a um sistema único.
 
@@ -59,7 +59,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 2. Falta de atualização em tempo real do estoque
+### 2. Falta de atualização em tempo real do estoque
 
 **Situação atual:** O estoque é controlado em planilhas, e o status do aparelho (Disponível, Vendido, Em avaliação, Em manutenção, Inativo) não é atualizado automaticamente após uma venda.
 
@@ -69,7 +69,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 3. Falta de histórico e controle de garantia dos aparelhos
+### 3. Falta de histórico e controle de garantia dos aparelhos
 
 **Situação atual:** Não existe um histórico centralizado por aparelho, nem acompanhamento dos prazos de garantia (30 dias loja para seminovos; 30 dias loja + 1 ano fabricante para novos).
 
@@ -79,7 +79,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 4. Falta de controle sobre estornos
+### 4. Falta de controle sobre estornos
 
 **Situação atual:** Os pedidos de estorno não possuem acompanhamento de prazo.
 
@@ -89,7 +89,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 5. Financeiro desatualizado e desconectado das vendas
+### 5. Financeiro desatualizado e desconectado das vendas
 
 **Situação atual:** Os dados financeiros são mantidos separadamente dos demais setores, e o financeiro não recebe automaticamente as informações de vendas, cancelamentos, trocas e devoluções.
 
@@ -99,7 +99,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 6. Processos manuais
+### 6. Processos manuais
 
 **Situação atual:** Grande parte das tarefas operacionais do dia a dia é realizada manualmente, sem apoio de automação.
 
@@ -109,7 +109,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 7. Ausência de backup
+### 7. Ausência de backup
 
 **Situação atual:** Não existe uma rotina estruturada de backup dos dados da empresa.
 
@@ -119,7 +119,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 8. Ausência de relatórios
+### 8. Ausência de relatórios
 
 **Situação atual:** Não existem relatórios automáticos consolidados sobre vendas, estoque e resultados.
 
@@ -129,7 +129,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 9. Histórico do cliente fragmentado
+### 9. Histórico do cliente fragmentado
 
 **Situação atual:** As informações de cada cliente estão espalhadas entre os diferentes setores da empresa.
 
@@ -139,7 +139,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 10. Histórico de funcionários fragmentado
+### 10. Histórico de funcionários fragmentado
 
 **Situação atual:** As informações de cada funcionário (vendas realizadas, cargo, tempo de registro, salário, setor) também estão espalhadas entre os setores.
 

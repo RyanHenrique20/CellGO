@@ -520,6 +520,20 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 
 ## 11. Entidades
 
+| Entidade | Relação | Entidade |
+|---|---|---|
+| **CLIENTE** | POSSUI | **ENDEREÇO** |
+| **CLIENTE** | EFETUA | **PEDIDO** |
+| **PEDIDO** | EMITE | **NOTA FISCAL** |
+| **PEDIDO** | RECEBE | **PAGAMENTO** |
+| **PEDIDO** | CONTEM | **ITEM_PEDIDO** |
+| **PEDIDO** | SEPARA | **SEPARAÇÃO** |
+| **SEPARAÇÃO** | ENVIA | **ENTREGA** |
+| **ITEM_PEDIDO** | IDENTICA | **APARELHO** |
+| **APARELHO** | MOVIMENTA | **ESTOQUE** |
+| **ESTOQUE** | REGISTRA | **USUARIO** |
+| **USUARIO** | AUDITA | **LOG_AUDITORIA** |
+
 
 
 ## 12. Atributos

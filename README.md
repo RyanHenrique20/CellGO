@@ -49,6 +49,104 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 ## 4. Problemas Identificados
 
+## 1. Ausência de sistema único e integrado
+
+**Situação atual:** Os cadastros de clientes, aparelhos, estoque e financeiro são feitos em várias planilhas separadas, sem uma base de dados centralizada. As vendas também não são integradas a um sistema único.
+
+**Causa:** Cada setor (vendas, estoque, assistência técnica/pós-venda e financeiro) mantém seus próprios registros manuais, sem nenhuma conexão automática entre eles.
+
+**Impacto no negócio:** Isso gera duplicidade de informações, obriga os funcionários a digitar os mesmos dados várias vezes (retrabalho) e deixa vendas, estoque e financeiro com informações desatualizadas, comprometendo a confiabilidade dos dados em toda a empresa.
+
+
+
+## 2. Falta de atualização em tempo real do estoque
+
+**Situação atual:** O estoque é controlado em planilhas, e o status do aparelho (Disponível, Vendido, Em avaliação, Em manutenção, Inativo) não é atualizado automaticamente após uma venda.
+
+**Causa:** A ausência de integração entre o setor de vendas e o controle de estoque faz com que a atualização dependa de uma ação manual em vez de ocorrer automaticamente.
+
+**Impacto no negócio:** Isso provoca erros na quantidade disponível e problemas de logística, além do risco real de um cliente comprar um aparelho que já foi vendido para outra pessoa.
+
+
+
+## 3. Falta de histórico e controle de garantia dos aparelhos
+
+**Situação atual:** Não existe um histórico centralizado por aparelho, nem acompanhamento dos prazos de garantia (30 dias loja para seminovos; 30 dias loja + 1 ano fabricante para novos).
+
+**Causa:** Os dados de cada aparelho (data da venda, manutenções, trocas, devoluções) não são registrados de forma estruturada e centralizada.
+
+**Impacto no negócio:** Fica difícil acompanhar manutenção, trocas e devoluções, saber se uma solicitação ainda está dentro do prazo de garantia, ou até aceitar por engano uma garantia já vencida — gerando prejuízo financeiro.
+
+
+
+## 4. Falta de controle sobre estornos
+
+**Situação atual:** Os pedidos de estorno não possuem acompanhamento de prazo.
+
+**Causa:** Não existe um fluxo estruturado que registre a data de abertura do estorno e monitore automaticamente seu andamento.
+
+**Impacto no negócio:** Fica difícil identificar quais estornos estão pendentes, em andamento ou atrasados, o que pode prejudicar o relacionamento com o cliente e atrasar o fechamento financeiro do período.
+
+
+
+## 5. Financeiro desatualizado e desconectado das vendas
+
+**Situação atual:** Os dados financeiros são mantidos separadamente dos demais setores, e o financeiro não recebe automaticamente as informações de vendas, cancelamentos, trocas e devoluções.
+
+**Causa:** A comunicação entre o setor comercial e o financeiro depende de repasses manuais (planilhas, mensagens, anotações), em vez de uma integração direta entre os dados.
+
+**Impacto no negócio:** Isso compromete a precisão dos dados financeiros e dificulta o acompanhamento dos resultados, o fechamento de caixa e a tomada de decisões estratégicas com base em números confiáveis.
+
+
+
+## 6. Processos manuais
+
+**Situação atual:** Grande parte das tarefas operacionais do dia a dia é realizada manualmente, sem apoio de automação.
+
+**Causa:** A falta de um sistema integrado obriga os funcionários a repetir manualmente tarefas que poderiam ser automatizadas.
+
+**Impacto no negócio:** Isso gera maior gasto de tempo dos funcionários com tarefas operacionais, reduzindo a produtividade e o tempo disponível para atividades estratégicas ou de atendimento ao cliente.
+
+
+
+## 7. Ausência de backup
+
+**Situação atual:** Não existe uma rotina estruturada de backup dos dados da empresa.
+
+**Causa:** As informações ficam armazenadas em planilhas e arquivos locais, sem um processo automático de cópia de segurança.
+
+**Impacto no negócio:** Isso gera o risco de dados importantes serem perdidos, duplicados ou ficarem desatualizados, comprometendo a continuidade das operações em caso de falha, exclusão acidental ou perda de um arquivo.
+
+
+
+## 8. Ausência de relatórios
+
+**Situação atual:** Não existem relatórios automáticos consolidados sobre vendas, estoque e resultados.
+
+**Causa:** Como os dados estão espalhados em planilhas separadas e não integradas, não é possível gerar relatórios de forma automática e confiável.
+
+**Impacto no negócio:** Isso faz com que os gestores tenham dificuldade para analisar vendas, estoque e resultados, prejudicando a visão estratégica do negócio e a tomada de decisões baseada em dados.
+
+
+
+## 9. Histórico do cliente fragmentado
+
+**Situação atual:** As informações de cada cliente estão espalhadas entre os diferentes setores da empresa.
+
+**Causa:** Não existe uma base de dados única que reúna compras, trocas, devoluções e acionamentos de garantia de um mesmo cliente em um só lugar.
+
+**Impacto no negócio:** Isso dificulta o atendimento no pós-venda e na assistência técnica, pois o funcionário precisa consultar vários lugares diferentes para entender o histórico completo do cliente, tornando o atendimento mais lento e sujeito a falhas.
+
+
+
+## 10. Histórico de funcionários fragmentado
+
+**Situação atual:** As informações de cada funcionário (vendas realizadas, cargo, tempo de registro, salário, setor) também estão espalhadas entre os setores.
+
+**Causa:** Assim como ocorre com os clientes, não há uma base de dados centralizada que reúna essas informações em um único cadastro por funcionário.
+
+**Impacto no negócio:** Isso dificulta a gestão de pessoas, como avaliar desempenho de vendas, acompanhar o histórico profissional do colaborador dentro da empresa e tomar decisões sobre cargos, comissões e crescimento interno.
+
 
 
 ## 5. Processos de Negócios

@@ -532,17 +532,49 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 
 ## 14. Cardinalidades
 
-- CLIENTE (1,N) — **possui** — ENDEREÇO (1,1)
-- CLIENTE (1,N) — **efetua** — PEDIDO (1,1)
-- PEDIDO (1,1) — **recebe** — PAGAMENTO (1,1)
-- PEDIDO (1,1) — **emite** — NOTA FISCAL (1,1)
-- PEDIDO (1,1) — **direcionado** — SEPARAÇÃO (1,1)
-- SEPARAÇÃO (1,1) — **envia** — ENTREGA (1,1)
-- PEDIDO (1,N) — **contém** — ITEM_PEDIDO (1,1)
-- ITEM_PEDIDO (1,1) — **identifica** — APARELHO (1,1)
-- APARELHO (1,N) — **movimenta** — ESTOQUE (1,1)
-- ESTOQUE (N,1) — **registra** — USUÁRIO (1,N)
-- USUÁRIO (1,N) — **audita** — LOG_AUDITORIA (1,1)
+### 1. Cliente – Endereço
+- **Descrição:** 1 Cliente **possui** N endereços
+- **Notação:** CLIENTE (1,N) — possui — ENDEREÇO (1,1)
+
+### 2. Cliente – Pedido
+- **Descrição:** 1 Cliente **efetua** N pedidos
+- **Notação:** CLIENTE (1,N) — efetua — PEDIDO (1,1)
+
+### 3. Pedido – Pagamento
+- **Descrição:** 1 Pedido **recebe** 1 pagamento
+- **Notação:** PEDIDO (1,1) — recebe — PAGAMENTO (1,1)
+
+### 4. Pedido – Nota Fiscal
+- **Descrição:** 1 Pedido **emite** 1 nota fiscal
+- **Notação:** PEDIDO (1,1) — emite — NOTA FISCAL (1,1)
+
+### 5. Pedido – Separação
+- **Descrição:** 1 Pedido **direcionado** 1 separação
+- **Notação:** PEDIDO (1,1) — direcionado — SEPARAÇÃO (1,1)
+
+### 6. Separação – Entrega
+- **Descrição:** 1 Separação **envia** 1 entrega
+- **Notação:** SEPARAÇÃO (1,1) — envia — ENTREGA (1,1)
+
+### 7. Pedido – Item do Pedido
+- **Descrição:** 1 Pedido **contém** N itens pedido
+- **Notação:** PEDIDO (1,N) — contém — ITEM_PEDIDO (1,1)
+
+### 8. Item do Pedido – Aparelho
+- **Descrição:** N itens pedido **identifica** 1 aparelho
+- **Notação:** ITEM_PEDIDO (1,1) — identifica — APARELHO (1,1)
+
+### 9. Aparelho – Estoque
+- **Descrição:** 1 aparelho **movimenta** N estoque
+- **Notação:** APARELHO (1,N) — movimenta — ESTOQUE (1,1)
+
+### 10. Estoque – Usuário
+- **Descrição:** N estoque **registra** 1 usuário
+- **Notação:** ESTOQUE (N,1) — registra — USUÁRIO (1,N)
+
+### 11. Usuário – Log de Auditoria
+- **Descrição:** 1 usuário **audita** N log auditoria
+- **Notação:** USUÁRIO (1,N) — audita — LOG_AUDITORIA (1,1)
 
 
 ## 15. Dicionário de Dados Conceitual

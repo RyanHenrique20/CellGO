@@ -260,8 +260,6 @@ O sistema deverá permitir o cadastro dos clientes que realizam compras, mantend
 **Resultado esperado:**
 Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
 
-**Origem:** Regra nova — fecha lacuna. Nenhum dos documentos originais definia os campos de cadastro do cliente, apesar de ser citado no escopo do Doc A e utilizado implicitamente em RN-021 (Doc B).
-
 
 
 ### RN-02 — Cadastro de Aparelho/Produto
@@ -280,13 +278,12 @@ O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com
 **Resultado esperado:**
 Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
 
-**Origem:** Regra nova — fecha lacuna. A antiga RN-020 (Doc B) já assumia a existência do atributo "condição (novo/seminovo)" sem que ele tivesse sido definido em nenhuma regra.
-
 
 
 ## Módulo 2 — Estoque
 
 ### RN-03 — Controle de Estoque
+
 **Módulo:** Estoque
 
 **Descrição:**
@@ -303,11 +300,11 @@ O sistema deverá controlar a disponibilidade individual de cada aparelho comerc
 **Resultado esperado:**
 Evitar vendas duplicadas e garantir rastreabilidade dos aparelhos comercializados, sem depender de um mecanismo de reserva.
 
-**Origem:** Baseada nas antigas RN-002 (Doc A) e RN-017 (Doc B) — revisada. O status "Reservado" foi removido por conflitar diretamente com a eliminação da reserva de estoque no modelo de e-commerce.
 
 
 
 ### RN-04 — Validação de Disponibilidade no Fechamento da Venda
+
 **Módulo:** Estoque
 
 **Descrição:**
@@ -320,13 +317,12 @@ O sistema deverá validar novamente a disponibilidade do aparelho no exato momen
 **Resultado esperado:**
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
-**Origem:** Baseada na antiga RN-017 (Doc B) — complementada.
-
 
 
 ## Módulo 3 — Venda
 
 ### RN-05 — Venda de Aparelho
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -344,11 +340,9 @@ O sistema deverá permitir a realização da venda de aparelhos cadastrados no e
 **Resultado esperado:**
 Garantir que toda venda seja registrada corretamente, vinculando cliente, aparelho, estoque e financeiro.
 
-**Origem:** Baseada na antiga RN-001 (Doc A) — revisada. O campo "vendedor responsável" foi removido, pois o modelo final é e-commerce sem vendedor. A lista de status de venda foi unificada, já que o Doc A trazia duas listas diferentes e incompatíveis entre si.
-
-
 
 ### RN-06 — Forma de Venda — À Vista ou Parcelada
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -363,11 +357,10 @@ O sistema deverá permitir a realização de vendas à vista ou parceladas, conf
 **Resultado esperado:**
 Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
 
-**Origem:** Baseada na antiga RN-013 (Doc B).
-
 
 
 ### RN-07 — Cálculo do Valor da Venda
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -382,11 +375,10 @@ O sistema deverá calcular automaticamente o valor final da venda considerando o
 **Resultado esperado:**
 Garantir que o valor cobrado seja calculado corretamente e de forma consistente com o modelo de e-commerce.
 
-**Origem:** Baseada na antiga RN-003 (Doc A) — revisada. A regra de "limite máximo de desconto" com autorização de "usuário responsável" foi removida por depender da figura do vendedor, incompatível com o modelo final.
-
 
 
 ### RN-08 — Desconto para Pagamento via Pix
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -403,11 +395,10 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 **Resultado esperado:**
 Controlar os descontos concedidos para pagamentos via Pix, evitando descontos indevidos em outras formas de pagamento ou em produtos não elegíveis.
 
-**Origem:** Baseada na antiga RN-014 (Doc B) — a tabela de faixas, originalmente marcada como "sugestão: posterior", foi confirmada como definitiva.
-
 
 
 ### RN-09 — Formas de Pagamento
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -423,11 +414,10 @@ O sistema deverá aceitar pagamentos via Pix, cartão de crédito e boleto banc�
 **Resultado esperado:**
 Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
 
-**Origem:** Baseada nas antigas RN-004 (Doc A) e RN-015 (Doc B) — revisada. "Dinheiro" e "cartão de débito" foram removidos por não estarem previstos no modelo final de e-commerce.
-
 
 
 ### RN-10 — Parcelamento
+
 **Módulo:** Venda
 
 **Descrição:**
@@ -442,13 +432,12 @@ O sistema deverá permitir o parcelamento de vendas pagas por cartão de crédit
 **Resultado esperado:**
 Permitir o parcelamento das vendas de forma transparente e controlada.
 
-**Origem:** Baseada na antiga RN-016 (Doc B).
-
 
 
 ## Módulo 4 — Pós-venda: Cancelamento
 
 ### RN-11 — Cancelamento da Venda
+
 **Módulo:** Pós-venda
 
 **Descrição:**
@@ -466,12 +455,11 @@ O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias c
 **Resultado esperado:**
 Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
 
-**Origem:** Baseada nas antigas RN-005 (Doc A) e RN-018 (Doc B) — unificadas, prevalecendo o prazo de 7 dias e o fluxo de avaliação por serem mais específicos.
-
 
 ## Módulo 5 — Pós-venda: Troca e Devolução
 
 ### RN-12 — Troca por Defeito Coberto pela Garantia
+
 **Módulo:** Pós-venda
 
 **Descrição:**
@@ -491,8 +479,6 @@ O sistema deverá permitir a troca de um aparelho vendido por outro equivalente,
 **Resultado esperado:**
 Permitir trocas por defeito dentro do período de garantia da loja, evitando trocas decorrentes de mau uso e definindo com clareza o que fazer quando não há aparelho equivalente em estoque.
 
-**Origem:** Baseada na antiga RN-019 (Doc B), complementada com elementos de processo da antiga RN-006 (Doc A).
-
 **Política comercial de troca por defeito (detalhamento da RN-12):**
 
 | Situação | Aparelho equivalente? | Política comercial aplicada | Regras envolvidas |
@@ -504,6 +490,7 @@ Permitir trocas por defeito dentro do período de garantia da loja, evitando tro
 
 
 ### RN-13 — Devolução por Arrependimento
+
 **Módulo:** Pós-venda
 
 **Descrição:**
@@ -519,11 +506,9 @@ O sistema deverá permitir a devolução de um aparelho no prazo de até 7 dias 
 **Resultado esperado:**
 Garantir o cumprimento do direito de arrependimento do consumidor em compras de e-commerce, controlando devoluções sem perder o histórico da venda.
 
-**Origem:** Baseada na antiga RN-010 (Doc A), complementada. O Doc B havia restringido devolução exclusivamente a casos de defeito, o que conflita com a obrigação legal de arrependimento aplicável a compras on-line — por isso esta regra foi mantida e separada da devolução por defeito (RN-14).
-
-
 
 ### RN-14 — Devolução por Defeito
+
 **Módulo:** Pós-venda
 
 **Descrição:**
@@ -540,13 +525,12 @@ O sistema deverá permitir a devolução (com reembolso) do aparelho quando for 
 **Resultado esperado:**
 Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central — inclusive para os casos em que o aparelho já foi enviado e o cliente precisa acionar o pós-venda em vez do cancelamento.
 
-**Origem:** Baseada na antiga RN-021 (Doc B) — revisada para funcionar como alternativa à troca (RN-12), e não como única forma de devolução (ver RN-13 para devolução por arrependimento).
-
 
 
 ## Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
 
 ### RN-15 — Garantia do Aparelho
+
 **Módulo:** Pós-venda
 
 **Descrição:**
@@ -563,8 +547,6 @@ Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adi
 
 **Resultado esperado:**
 Controlar os diferentes períodos de garantia e diferenciar claramente a cobertura da loja da cobertura do fabricante.
-
-**Origem:** Baseada nas antigas RN-007 (Doc A) e RN-020 (Doc B) — unificadas.
 
 
 
@@ -584,13 +566,12 @@ Quando o aparelho apresentar dano, o sistema deverá registrar a ocorrência e d
 **Resultado esperado:**
 Diferenciar de forma clara problemas cobertos pela garantia de danos causados por mau uso, sem que a empresa assuma qualquer serviço de reparo nesses casos.
 
-**Origem:** Baseada nas antigas RN-008 (Doc A) e RN-022 (Doc B) — unificadas.
-
 
 
 ## Módulo 7 — Financeiro e Fiscal
 
 ### RN-17 — Estorno e Restituição
+
 **Módulo:** Financeiro
 
 **Descrição:**
@@ -609,10 +590,9 @@ O sistema deverá processar estornos e restituições decorrentes de cancelament
 **Resultado esperado:**
 Garantir que todo valor devido ao cliente em cancelamentos, devoluções ou trocas seja restituído de forma rastreável e dentro de um prazo definido.
 
-**Origem:** Regra nova — fecha lacuna. "Estorno" era mencionado em várias regras dos documentos originais sem nenhuma regra descrevendo como o processo realmente funciona.
-
 
 ### RN-18 — Emissão de Nota Fiscal
+
 **Módulo:** Fiscal
 
 **Descrição:**
@@ -630,10 +610,10 @@ O sistema deverá possuir integração ou funcionalidade para emissão de nota f
 **Resultado esperado:**
 Garantir que todas as vendas e movimentações de pós-venda — incluindo cancelamento, troca e devolução — sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
 
-**Origem:** Baseada na antiga RN-024 (Doc B) — complementada com o tratamento de troca e devolução, que não era mencionado no original.
 
 
 ### RN-19 — Comissão de Vendedores — Não Aplicável
+
 **Módulo:** Financeiro
 
 **Descrição:**
@@ -646,12 +626,12 @@ O sistema não possuirá controle de comissão de vendedores, pois o modelo de n
 **Resultado esperado:**
 Manter o módulo financeiro simplificado, coerente com a ausência de vendedores no modelo de e-commerce.
 
-**Origem:** Baseada na antiga RN-023 (Doc B).
 
 
 ## Módulo 8 — Histórico, Auditoria e Acesso
 
 ### RN-20 — Histórico do Cliente
+
 **Módulo:** Histórico
 
 **Descrição:**
@@ -666,11 +646,10 @@ O sistema deverá manter o histórico comercial completo de cada cliente.
 **Resultado esperado:**
 Permitir que a empresa tenha uma visão completa do relacionamento comercial com o cliente.
 
-**Origem:** Baseada na antiga RN-011 (Doc A).
-
 
 
 ### RN-21 — Auditoria das Operações
+
 **Módulo:** Histórico
 
 **Descrição:**
@@ -683,7 +662,6 @@ Operações importantes realizadas no sistema deverão possuir registro para aud
 **Resultado esperado:**
 Garantir rastreabilidade de todas as operações relevantes realizadas no ERP.
 
-**Origem:** Baseada na antiga RN-012 (Doc A).
 
 
 
@@ -704,7 +682,6 @@ O sistema deverá definir perfis de acesso que determinam quais usuários podem 
 **Resultado esperado:**
 Fechar a lacuna de definição de quem é o "usuário autorizado"/"usuário responsável" citado em várias regras do documento original, com uma estrutura de perfis compatível com o tamanho da empresa (2 sócios e 8 colaboradores).
 
-**Origem:** Regra nova — fecha lacuna. Os termos "usuário autorizado" e "usuário responsável" eram usados em várias regras dos documentos originais sem nenhuma que definisse o conceito.
 
 
 ## 9. Restrições e Políticas Organizacionais

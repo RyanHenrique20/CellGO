@@ -485,10 +485,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 ## Módulo 1 — Cadastro
 
 ### RN-01 — Cadastro de Cliente
-**Módulo:** Cadastro
 
-**Descrição:**
-O sistema deverá permitir o cadastro dos clientes que realizam compras, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cadastro poderá ser de pessoa física ou pessoa jurídica.
+
+**Descrição:** O sistema deverá permitir o cadastro dos clientes que realizam compras, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cadastro poderá ser de pessoa física ou pessoa jurídica.
 
 **Regras:**
 - Pessoa física: o cadastro deverá conter, no mínimo, nome completo, CPF, e-mail, telefone e endereço.
@@ -497,26 +496,24 @@ O sistema deverá permitir o cadastro dos clientes que realizam compras, mantend
 - O sistema deverá permitir localizar um cliente e suas vendas por CPF/CNPJ, e-mail ou número da venda.
 - Os dados cadastrais deverão poder ser atualizados pelo próprio cliente ou por usuário autorizado.
 
-**Resultado esperado:**
-Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
+**Resultado esperado:** Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
 
 
 
 ### RN-02 — Cadastro de Aparelho/Produto
-**Módulo:** Cadastro
 
-**Descrição:**
-O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com as informações necessárias para estoque, garantia e nota fiscal.
+
+**Descrição:** O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com as informações necessárias para estoque, garantia, giro/reposição e nota fiscal.
 
 **Regras:**
 - O cadastro deverá conter, no mínimo: modelo, marca, IMEI/número de série, condição (Novo ou Seminovo), preço de venda, custo de aquisição e status inicial.
 - O IMEI/número de série deverá ser único no sistema.
-- A condição (Novo/Seminovo) é obrigatória e determina o período de garantia aplicável (ver RN-15).
-- A entrada do aparelho no estoque deverá registrar data de entrada, custo e identificador, conforme já previsto no controle de estoque (RN-03).
-- O cadastro de aparelhos deverá ser realizado apenas por funcionários autorizados, de acordo com seu nível de acesso (permissão) no sistema (ver RN-22).
+- A condição (Novo/Seminovo) é obrigatória e determina o período de garantia aplicável (ver RN-17).
+- A entrada do aparelho no estoque deverá registrar data de entrada, custo e identificador, conforme já previsto no controle de estoque (RN-03); essa data de entrada é a base do cálculo de aging individual por IMEI (RN-05), ressalvado o caso de retorno ao estoque previsto na própria RN-05.
+- O cadastro de aparelhos deverá ser realizado apenas por funcionários autorizados, de acordo com seu nível de acesso (permissão) no sistema (ver RN-24).
+- O sistema deverá permitir configurar, por combinação de modelo, cor e capacidade de armazenamento (a mesma combinação de especificação utilizada para identificar "aparelho equivalente" na RN-14), dois parâmetros: Estoque Mínimo (quantidade), utilizado pela RN-06 (Ponto de Pedido), e dois Limites de Dias de Giro — um para Atenção/Giro Lento e outro para Crítico/Encalhado —, utilizados pela RN-05 (Aging por IMEI). Todos os parâmetros deverão ter valores padrão pré-configurados e poderão ser ajustados pelo perfil Diretoria (RN-24).
 
-**Resultado esperado:**
-Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
+**Resultado esperado:** Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, giro, reposição, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
 
 
 
@@ -524,12 +521,10 @@ Garantir que todo aparelho tenha um cadastro completo, permitindo o correto func
 
 ### RN-03 — Controle de Estoque
 
-**Módulo:** Estoque
-
-**Descrição:**
-O sistema deverá controlar a disponibilidade individual de cada aparelho comercializado pela empresa, sem uso de reserva prévia à confirmação da venda.
+**Descrição:** O sistema deverá controlar a disponibilidade individual de cada aparelho comercializado pela empresa, unidade a unidade, identificada univocamente pelo IMEI/número de série (RN-02), sem uso de reserva prévia à confirmação da venda e sem controle por quantidade agregada de modelo.
 
 **Regras:**
+- O controle de estoque é feito por unidade física (por IMEI), nunca por saldo agregado de modelo: cada aparelho possui seu próprio status, histórico e tempo de permanência em estoque (ver RN-05), ainda que o sistema também exiba, apenas para fins gerenciais, contagens agregadas por modelo/especificação (ver RN-06).
 - Um aparelho com status Disponível poderá ser vendido.
 - O sistema não realizará reserva de aparelhos antes da confirmação do pagamento da venda.
 - Um aparelho com status Vendido não retorna automaticamente ao estoque.
@@ -537,8 +532,7 @@ O sistema deverá controlar a disponibilidade individual de cada aparelho comerc
 - O sistema deverá impedir a venda de um aparelho inexistente, já vendido ou indisponível.
 - Status possíveis: Disponível, Vendido, Em avaliação, Em manutenção, Inativo.
 
-**Resultado esperado:**
-Evitar vendas duplicadas e garantir rastreabilidade dos aparelhos comercializados, sem depender de um mecanismo de reserva.
+**Resultado esperado:** Evitar vendas duplicadas e garantir rastreabilidade individual dos aparelhos comercializados, por IMEI, sem depender de um mecanismo de reserva, e servindo de base para as regras de giro (RN-05) e reposição (RN-06).
 
 
 
@@ -558,35 +552,57 @@ O sistema deverá validar novamente a disponibilidade do aparelho no exato momen
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
+### RN-05 — Gestão de Aging por IMEI e Identificação de Encalhe
+
+**Descrição:** O sistema deverá controlar o tempo de permanência de cada aparelho individualmente (via IMEI/número de série) no estoque, identificando unidades específicas paradas e fornecendo dados para estratégias de giro de estoque (ex.: priorização de saída FIFO).
+
+**Regras:**
+- Cálculo da idade individual: cada aparelho com status Disponível terá seu tempo de estoque calculado individualmente como a diferença entre a data atual e a data em que aquele IMEI passou a constar como Disponível (RN-02); para aparelhos que retornam ao estoque após devolução ou troca (RN-14/RN-16), a contagem reinicia a partir da data em que o aparelho retorna ao status Disponível, e não da data de entrada original no estoque.
+- Classificação por status de permanência: Giro Normal (0 a 30 dias de estoque); Atenção / Giro Lento (31 a 60 dias); Crítico / Encalhado (acima de 60 dias) — faixas parametrizáveis pelos Limites de Dias de Giro configurados na RN-02.
+- Visualização por unidade física: o painel de estoque deverá listar explicitamente o IMEI, o modelo, a condição (Novo/Seminovo) e os dias exatos em que aquela unidade específica está parada. A classificação de giro deixa de ser calculada e exibida quando o aparelho sai do status Disponível (venda, avaliação, manutenção ou inativação).
+- Priorização na saída (sugestão FIFO): quando houver mais de uma unidade do mesmo modelo Disponível para venda, o sistema indicará/sugerirá a expedição do IMEI com maior tempo de estoque, reduzindo o risco de encalhe crônico. Trata-se apenas de uma sugestão de priorização e não cria reserva de estoque (RN-03/RN-04).
+- Ações para IMEIs críticos: ao atingir o status Crítico, o sistema envia alerta para a Diretoria e para o perfil Estoque e Logística (RN-24), recomendando: (a) vinculação daquele IMEI a promoções/Desconto Pix (RN-10); e (b) reavaliação de preço de venda daquele IMEI (RN-02/RN-09), sujeita a autorização da Diretoria (RN-24).
+
+**Resultado esperado:** Permitir que o setor de Estoque/Logística e a Diretoria identifiquem, por unidade física, quais aparelhos estão parados há mais tempo, viabilizando estratégias de giro (FIFO, promoção ou reprecificação) antes que o encalhe se torne crônico.
+
+
+
+### RN-06 — Ponto de Pedido e Requisição de Compra
+
+**Descrição:** O sistema deverá monitorar a quantidade de aparelhos disponíveis por modelo/especificação e gerar requisições de compra que tramitam pelo setor Financeiro e pela Diretoria ao atingir o limite mínimo de segurança.
+
+**Regras:**
+- Disparo do alerta: quando a quantidade de aparelhos com status Disponível de um determinado modelo/especificação for menor ou igual ao Estoque Mínimo configurado no cadastro (RN-02), o sistema gerará automaticamente uma Requisição de Compra com status "Aguardando Análise Financeira". Esse cálculo é uma contagem agregada, feita apenas para fins de alerta, das unidades com status Disponível de um mesmo modelo/especificação; o controle individual de cada unidade por IMEI, conforme RN-03, não é alterado nem substituído por essa contagem.
+- Prevenção de duplicidade: enquanto já existir uma Requisição de Compra em aberto (status "Aguardando Análise Financeira" ou "Aguardando Aprovação da Diretoria") para um mesmo modelo/especificação, o sistema não deverá abrir uma nova requisição para esse mesmo modelo/especificação, ainda que o estoque continue igual ou abaixo do mínimo.
+- Análise de viabilidade financeira: o perfil Financeiro/Administrativo (RN-24) receberá a notificação para anexar a previsão de fluxo de caixa e/ou orçamento disponível.
+- Aprovação da Diretoria: após a validação financeira, a requisição passa para o status "Aguardando Aprovação da Diretoria". Somente o perfil Diretoria (RN-24) poderá aprovar ou recusar a emissão do Pedido de Compra definitivo, resultando em status "Aprovada" ou "Recusada". Uma requisição Recusada deverá registrar o motivo da recusa e não impede que uma nova requisição seja aberta automaticamente caso o estoque daquele modelo/especificação continue igual ou abaixo do Estoque Mínimo em uma verificação posterior.
+- Independência do estoque: a tramitação da Requisição de Compra não realiza reserva de estoque nem altera o status dos aparelhos restantes, preservando integralmente as regras RN-03 e RN-04.
+- Dados mínimos da requisição: toda Requisição de Compra deverá conter, no mínimo: modelo/especificação, quantidade atual em estoque, Estoque Mínimo configurado, quantidade sugerida para compra, data de abertura e status.
+- Encerramento do ciclo: uma Requisição de Compra Aprovada dá origem a um Pedido de Compra junto ao fornecedor, fora do escopo desta regra; a chegada dos aparelhos adquiridos segue o cadastro individual por IMEI já previsto na RN-02, sem necessidade de regra adicional.
+- Toda abertura, análise e decisão sobre uma Requisição de Compra deverá ser registrada para fins de auditoria (RN-23).
+
+**Resultado esperado:** Evitar ruptura de estoque (estoque zerado) por modelo, antecipando a necessidade de reposição por meio de um fluxo formal de análise financeira e aprovação da Diretoria, sem interferir no controle individual de estoque por IMEI e sem gerar requisições duplicadas para o mesmo modelo.
 
 ## Módulo 3 — Venda
 
-### RN-05 — Venda de Aparelho
+### RN-07 — Venda de Aparelho
 
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá permitir a realização da venda de aparelhos cadastrados no estoque, vinculando o(s) produto(s) a um cliente e registrando todas as informações financeiras da operação.
+**Descrição:** O sistema deverá permitir a realização da venda de aparelhos cadastrados no estoque, vinculando o(s) produto(s) a um cliente e registrando todas as informações financeiras da operação.
 
 **Regras:**
 - Só poderá ser realizada uma venda para um aparelho com status Disponível.
 - A venda deverá possuir obrigatoriamente: cliente, aparelho(s), data da venda, valor do produto, desconto quando aplicável, valor final, forma de pagamento e status da venda.
 - Após a confirmação do pagamento, o aparelho deverá ter seu status alterado para Vendido.
 - O IMEI/número de série deverá ficar vinculado ao registro da venda.
-- A venda deverá ser registrada no histórico do cliente (ver RN-20).
+- A venda deverá ser registrada no histórico do cliente (ver RN-22).
 - O sistema deverá gerar um comprovante de venda.
 - Status da venda: Aberta, Aguardando pagamento, Pago, Parcialmente pago, Finalizada ou Cancelada.
 
-**Resultado esperado:**
-Garantir que toda venda seja registrada corretamente, vinculando cliente, aparelho, estoque e financeiro.
+**Resultado esperado:** Garantir que toda venda seja registrada corretamente, vinculando cliente, aparelho, estoque e financeiro.
 
 
-### RN-06 — Forma de Venda — À Vista ou Parcelada
 
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá permitir a realização de vendas à vista ou parceladas, conforme a forma de pagamento escolhida.
+### RN-08 — Forma de Venda — À Vista ou Parcelada
 
 **Regras:**
 - O cliente poderá optar por compra à vista ou parcelada.
@@ -594,35 +610,22 @@ O sistema deverá permitir a realização de vendas à vista ou parceladas, conf
 - O número de parcelas deverá ser informado antes da confirmação da venda.
 - O sistema deverá calcular automaticamente o valor de cada parcela.
 
-**Resultado esperado:**
-Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
+**Resultado esperado:** Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
 
 
-
-### RN-07 — Cálculo do Valor da Venda
-
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá calcular automaticamente o valor final da venda considerando o preço do aparelho e os descontos aplicáveis.
+### RN-09 — Cálculo do Valor da Venda
 
 **Regras:**
 - Valor Final = Valor do Produto − Desconto + Taxas (quando houver).
-- No modelo de e-commerce, não há desconto discricionário aplicado manualmente por um vendedor: o único desconto previsto é o desconto automático por pagamento via Pix, aplicável apenas aos produtos elegíveis (ver RN-08).
+- No modelo de e-commerce, não há desconto discricionário aplicado manualmente por um vendedor: o único desconto previsto é o desconto automático por pagamento via Pix, aplicável apenas aos produtos elegíveis (ver RN-10).
 - O valor final deverá ser apresentado ao cliente antes da confirmação da venda.
 - Após a confirmação, o valor da venda deverá ser registrado no módulo financeiro.
 
-**Resultado esperado:**
-Garantir que o valor cobrado seja calculado corretamente e de forma consistente com o modelo de e-commerce.
+**Resultado esperado:** Garantir que o valor cobrado seja calculado corretamente e de forma consistente com o modelo de e-commerce.
 
 
 
-### RN-08 — Desconto para Pagamento via Pix
-
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via Pix, conforme faixa de valor do produto, e apenas para os produtos elegíveis.
+### RN-10 — Desconto para Pagamento via Pix
 
 **Regras:**
 - O desconto é aplicado somente quando a forma de pagamento é Pix.
@@ -632,17 +635,10 @@ O sistema deverá aplicar desconto exclusivamente para pagamentos realizados via
 - O desconto deverá ser apresentado ao cliente antes da confirmação da compra, incluindo os casos em que o produto não é elegível ao desconto.
 - O sistema deverá registrar o percentual e o valor do desconto na venda.
 
-**Resultado esperado:**
-Controlar os descontos concedidos para pagamentos via Pix, evitando descontos indevidos em outras formas de pagamento ou em produtos não elegíveis.
+**Resultado esperado:** Controlar os descontos concedidos para pagamentos via Pix, evitando descontos indevidos em outras formas de pagamento ou em produtos não elegíveis.
 
 
-
-### RN-09 — Formas de Pagamento
-
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá aceitar pagamentos via Pix, cartão de crédito e boleto bancário. Não haverá aceitação de cartão de débito como forma de pagamento.
+### RN-11 — Formas de Pagamento
 
 **Regras:**
 - A venda deverá informar obrigatoriamente a forma de pagamento.
@@ -651,17 +647,10 @@ O sistema deverá aceitar pagamentos via Pix, cartão de crédito e boleto banc�
 - Uma venda somente será considerada Finalizada após a confirmação do pagamento, conforme a forma utilizada.
 - Cartão de débito não é uma forma de pagamento aceita nesta consolidação, por decisão do negócio.
 
-**Resultado esperado:**
-Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
+**Resultado esperado:** Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
 
 
-
-### RN-10 — Parcelamento
-
-**Módulo:** Venda
-
-**Descrição:**
-O sistema deverá permitir o parcelamento de vendas pagas por cartão de crédito em até 12 parcelas.
+### RN-12 — Parcelamento
 
 **Regras:**
 - Número mínimo de parcelas: 1. Número máximo: 12.
@@ -669,112 +658,91 @@ O sistema deverá permitir o parcelamento de vendas pagas por cartão de crédit
 - O valor total da venda deverá permanecer registrado independentemente da quantidade de parcelas.
 - Caso existam juros ou taxas, estes deverão ser apresentados antes da confirmação da venda.
 
-**Resultado esperado:**
-Permitir o parcelamento das vendas de forma transparente e controlada.
+**Resultado esperado:** Permitir o parcelamento das vendas de forma transparente e controlada.
 
 
 
 ## Módulo 4 — Pós-venda: Cancelamento
 
-### RN-11 — Cancelamento da Venda
+### RN-13 — Cancelamento da Venda
 
-**Módulo:** Pós-venda
-
-**Descrição:**
-O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias corridos a partir da data da venda, desde que o aparelho ainda não tenha saído para entrega.
+**Descrição:** O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias corridos a partir da data da venda, desde que o aparelho ainda não tenha saído para entrega.
 
 **Regras:**
 - O sistema deverá verificar a data da venda antes de permitir o cancelamento.
 - O cancelamento por esta regra somente será permitido enquanto o status de entrega da venda for "Aguardando envio". A atualização desse status é feita pela integração com a API da transportadora, conforme definido na Seção 1.3.
-- A partir do momento em que o status de entrega passar para "Em transporte" ou "Entregue", a solicitação do cliente deixa de ser tratada como cancelamento e passa a seguir o fluxo do Módulo 5 — Devolução (RN-13/RN-14), conforme o caso.
+- A partir do momento em que o status de entrega passar para "Em transporte" ou "Entregue", a solicitação do cliente deixa de ser tratada como cancelamento e passa a seguir o fluxo do Módulo 5 — Devolução (RN-15/RN-16), conforme o caso.
 - O motivo do cancelamento deverá ser registrado.
-- Caso o pagamento já tenha sido realizado, deverá ser aberto o processo de estorno (ver RN-17).
+- Caso o pagamento já tenha sido realizado, deverá ser aberto o processo de estorno (ver RN-19).
 - Como o aparelho ainda não foi enviado, ele deverá ser diretamente direcionado a nova avaliação de estoque (status Em avaliação) antes de retornar como Disponível.
-- A venda cancelada não deverá ser excluída do sistema; o cancelamento fica registrado no histórico do cliente e da venda, para fins de auditoria (ver RN-21).
+- A venda cancelada não deverá ser excluída do sistema; o cancelamento fica registrado no histórico do cliente e da venda, para fins de auditoria (ver RN-23).
 
-**Resultado esperado:**
-Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
+**Resultado esperado:** Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
 
 
 ## Módulo 5 — Pós-venda: Troca e Devolução
 
-### RN-12 — Troca por Defeito Coberto pela Garantia
+### RN-14 — Troca por Defeito Coberto pela Garantia
 
-**Módulo:** Pós-venda
-
-**Descrição:**
-O sistema deverá permitir a troca de um aparelho vendido por outro equivalente, quando for identificado defeito coberto pela garantia da loja, dentro do prazo de 30 dias da compra. A definição de "aparelho equivalente" e a política comercial aplicável em cada cenário estão detalhadas na tabela desta seção.
+**Descrição:** O sistema deverá permitir a troca de um aparelho vendido por outro equivalente, quando for identificado defeito coberto pela garantia da loja, dentro do prazo de 30 dias da compra.
 
 **Regras:**
 - A solicitação deverá estar vinculada à venda original e ao IMEI/número de série do aparelho.
 - O aparelho deverá passar por avaliação técnica (status Em avaliação) antes da decisão.
-- A troca somente será autorizada quando o defeito estiver coberto pela garantia da loja (RN-15).
-- Danos causados por mau uso não são elegíveis para esta troca (ver RN-16).
+- A troca somente será autorizada quando o defeito estiver coberto pela garantia da loja (RN-17).
+- Danos causados por mau uso não são elegíveis para esta troca (ver RN-18).
 - Considera-se "aparelho equivalente": (a) o aparelho do mesmo modelo, cor e capacidade de armazenamento do aparelho trocado; ou, na ausência deste, (b) o aparelho disponível em estoque, com especificação e valor igual ou superior, mais próximo do aparelho original.
 - O novo aparelho deverá estar com status Disponível no estoque no momento da troca — não é permitido reservar ou aguardar reposição futura de estoque, em conformidade com a política de não realizar reserva de aparelhos (RN-03/RN-04).
-- Caso não exista aparelho equivalente disponível, aplica-se imediatamente a política de devolução por defeito (RN-14) como alternativa, sem período de espera — ver tabela de política comercial nesta seção.
+- Caso não exista aparelho equivalente disponível, aplica-se imediatamente a política de devolução por defeito (RN-16) como alternativa, sem período de espera — ver tabela de política comercial nesta seção.
 - O aparelho substituído deverá ser direcionado para Em manutenção ou Inativo, conforme avaliação.
 - A troca deverá ser registrada no histórico do cliente e da venda.
 
-**Resultado esperado:**
-Permitir trocas por defeito dentro do período de garantia da loja, evitando trocas decorrentes de mau uso e definindo com clareza o que fazer quando não há aparelho equivalente em estoque.
+**Resultado esperado:** Permitir trocas por defeito dentro do período de garantia da loja, evitando trocas decorrentes de mau uso e definindo com clareza o que fazer quando não há aparelho equivalente em estoque.
 
-**Política comercial de troca por defeito (detalhamento da RN-12):**
+**Política comercial de troca por defeito (detalhamento da RN-14)**
 
-| Situação | Aparelho equivalente? | Política comercial aplicada | Regras envolvidas |
+| Situação | Equivalente? | Política comercial aplicada | Regras |
 |---|---|---|---|
-| Existe o mesmo modelo, cor e capacidade do aparelho trocado, com status Disponível. | Sim (idêntico) | Troca direta pelo aparelho idêntico, sem custo adicional ao cliente. | RN-12 |
-| Não existe o mesmo modelo/cor/capacidade, mas existe aparelho de especificação e valor igual ou superior, com status Disponível. | Sim (equivalente) | Troca direta pelo aparelho equivalente disponível, sem cobrança de diferença de valor ao cliente. | RN-12 |
-| Não existe nenhum aparelho idêntico nem equivalente com status Disponível no momento da solicitação. | Não | Devolução imediata com restituição integral do valor pago. Não é oferecida a opção de aguardar reposição de estoque, pois isso equivaleria a uma reserva de aparelho, o que é vedado pela política de estoque do negócio (RN-03/RN-04). | RN-14 + RN-17 + RN-18 |
-| Existe um aparelho equivalente, porém com status Em avaliação, Em manutenção ou Inativo (não Disponível) no momento da solicitação. | Não (indisponível) | Mesmo tratamento da situação anterior: devolução imediata com restituição integral, sem espera pela liberação desse aparelho. | RN-14 + RN-17 + RN-18 |
+| Existe o mesmo modelo, cor e capacidade do aparelho trocado, com status Disponível. | Sim (idêntico) | Troca direta pelo aparelho idêntico, sem custo adicional ao cliente. | RN-14 |
+| Não existe o mesmo modelo/cor/capacidade, mas existe aparelho de especificação e valor igual ou superior, com status Disponível. | Sim (equivalente) | Troca direta pelo aparelho equivalente disponível, sem cobrança de diferença de valor ao cliente. | RN-14 |
+| Não existe nenhum aparelho idêntico nem equivalente com status Disponível no momento da solicitação. | Não | Devolução imediata com restituição integral do valor pago. Não é oferecida a opção de aguardar reposição de estoque, pois equivaleria a uma reserva de aparelho, vedada pela política de estoque (RN-03/RN-04). | RN-16 + RN-19 + RN-20 |
+| Existe um aparelho equivalente, porém com status Em avaliação, Em manutenção ou Inativo (não Disponível) no momento da solicitação. | Não (indisponível) | Mesmo tratamento da situação anterior: devolução imediata com restituição integral, sem espera pela liberação desse aparelho. | RN-16 + RN-19 + RN-20 |
 
 
-### RN-13 — Devolução por Arrependimento
+### RN-15 — Devolução por Arrependimento
 
-**Módulo:** Pós-venda
-
-**Descrição:**
-O sistema deverá permitir a devolução de um aparelho no prazo de até 7 dias corridos a partir do recebimento, independentemente de defeito, em conformidade com o direito de arrependimento previsto no Art. 49 do Código de Defesa do Consumidor para compras realizadas fora do estabelecimento comercial (e-commerce).
+**Descrição:** O sistema deverá permitir a devolução de um aparelho no prazo de até 7 dias corridos a partir do recebimento, independentemente de defeito, em conformidade com o direito de arrependimento previsto no Art. 49 do Código de Defesa do Consumidor para compras realizadas fora do estabelecimento comercial (e-commerce).
 
 **Regras:**
 - A devolução deverá estar vinculada à venda original.
 - O sistema deverá registrar a data e o motivo da devolução, quando informado pelo cliente.
 - O aparelho deverá ser devolvido em condições de revenda e passar por avaliação (status Em avaliação).
-- O valor pago deverá ser integralmente restituído ao cliente (ver RN-17), sem necessidade de comprovação de defeito.
+- O valor pago deverá ser integralmente restituído ao cliente (ver RN-19), sem necessidade de comprovação de defeito.
 - O aparelho somente retorna ao estoque como Disponível após avaliação e aprovação; caso apresente dano, é direcionado para Em manutenção ou Inativo.
 
-**Resultado esperado:**
-Garantir o cumprimento do direito de arrependimento do consumidor em compras de e-commerce, controlando devoluções sem perder o histórico da venda.
+**Resultado esperado:** Garantir o cumprimento do direito de arrependimento do consumidor em compras de e-commerce, controlando devoluções sem perder o histórico da venda.
 
 
-### RN-14 — Devolução por Defeito
+### RN-16 — Devolução por Defeito
 
-**Módulo:** Pós-venda
-
-**Descrição:**
-O sistema deverá permitir a devolução (com reembolso) do aparelho quando for identificado defeito coberto pela garantia, sem solução adequada por troca, ou quando o aparelho já tiver sido entregue no momento em que o cliente reporta o problema (ver RN-11).
+**Descrição:** O sistema deverá permitir a devolução (com reembolso) do aparelho quando for identificado defeito coberto pela garantia, sem solução adequada por troca, ou quando o aparelho já tiver sido entregue no momento em que o cliente reporta o problema (ver RN-13).
 
 **Regras:**
 - O cliente deverá apresentar o aparelho para avaliação; a venda pode ser localizada por CPF/CNPJ, número da venda ou IMEI.
 - O aparelho deverá ser submetido a avaliação técnica (status Em avaliação).
-- Se o defeito for coberto pela garantia e não houver aparelho equivalente para troca (RN-12), a empresa deverá seguir o procedimento de devolução com restituição (RN-17).
-- Se o problema for causado por mau uso, a devolução por esta regra não é autorizada (ver RN-16).
+- Se o defeito for coberto pela garantia e não houver aparelho equivalente para troca (RN-14), a empresa deverá seguir o procedimento de devolução com restituição (RN-19).
+- Se o problema for causado por mau uso, a devolução por esta regra não é autorizada (ver RN-18).
 - O sistema deverá registrar o diagnóstico e a decisão tomada.
 - O processo deverá ficar registrado no histórico do cliente e do aparelho.
 
-**Resultado esperado:**
-Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central — inclusive para os casos em que o aparelho já foi enviado e o cliente precisa acionar o pós-venda em vez do cancelamento.
-
+**Resultado esperado:** Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central.
 
 
 ## Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
 
-### RN-15 — Garantia do Aparelho
+### RN-17 — Garantia do Aparelho
 
-**Módulo:** Pós-venda
-
-**Descrição:**
-Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adicional do fabricante, conforme sua condição de cadastro (Novo ou Seminovo).
+**Descrição:** Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adicional do fabricante, conforme sua condição de cadastro (Novo ou Seminovo).
 
 **Regras:**
 - Aparelhos Novos: 30 dias de garantia da loja + 1 ano de garantia do fabricante, conforme condições estabelecidas pelo fabricante.
@@ -782,100 +750,77 @@ Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adi
 - A garantia da loja tem início na data da venda.
 - O sistema deverá registrar a data de início e término da garantia e permitir consultar se está vigente ou encerrada.
 - O IMEI/número de série deverá ser utilizado para identificar o aparelho.
-- Danos decorrentes de mau uso não são cobertos pela garantia da loja (ver RN-16).
+- Danos decorrentes de mau uso não são cobertos pela garantia da loja (ver RN-18).
 - O sistema deverá registrar todas as solicitações de garantia.
 
-**Resultado esperado:**
-Controlar os diferentes períodos de garantia e diferenciar claramente a cobertura da loja da cobertura do fabricante.
+**Resultado esperado:** Controlar os diferentes períodos de garantia e diferenciar claramente a cobertura da loja da cobertura do fabricante.
 
 
+### RN-18 — Avaliação de Dano e Elegibilidade para Cobertura
 
-### RN-16 — Avaliação de Dano e Elegibilidade para Cobertura
-**Módulo:** Pós-venda
-
-**Descrição:**
-Quando o aparelho apresentar dano, o sistema deverá registrar a ocorrência e determinar se o caso é coberto pela garantia ou se é caracterizado como mau uso, sem cobertura da empresa.
+**Descrição:** Quando o aparelho apresentar dano, o sistema deverá registrar a ocorrência e determinar se o caso é coberto pela garantia ou se é caracterizado como mau uso, sem cobertura da empresa.
 
 **Regras:**
 - O aparelho deverá ser avaliado tecnicamente (status Em avaliação).
 - O sistema deverá registrar o tipo de dano e classificá-lo como: defeito de fabricação, dano por mau uso, dano acidental ou outros.
 - Exemplos de mau uso (não cobertos pela garantia): tela quebrada por impacto, aparelho amassado, danos por líquido não cobertos, alterações não autorizadas, outros danos por uso inadequado.
-- Caso esteja dentro da garantia e seja defeito coberto, o atendimento segue as regras de garantia (RN-15) e, conforme o caso, troca (RN-12) ou devolução (RN-14).
+- Caso esteja dentro da garantia e seja defeito coberto, o atendimento segue as regras de garantia (RN-17) e, conforme o caso, troca (RN-14) ou devolução (RN-16).
 - Caso o dano seja caracterizado como mau uso, a solicitação de troca ou devolução não será autorizada e o aparelho não será reparado pela empresa; o cliente deverá ser informado do diagnóstico e o atendimento é encerrado sem custo para a empresa.
 
-**Resultado esperado:**
-Diferenciar de forma clara problemas cobertos pela garantia de danos causados por mau uso, sem que a empresa assuma qualquer serviço de reparo nesses casos.
-
+**Resultado esperado:** Diferenciar de forma clara problemas cobertos pela garantia de danos causados por mau uso, sem que a empresa assuma qualquer serviço de reparo nesses casos.
 
 
 ## Módulo 7 — Financeiro e Fiscal
 
-### RN-17 — Estorno e Restituição
+### RN-19 — Estorno e Restituição
 
-**Módulo:** Financeiro
-
-**Descrição:**
-O sistema deverá processar estornos e restituições decorrentes de cancelamento, devolução ou troca com diferença de valor a favor do cliente.
+**Descrição:** O sistema deverá processar estornos e restituições decorrentes de cancelamento, devolução ou troca com diferença de valor a favor do cliente.
 
 **Regras:**
 - O estorno deverá seguir a forma de pagamento original utilizada na venda.
 - Pagamentos via Pix deverão ser estornados diretamente para a chave/conta de origem.
 - Pagamentos via cartão de crédito deverão ser estornados junto à operadora do cartão.
 - Pagamentos via boleto deverão gerar restituição por transferência bancária, mediante dados informados pelo cliente.
-- O processo completo de estorno, da abertura da solicitação até a efetiva liberação do valor ao cliente, deverá ocorrer dentro do prazo de 7 a 15 dias corridos, podendo variar conforme a forma de pagamento (Pix tende ao início da faixa; cartão de crédito e boleto podem levar até o limite superior, por dependerem de prazos de operadoras e instituições financeiras).
+- O processo completo de estorno, da abertura da solicitação até a efetiva liberação do valor ao cliente, deverá ocorrer dentro do prazo de 7 a 15 dias corridos, podendo variar conforme a forma de pagamento.
 - O sistema deverá registrar valor, data de abertura, prazo-limite (data de abertura + 15 dias) e status do estorno (Pendente, Processado, Recusado).
-- Caso o prazo de 15 dias seja ultrapassado sem conclusão, o sistema deverá sinalizar o estorno como atrasado e notificar o perfil Financeiro/Administrativo (RN-22) para tratamento manual.
+- Caso o prazo de 15 dias seja ultrapassado sem conclusão, o sistema deverá sinalizar o estorno como atrasado e notificar o perfil Financeiro/Administrativo (RN-24) para tratamento manual.
 - Em vendas parceladas canceladas após pagamento de parte das parcelas, o estorno deverá considerar apenas os valores já pagos.
 
-**Resultado esperado:**
-Garantir que todo valor devido ao cliente em cancelamentos, devoluções ou trocas seja restituído de forma rastreável e dentro de um prazo definido.
+**Resultado esperado:** Garantir que todo valor devido ao cliente em cancelamentos, devoluções ou trocas seja restituído de forma rastreável e dentro de um prazo definido.
 
 
-### RN-18 — Emissão de Nota Fiscal
+### RN-20 — Emissão de Nota Fiscal
 
-**Módulo:** Fiscal
-
-**Descrição:**
-O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução. Os status possíveis da nota fiscal e suas regras de transição estão padronizados na Seção 1.
+**Descrição:** O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução. Os status possíveis da nota fiscal e suas regras de transição estão padronizados na Seção 1.
 
 **Regras:**
 - A nota fiscal deverá estar vinculada à venda, utilizando os dados cadastrados do cliente (RN-01) e do aparelho (RN-02).
 - A emissão deverá ocorrer conforme as regras fiscais aplicáveis, iniciando com status Aguardando emissão.
-- O sistema deverá registrar o número e a chave de acesso da nota fiscal, quando disponíveis, e permitir consultar seu status (Aguardando emissão, Emitida, Pendente ou Cancelada — ver Seção 1).
-- Em caso de cancelamento (RN-11) dentro do prazo legal da SEFAZ para cancelamento direto (via de regra, até 24 horas da emissão), a nota fiscal de venda deverá passar para o status Cancelada. Fora desse prazo, a nota de venda permanece Emitida e o cancelamento segue o mesmo procedimento fiscal da devolução (nota de entrada).
-- Em caso de devolução (RN-13 — arrependimento, ou RN-14 — defeito), o sistema deverá emitir uma Nota Fiscal de Entrada (devolução), referenciando a NF-e de venda original, para desfazer fiscalmente a operação. A liberação do estorno (RN-17) só deverá ocorrer quando essa nota de devolução atingir o status Emitida.
-- Em caso de troca por defeito (RN-12), o sistema deverá emitir duas notas: (1) uma Nota Fiscal de Entrada (devolução), referenciando a NF-e original, para o aparelho defeituoso devolvido; e (2) uma nova Nota Fiscal de Saída para o aparelho de reposição. Quando não houver diferença de valor entre os aparelhos, a nova nota é emitida sem cobrança adicional ao cliente.
-- Caso ocorra erro na emissão de qualquer nota (venda, devolução ou reposição), ela permanece com status Pendente, o usuário deverá ser informado, e a venda correspondente fica sinalizada como "nota fiscal pendente" até a regularização; nesse caso, o estorno ou a saída do aparelho de reposição também ficam retidos até que a nota atinja o status Emitida.
+- O sistema deverá registrar o número e a chave de acesso da nota fiscal, quando disponíveis, e permitir consultar seu status (Aguardando emissão, Emitida, Pendente ou Cancelada).
+- Em caso de cancelamento (RN-13) dentro do prazo legal da SEFAZ para cancelamento direto (via de regra, até 24 horas da emissão), a nota fiscal de venda deverá passar para o status Cancelada. Fora desse prazo, a nota de venda permanece Emitida e o cancelamento segue o mesmo procedimento fiscal da devolução (nota de entrada).
+- Em caso de devolução (RN-15 — arrependimento, ou RN-16 — defeito), o sistema deverá emitir uma Nota Fiscal de Entrada (devolução), referenciando a NF-e de venda original, para desfazer fiscalmente a operação. A liberação do estorno (RN-19) só deverá ocorrer quando essa nota de devolução atingir o status Emitida.
+- Em caso de troca por defeito (RN-14), o sistema deverá emitir duas notas: (1) uma Nota Fiscal de Entrada (devolução), referenciando a NF-e original, para o aparelho defeituoso devolvido; e (2) uma nova Nota Fiscal de Saída para o aparelho de reposição. Quando não houver diferença de valor entre os aparelhos, a nova nota é emitida sem cobrança adicional ao cliente.
+- Caso ocorra erro na emissão de qualquer nota (venda, devolução ou reposição), ela permanece com status Pendente, o usuário deverá ser informado, e a venda correspondente fica sinalizada como "nota fiscal pendente" até a regularização.
 
-**Resultado esperado:**
-Garantir que todas as vendas e movimentações de pós-venda — incluindo cancelamento, troca e devolução — sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
-
+**Resultado esperado:** Garantir que todas as vendas e movimentações de pós-venda sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
 
 
-### RN-19 — Comissão de Vendedores — Não Aplicável
+### RN-21 — Comissão de Vendedores — Não Aplicável
 
-**Módulo:** Financeiro
-
-**Descrição:**
-O sistema não possuirá controle de comissão de vendedores, pois o modelo de negócio é de e-commerce, sem vendedor associado à venda.
+**Descrição:** O sistema não possuirá controle de comissão de vendedores, pois o modelo de negócio é de e-commerce, sem vendedor associado à venda.
 
 **Regras:**
 - Não haverá cálculo nem lançamento financeiro de comissão.
-- O sistema poderá registrar o usuário responsável por atendimentos de pós-venda apenas para fins de auditoria (ver RN-21), sem gerar comissão.
+- O sistema poderá registrar o usuário responsável por atendimentos de pós-venda apenas para fins de auditoria (ver RN-23), sem gerar comissão.
 
-**Resultado esperado:**
-Manter o módulo financeiro simplificado, coerente com a ausência de vendedores no modelo de e-commerce.
-
+**Resultado esperado:** Manter o módulo financeiro simplificado, coerente com a ausência de vendedores no modelo de e-commerce.
 
 
 ## Módulo 8 — Histórico, Auditoria e Acesso
 
-### RN-20 — Histórico do Cliente
+### RN-22 — Histórico do Cliente
 
-**Módulo:** Histórico
-
-**Descrição:**
-O sistema deverá manter o histórico comercial completo de cada cliente.
+**Descrição:** O sistema deverá manter o histórico comercial completo de cada cliente.
 
 **Regras:**
 - Compras realizadas e aparelhos adquiridos, com IMEI/número de série e valores.
@@ -883,44 +828,35 @@ O sistema deverá manter o histórico comercial completo de cada cliente.
 - Solicitações de garantia e respectivos diagnósticos.
 - Créditos ou estornos concedidos.
 
-**Resultado esperado:**
-Permitir que a empresa tenha uma visão completa do relacionamento comercial com o cliente.
+**Resultado esperado:** Permitir que a empresa tenha uma visão completa do relacionamento comercial com o cliente.
 
 
+### RN-23 — Auditoria das Operações
 
-### RN-21 — Auditoria das Operações
-
-**Módulo:** Histórico
-
-**Descrição:**
-Operações importantes realizadas no sistema deverão possuir registro para auditoria.
+**Descrição:** Operações importantes realizadas no sistema deverão possuir registro para auditoria.
 
 **Regras:**
 - Registrar usuário responsável, data e hora, operação realizada, venda afetada, aparelho afetado e valores anteriores e novos, quando aplicável.
 - Auditar principalmente: alterações de preço/desconto, cancelamentos, trocas, devoluções, estornos, alterações de pagamento e alterações de estoque.
+- Auditar também: alertas de encalhe/aging crítico por IMEI (RN-05) e o ciclo completo das Requisições de Compra (RN-06), incluindo abertura, análise financeira e decisão da Diretoria.
 
-**Resultado esperado:**
-Garantir rastreabilidade de todas as operações relevantes realizadas no ERP.
-
-
+**Resultado esperado:** Garantir rastreabilidade de todas as operações relevantes realizadas no ERP, incluindo as novas rotinas de gestão de estoque desta revisão.
 
 
-### RN-22 — Perfis de Acesso e Autorizações
+### RN-24 — Perfis de Acesso e Autorizações
 
 **Módulo:** Histórico
 
-**Descrição:**
-O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos e ajustes financeiros. Os perfis seguem a estrutura organizacional do negócio (ver Seção 1.1): Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
+**Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (aging e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio (ver Seção 1.1): Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
 
 **Regras:**
 - São definidos 2 níveis hierárquicos de acesso: Nível 1 — Operacional (um perfil por área, para os 8 colaboradores) e Nível 2 — Estratégico (perfil único da Diretoria, para os 2 sócios).
 - Cada colaborador recebe o perfil operacional correspondente à sua área; os sócios recebem o perfil de Diretoria, com acesso a todas as áreas.
 - O perfil de Diretoria é o único autorizado a criar, editar ou remover perfis de acesso (esta própria regra) e a autorizar exceções fora do fluxo automático em qualquer área.
-- Toda ação que exigir autorização deverá registrar o usuário autorizador, seu perfil e a área correspondente (ver RN-21).
+- Toda ação que exigir autorização deverá registrar o usuário autorizador, seu perfil e a área correspondente (ver RN-23).
 - O sistema deverá impedir que usuários sem o perfil adequado executem operações fora de sua área ou nível de autorização.
 
-**Resultado esperado:**
-Fechar a lacuna de definição de quem é o "usuário autorizado"/"usuário responsável" citado em várias regras do documento original, com uma estrutura de perfis compatível com o tamanho da empresa (2 sócios e 8 colaboradores).
+**Resultado esperado:** Fechar a lacuna de definição de quem é o "usuário autorizado"/"usuário responsável" citado em várias regras do documento, com uma estrutura de perfis compatível com o tamanho da empresa (2 sócios e 8 colaboradores), agora incluindo também as novas rotinas de gestão de estoque (RN-05/RN-06).
 
 
 

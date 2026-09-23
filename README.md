@@ -862,34 +862,76 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 ## 9. Restrições e Políticas Organizacionais
 
-| **Política de Aquisição de Aparelhos**  |
-- **Verificação de procedencia:** consultar o IMEI antes da compra.
-- **Recusa de aparelhos irregulares:**  não aceitar celulares com IMEI irregulares ou com indicios de celulares clonados.
-- **Identificação de vendedor:** exigir documentos com foto e CPF.
-- **Limite de compras por CPF/dia:** o vendedor poderá vender X aparelhos por dia, para evitar lavagem de aparelhos de origem ilicita.
-- **Documentação obrigatória:** emissão de nota fiscal ou termo de compra e venda, mesmo entre pessoas visicas.
+### Política de Aquisição de Aparelhos
 
-| **Politica de Avaliação Tecnica** |
-- **Checklist tecnico:**  avaliação de bataria, tela, cameras, botões, conectatividade, autenticidade das peças.
-- **Verificação de bloqueios de contas:** checagem de bloqueio iCloud/Google (FRP); recusa de aparelho caso não seja possivel desbloquear.
+- **Verificação de procedência:** consultar o IMEI antes da compra, confirmando que o aparelho não consta como roubado, furtado ou com restrição.
+- **Recusa de aparelhos irregulares:** não aceitar celulares com IMEI adulterado, bloqueado ou com indícios de clonagem.
+- **Identificação do vendedor:** exigir documento oficial com foto e CPF de quem está vendendo o aparelho para a loja.
+- **Limite de compras por CPF/dia:** cada CPF pode vender no máximo X aparelhos por dia à loja.
+- **Documentação obrigatória:** emissão de nota fiscal ou termo de compra e venda, mesmo em transações entre pessoas físicas.
 
-| **Politica de Revenda:**  |
-- **Reset de fábrica:** remoção de contas, dados pessoais e bloqueios (FRP/iCloud) antes de expor para venda.
-- **Prazo de quarentena:** periodo em que o celulares recebidos em troca, para confirmar que não ira haver uma contestação de furto.
-- **Restrição etária:** não fazer a venda para menores de 18 anos sem uma presença legal.
+### Política de Avaliação Técnica
 
-| **Politica Fiscal e Documental**  |
-- **Emissão de nota fiscal**
-- **Rastreabilidade por IMEI:** registro de garantia e historico do aparelho vinculado ao IMEI.
-- **Retenção de comprovantes:** guarda de comprovantes por prazo minimo fical.
+- **Checklist técnico:** avaliação obrigatória de bateria, tela, câmeras, botões, autofalante, som, conectividade e autenticidade das peças.
+- **Verificação de bloqueios de conta:** checagem de bloqueio iCloud/Google (FRP), com recusa do aparelho caso não seja possível desbloquear.
 
-| **Politica de Proteção de Dados (LGPD)**  |
-- **Termo de responsabilidade do cliente:** declaração de que o cliente removeu contas e dados pessoais antes da entrega.
-- **Minimização de dados:** não armazenamento de dados pessoais extraidos alem do estritamente necessario.
+### Política de Revenda
 
-| **Restrições Operacionais** |
-- **Seguro de estoque:**  contratação de seguro contra roubo para estoque de alto valor.
-- **Segregação de estoque:** definição de limite de itens expostos em vitrine versus estoque em cofre. 
+- **Reset de fábrica:** remoção de contas, dados pessoais e bloqueios (FRP/iCloud) antes de expor o aparelho para venda.
+- **Prazo de quarentena:** período em que os aparelhos recebidos em troca ficam retidos, para confirmar que não haverá contestação de furto.
+- **Restrição etária:** proibida a venda a menores de 18 anos sem a presença de um responsável legal.
+- A comprovação da condição de responsável legal deve ser feita mediante apresentação de documento oficial com foto, como RG ou CNH, e documento que comprove o vínculo legal com o menor, como certidão de nascimento ou tutela judicial.
+
+### Política Fiscal e Documental
+
+- **Emissão de nota fiscal:** obrigatória para toda venda realizada.
+- **Rastreabilidade por IMEI:** registro de garantia e histórico do aparelho vinculado ao número de IMEI.
+- **Retenção de comprovantes:** guarda de comprovantes pelo prazo mínimo exigido pela legislação fiscal.
+
+### Política de Proteção de Dados (LGPD)
+
+- **Termo de responsabilidade do cliente:** declaração de que o cliente removeu contas e dados pessoais do aparelho antes da entrega à loja.
+- **Minimização de dados:** não armazenamento de dados pessoais extraídos além do estritamente necessário.
+
+### Restrições Operacionais
+
+- **Seguro de estoque:** contratação de seguro patrimonial adequado ao valor e ao perfil do estoque, com cobertura para riscos como roubo, furto qualificado, incêndio e outros eventos previstos na apólice.
+- **Controle e segregação de estoque:** os aparelhos deverão permanecer armazenados em local seguro e com acesso restrito. O estoque será dividido entre estoque disponível para venda, estoque reservado para pedidos aprovados e estoque destinado à expedição, garantindo maior controle sobre os produtos.
+- **Limite de exposição do estoque:** devido ao alto valor dos aparelhos, será mantida a quantidade mínima necessária de produtos fora do local de armazenamento seguro. A movimentação dos aparelhos deverá ser registrada no sistema ou controle interno.
+- **Controle de acesso:** o acesso ao estoque será restrito a colaboradores previamente autorizados, com registro das movimentações de entrada, saída e transferência dos aparelhos.
+- **Conferência na expedição:** todo pedido deverá passar por conferência do modelo, cor, capacidade, número de série/IMEI e integridade do produto antes do envio ao cliente.
+- **Rastreabilidade:** cada aparelho deverá ser identificado e vinculado ao respectivo registro de estoque e, quando aplicável, ao pedido realizado pelo cliente, permitindo o acompanhamento desde a entrada do produto até a entrega.
+
+### Quem Pode Aprovar uma Operação
+
+- **Aprovação de exceções:** qualquer operação fora do fluxo automático (cancelamento fora do prazo, troca sem aparelho equivalente, ajuste financeiro extraordinário) só pode ser autorizada pela Diretoria.
+- **Aprovação de cancelamento padrão:** Vendas e Atendimento aprova cancelamento apenas dentro da janela de 7 dias corridos.
+- **Aprovação de retorno ao estoque:** Estoque e Logística aprova o retorno do aparelho a "Disponível" após avaliação técnica.
+- **Aprovação de troca/devolução técnica:** Assistência Técnica aprova troca ou devolução por defeito, dentro dos critérios técnicos definidos.
+- **Aprovação financeira:** Financeiro/Administrativo aprova liberação de estornos e emissão de nota fiscal, dentro dos valores e prazos definidos.
+
+### Quem Pode Alterar Cadastros
+
+- **Cadastro de aparelho:** alteração restrita a funcionários autorizados.
+- **Cadastro de cliente:** alteração permitida ao próprio cliente ou a usuário autorizado.
+- **Perfis de acesso:** criação, edição ou remoção exclusiva da Diretoria.
+- **Elegibilidade ao desconto Pix:** definição exclusiva da Diretoria.
+
+### Limites de Desconto
+
+- **Desconto manual:** não é permitido desconto discricionário aplicado por vendedor.
+- **Desconto automático via Pix:** único desconto existente, calculado por faixa de valor do produto (5%, 7% ou 10%).
+- 5% de desconto: produtos até R$ 1.000,00;
+- 7% de desconto: produtos de R$ 1.001,00 a R$ 2.500,00;
+- 10% de desconto: produtos acima de R$ 2.500,00.
+
+### Condições de Pagamento
+
+- **Formas aceitas:** Pix, cartão de crédito e boleto.
+- **Forma não aceita:** cartão de débito.
+- **Parcelamento:** permitido somente no cartão de crédito, em até 12 vezes.
+- **Taxas do parcelamento:** os juros e encargos cobrados pela operadora da maquininha, quando aplicáveis, são de responsabilidade do cliente.
+- **Confirmação:** venda só é finalizada após confirmação do pagamento.
 
 ## 10. Fluxogramas
 

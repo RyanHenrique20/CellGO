@@ -893,7 +893,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 ## 10. Fluxogramas
 
-## Fluxo de Venda
+### Fluxo de Venda
 
 ```mermaid
 flowchart TD
@@ -926,7 +926,7 @@ flowchart TD
 ```
 
 
-## Fluxo de Pós-venda
+### Fluxo de Pós-venda
 
 ```mermaid
 flowchart TD

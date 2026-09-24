@@ -845,8 +845,6 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 ### RN-24 — Perfis de Acesso e Autorizações
 
-**Módulo:** Histórico
-
 **Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (aging e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio (ver Seção 1.1): Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
 
 **Regras:**

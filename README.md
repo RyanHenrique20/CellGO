@@ -151,8 +151,40 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 ## 5. Processos de Negócios
 
-Cliente ⭢ Login/Cadastro ⭢ Seleção de aparelho ⭢ Estoque ⭢ Método de pagamento ⭢ Emissão de nota fiscal ⭢ Envio do aparelho ⭢ Entrega ao destinatário ⭢ Pós-venda ⭢ Solicitação de contato ⭢ Análise ⭢ Definição do procedimento ⭢ Coleta do aparelho ⭢ Recebimento ⭢ Análise de danos ⭢ Aprovação/Recusa ⭢ Estorno/Restituição da troca ⭢ Atualização de estoque ⭢ Atualização do histórico do cliente ⭢ Encerramento do pós-venda.
+**Processos de Venda em sequência**
 
+Cliente → Login/Cadastro → Escolha do aparelho → Verificação de disponibilidade → Escolha da forma de pagamento (Pix, cartão de crédito em até 12x ou boleto) → Apresentação do valor final (desconto no Pix ou valor das parcelas) → Confirmação da compra e pagamento → Confirmação do pagamento e nova verificação de disponibilidade → Aparelho marcado como Vendido → Emissão da nota fiscal → Separação do pedido → Envio pela transportadora (Em transporte) → Rastreamento → Entrega ao cliente (Entregue)
+
+**Se o aparelho estiver indisponível na escolha:**
+
+Verificação de disponibilidade → Aparelho indisponível → Cliente é avisado → Escolha de outro aparelho
+
+**Se o pagamento não for confirmado ou o aparelho já tiver sido vendido:**
+
+Confirmação do pagamento e nova verificação de disponibilidade → Compra bloqueada → Cliente é avisado
+
+
+**Processo de Pós-venda em sequência**
+
+**Processo 1 — Cancelamento** (aparelho ainda não enviado, até 7 dias da compra):
+
+Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho não enviado → Registro do motivo → Cancelamento da nota fiscal ou emissão da nota de devolução → Estorno do valor → Avaliação do aparelho → Retorno ao estoque → Atualização do histórico do cliente → Encerramento do pós-venda
+
+**Processo 2 — Arrependimento** (até 7 dias do recebimento):
+
+Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Arrependimento → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Emissão da nota de devolução → Estorno do valor (7 a 15 dias) → Destino do aparelho (estoque, manutenção ou inativo) → Atualização do histórico do cliente → Encerramento do pós-venda
+
+**Processo 3 — Troca por defeito** (até 30 dias da compra, com aparelho equivalente disponível):
+
+Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Defeito → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Defeito confirmado, sem mau uso → Aparelho igual ou equivalente disponível → Nota de devolução do aparelho com defeito + nota do aparelho novo → Envio do aparelho novo sem custo → Destino do aparelho recebido (estoque, manutenção ou inativo) → Atualização do histórico do cliente → Encerramento do pós-venda
+
+**Processo 4 — Devolução por defeito** (sem aparelho equivalente disponível):
+
+Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Defeito → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Defeito confirmado, sem mau uso → Nenhum aparelho equivalente disponível → Emissão da nota de devolução → Estorno do valor (7 a 15 dias) → Destino do aparelho recebido (estoque, manutenção ou inativo) → Atualização do histórico do cliente → Encerramento do pós-venda
+
+**Processo 5 — Recusa por mau uso:**
+
+Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Defeito → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Mau uso identificado → Solicitação recusada → Cliente recebe o diagnóstico (sem troca e sem estorno) → Atualização do histórico do cliente → Encerramento do pós-venda
 
 
 ## 6. Requisitos Funcionais

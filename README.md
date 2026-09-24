@@ -1039,7 +1039,109 @@ flowchart TD
 
 ## 12. Atributos
 
+**Identificadores (chaves)**
 
+-Cpf_Cnpj
+-Id_Pedido
+-Imei
+-Id_Pagamento
+-Id_Funcionario
+-Chave_Acesso
+-Id_Movimentacao
+-Id_PosVenda
+-Id_Log
+-Id_Auditoria
+-Id_Imagem
+-Id_Especificacao
+-Id_Requisicao
+-Id_Venda
+-Id_Cancelamento
+-Id_Estorno
+-Id_Troca
+-Id_Devolucao
+-Id_Avaliacao
+
+**Dados de pessoas e endereço**
+
+-Nome
+-Email
+-Tipo_Pessoa
+-Tipo_Endereco
+-Logradouro
+-Numero
+-Complemento
+-Bairro
+-Cidade
+-CEP
+-Telefone(s)
+-Cargo
+
+**Pedido, item e venda**
+
+-Data_Pedido
+-Status_Pedido
+-Valor_Total
+-Quantidade
+-Preco_Unitario
+-Garantia
+-Data_Venda
+
+**Pagamento e nota fiscal**
+
+-Forma_Pagamento
+-Numero_Parcelas
+-Data_Pagamento
+-Valor
+-Comprovante
+-Data_Emissao
+-Natureza
+-Tipo
+
+**Aparelho, especificação e estoque**
+
+-Modelo
+-Marca
+-Condicao
+-Preco_Venda
+-Garantia_Meses
+-Imagens 
+-URL
+-Chave
+-Estoque_Minimo
+-Estoque_Maximo
+-Quantidade_Atual
+-Custo_Medio
+
+**Movimentação, log e auditoria**
+
+-Tipo_Movimento
+-Data_Movimentacao
+-Data_Hora
+-Acao
+-Tabela_Afetada
+-Registro_Id
+-Descricao
+
+**Pós-venda**
+
+-Tipo_Ocorrencia
+-Data_Abertura
+-Descricao 
+
+**Requisição de compra**
+-Data_Requisicao
+
+**Cancelamento, estorno, troca, devolução e avaliação**
+
+-Data_Cancelamento
+-Motivo
+-Data_Estorno
+-Data_Troca
+-Data_Devolucao
+-Descricao_Dano
+-Data_Avaliacao
+-Resultado
+-Valor_Desconto
 
 ## 13. Relacionamentos
 

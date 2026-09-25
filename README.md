@@ -1281,10 +1281,10 @@ flowchart TD
 | # | Entidade | Relação | Entidade |
 |---|---|---|---|
 | 1 | CLIENTE | **REALIZA** | PEDIDO |
-| 2 | PEDIDO | **GERA*** | PAGAMENTO |
+| 2 | PEDIDO | **GERA** | PAGAMENTO |
 | 3 | PAGAMENTO | **ORIGINA** | NOTA_FISCAL |
 | 4 | PEDIDO | **SOFRE** | CANCELAMENTO |
-| 5 | CANCELAMENTO | **EXIGE*** | NOTA_FISCAL |
+| 5 | CANCELAMENTO | **EXIGE** | NOTA_FISCAL |
 | 6 | CANCELAMENTO | **VIABILIZA** | ESTORNO |
 | 7 | NOTA_FISCAL (original) | **REFERENCIA** | NOTA_FISCAL (derivada) |
 | 8 | PEDIDO | **POSSUI** | ENTREGA |

@@ -1053,188 +1053,376 @@ flowchart TD
 
 | Entidade | Relação | Entidade |
 |---|---|---|
-| **CLIENTE** | POSSUI | **ENDEREÇO** |
-| **CLIENTE** | EFETUA | **PEDIDO** |
-| **PEDIDO** | EMITE | **NOTA FISCAL** |
-| **PEDIDO** | RECEBE | **PAGAMENTO** |
-| **PEDIDO** | CONTEM | **ITEM_PEDIDO** |
-| **PEDIDO** | SEPARA | **SEPARAÇÃO** |
-| **SEPARAÇÃO** | ENVIA | **ENTREGA** |
-| **ITEM_PEDIDO** | IDENTICA | **APARELHO** |
-| **APARELHO** | MOVIMENTA | **ESTOQUE** |
-| **ESTOQUE** | REGISTRA | **USUARIO** |
-| **USUARIO** | AUDITA | **LOG_AUDITORIA** |
+| **CLIENTE** | REALIZA | **PEDIDO** |
+| **PEDIDO** | GERA |**PAGAMENTO** |
+| **PAGAMENTO** | ORIGINA | **NOTA_FISCAL** |
+| **PEDIDO** | SOFRE | **CANCELAMENTO** |
+| **CANCELAMENTO** | EXIGE | **NOTA_FISCAL** |
+| **CANCELAMENTO** | VIABILIZA | **ESTORNO** |
+| **NOTA_FISCAL (original)** | REFERENCIA | **NOTA_FISCAL (derivada)** |
+| **PEDIDO** | POSSUI | **ENTREGA** |
+| **PEDIDO*** | CONTÉM | **ITEM_PEDIDO** |
+| **ITEM_PEDIDO** | RECEBE | **POS_VENDA** |
+| **NOTA_FISCAL** | DOCUMENTA | **POS_VENDA** |
+| **POS_VENDA** | OCASIONA | **DEVOLUCAO** |
+| **DEVOLUCAO** | RESULTA EM | **ESTORNO** |
+| **POS_VENDA** | DESENCADEIA | **TROCA** |
+| **POS_VENDA** | PASSA POR | **AVALIACAO_DANO** |
+| **ITEM_PEDIDO** | CORRESPONDE A | **APARELHO** |
+| **TROCA** | REPÕE | **APARELHO** |
+| **TROCA** | REQUER | **ENTREGA** |
+| **APARELHO** | DETÉM | **IMAGEM_APARELHO** |
+| **ESPECIFICACAO_APARELHO** | CLASSIFICA | **APARELHO** |
+| **MOVIMENTACAO** | MUDA | **APARELHO** |
+| **ESPECIFICACAO_APARELHO** | DISPARA | **REQUISICAO_COMPRA** |
+| **FUNCIONARIO** | DECIDE | **REQUISICAO_COMPRA** |
+| **FUNCIONARIO** | CADASTRA | **APARELHO** |
+| **FUNCIONARIO** | AVALIA | **AVALIACAO_DANO** |
+| **AUDITORIA** | RASTREIA | **FUNCIONARIO** |
+| **FUNCIONARIO** | AUTORIZA | **AUDITORIA** |
+| **FUNCIONARIO** | EXECUTA | **MOVIMENTACAO** |
 
 
 
 ## 12. Atributos
 
-**Identificadores (chaves)**
+### CLIENTE
+- Cpf_Cnpj (PK)
+- Nome 
+- Email
+- Tipo_Pessoa 
+- Tipo_Endereco
+- Logradouro
+- Numero
+- Complemento
+- Bairro
+- Cidade
+- CEP
+- Telefone(s) 
 
--Cpf_Cnpj
--Id_Pedido
--Imei
--Id_Pagamento
--Id_Funcionario
--Chave_Acesso
--Id_Movimentacao
--Id_PosVenda
--Id_Log
--Id_Auditoria
--Id_Imagem
--Id_Especificacao
--Id_Requisicao
--Id_Venda
--Id_Cancelamento
--Id_Estorno
--Id_Troca
--Id_Devolucao
--Id_Avaliacao
+### NOTA_FISCAL
+- Chave nota fiscal (PK)
+- Id_Pagamento (FK)
+- Código_Cancelamento (FK)
+- Id_PosVenda (FK)
+- Chave_Nota_Referencia (FK)
+- Tipo_Nota
+- Natureza
+- Status
+- Data_Emissao
 
-**Dados de pessoas e endereço**
+### PEDIDO (VENDA)
+- Id_Pedido (PK)
+- Cpf_Cnpj (FK)
+- Data_Pedido
+- Status_Pedido
+- Forma_Pagamento 
+- Numero_Parcelas 
+- Valor_Produtos
+- Percentual_Desconto_Pix
+- Valor_Desconto
+- Valor_Taxas
+- Valor_Final 
 
--Nome
--Email
--Tipo_Pessoa
--Tipo_Endereco
--Logradouro
--Numero
--Complemento
--Bairro
--Cidade
--CEP
--Telefone(s)
--Cargo
+### ESTORNO
+- Id_Estorno (PK)
+- Código_Cancelamento (FK)
+- Código_Devolucao (FK)
+- Valor
+- Forma_Restituicao
+- Dados_Bancarios 
+- Data_Abertura
+- Prazo_Limite 
+- Data_Conclusao
+- Status
 
-**Pedido, item e venda**
+### PAGAMENTO
+- Id_Pagamento (PK)
+- Id_Pedido (FK)
+- Forma_Pagamento 
+- Numero_Parcelas 
+- Data_Pagamento
+- Valor
+- Status
+- Comprovante
 
--Data_Pedido
--Status_Pedido
--Valor_Total
--Quantidade
--Preco_Unitario
--Garantia
--Data_Venda
+### CANCELAMENTO
+- Código_Cancelamento (PK)
+- Id_Pedido (FK)
+- Data_Solicitacao
+- Motivo
+- Status
 
-**Pagamento e nota fiscal**
+### ENTREGA
+- Código_Rastreio (PK)
+- Id_Pedido (FK)
+- Código_Troca (FK) 
+- Transportadora
+- Status_Entrega
+- Data_Despacho
+- Data_Entrega
+- Tipo_Envio 
+- Origem_Atualizacao 
 
--Forma_Pagamento
--Numero_Parcelas
--Data_Pagamento
--Valor
--Comprovante
--Data_Emissao
--Natureza
--Tipo
+### POS_VENDA
+- Id_PosVenda (PK)
+- Id_Pedido (FK)
+- Imei (FK)
+- Tipo_Solicitacao 
+- Data_Abertura
+- Descricao
+- Status
 
-**Aparelho, especificação e estoque**
+### ITEM_PEDIDO 
+- Id_Pedido (PK, FK)
+- Imei (PK, FK)
+- Preco_Unitario
+- Data_Inicio_Garantia
+- Data_Fim_Garantia_Loja
+- Data_Fim_Garantia_Fabricante
 
--Modelo
--Marca
--Condicao
--Preco_Venda
--Garantia_Meses
--Imagens 
--URL
--Chave
--Estoque_Minimo
--Estoque_Maximo
--Quantidade_Atual
--Custo_Medio
+### DEVOLUCAO
+- Código_Devolucao (PK)
+- Id_PosVenda (FK)
+- Tipo_Devolucao 
+- Data_Devolucao
+- Motivo
+- Status
 
-**Movimentação, log e auditoria**
+### APARELHO
+- Imei (PK)
+- Id_Especificacao (FK)
+- Código_Funcionario (FK) 
+- Condicao 
+- Preco_Venda
+- Custo_Aquisicao
+- Status
+- Data_Entrada
+- Data_Disponivel
+- Elegivel_Desconto_Pix
 
--Tipo_Movimento
--Data_Movimentacao
--Data_Hora
--Acao
--Tabela_Afetada
--Registro_Id
--Descricao
+### AVALIACAO_DANO
+- Código_Avaliacao (PK)
+- Id_PosVenda (FK)
+- Código_Funcionario (FK)
+- Classificacao_Dano
+- Descricao_Dano
+- Cobertura_Garantia 
+- Destino_Aparelho
+- Data_Avaliacao
 
-**Pós-venda**
+### TROCA
+- Código_Troca (PK)
+- Id_PosVenda (FK)
+- Imei_Reposicao (FK)
+- Data_Troca
+- Status
 
--Tipo_Ocorrencia
--Data_Abertura
--Descricao 
+### IMAGEM_APARELHO
+- Id_Imagem (PK)
+- Imei (FK)
+- URL
 
-**Requisição de compra**
--Data_Requisicao
+### REQUISICAO_COMPRA
+- Id_Requisicao (PK)
+- Id_Especificacao (FK)
+- Código_Funcionario (FK) 
+- Qtd_Atual_Estoque
+- Estoque_Minimo
+- Qtd_Sugerida
+- Parecer_Financeiro
+- Data_Abertura
+- Data_Decisao
+- Motivo_Recusa
+- Status
 
-**Cancelamento, estorno, troca, devolução e avaliação**
+### AUDITORIA
+- Id_Auditoria (PK)
+- Código_Funcionario (FK)
+- Key_Autorizador (FK)
+- Acao
+- Tabela_Afetada
+- Registro_Id
+- Valor_Anterior
+- Valor_Novo
+- Data_Hora
+- Descricao
 
--Data_Cancelamento
--Motivo
--Data_Estorno
--Data_Troca
--Data_Devolucao
--Descricao_Dano
--Data_Avaliacao
--Resultado
--Valor_Desconto
+### ESPECIFICACAO_APARELHO
+- Id_Especificacao (PK)
+- Modelo
+- Marca
+- Cor
+- Capacidade
+- Estoque_Minimo
+- Limite_Dias_Atencao
+- Limite_Dias_Critico
+
+### MOVIMENTACAO
+- Número_Movimentacao (PK)
+- Imei (FK)
+- Código_Funcionario (FK)
+- Tipo_Movimento
+- Status_Anterior
+- Status_Novo
+- Data_Hora
+
+### FUNCIONARIO
+- Código_Funcionario (PK)
+- Nome
+- Cargo
+- Login
+- Perfil_Acesso
+- Nivel_Acesso 
+- Ativo
 
 ## 13. Relacionamentos
 
 | # | Entidade | Relação | Entidade |
 |---|---|---|---|
-| 1 | CLIENTE | **POSSUI** | ENDEREÇO |
-| 2 | CLIENTE | **EFETUA** | PEDIDO |
-| 3 | PEDIDO | **EMITE** | NOTA FISCAL |
-| 4 | PEDIDO | **RECEBE** | PAGAMENTO |
-| 5 | PEDIDO | **CONTEM** | ITEM_PEDIDO |
-| 6 | PEDIDO | **SEPARA** | SEPARAÇÃO |
-| 7 | SEPARAÇÃO | **ENVIA** | ENTREGA |
-| 8 | ITEM_PEDIDO | **IDENTICA** | APARELHO |
-| 9 | APARELHO | **MOVIMENTA** | ESTOQUE |
-| 10 | ESTOQUE | **REGISTRA** | USUARIO |
-| 11 | USUARIO | **AUDITA** | LOG_AUDITORIA |
+| 1 | CLIENTE | **REALIZA** | PEDIDO |
+| 2 | PEDIDO | **GERA*** | PAGAMENTO |
+| 3 | PAGAMENTO | **ORIGINA** | NOTA_FISCAL |
+| 4 | PEDIDO | **SOFRE** | CANCELAMENTO |
+| 5 | CANCELAMENTO | **EXIGE*** | NOTA_FISCAL |
+| 6 | CANCELAMENTO | **VIABILIZA** | ESTORNO |
+| 7 | NOTA_FISCAL (original) | **REFERENCIA** | NOTA_FISCAL (derivada) |
+| 8 | PEDIDO | **POSSUI** | ENTREGA |
+| 9 | PEDIDO | **CONTÉM** | ITEM_PEDIDO |
+| 10 | ITEM_PEDIDO | **RECEBE** | POS_VENDA |
+| 11 | NOTA_FISCAL | **DOCUMENTA** | POS_VENDA |
+| 12 | POS_VENDA | **OCASIONA** | DEVOLUCAO |
+| 13 | DEVOLUCAO | **RESULTA EM** | ESTORNO |
+| 14 | POS_VENDA | **DESENCADEIA** | TROCA |
+| 15 | POS_VENDA | **PASSA POR** | AVALIACAO_DANO |
+| 16 | ITEM_PEDIDO | **CORRESPONDE A** | APARELHO |
+| 17 | TROCA | **REPÕE** | APARELHO |
+| 18 | TROCA | **REQUER** | ENTREGA |
+| 19 | APARELHO | **DETÉM** | IMAGEM_APARELHO |
+| 20 | ESPECIFICACAO_APARELHO | **CLASSIFICA** | APARELHO |
+| 21 | MOVIMENTACAO | **MUDA** | APARELHO |
+| 22 | ESPECIFICACAO_APARELHO | **DISPARA** | REQUISICAO_COMPRA |
+| 23 | FUNCIONARIO | **DECIDE** | REQUISICAO_COMPRA |
+| 24 | FUNCIONARIO | **CADASTRA** | APARELHO |
+| 25 | FUNCIONARIO | **AVALIA** | AVALIACAO_DANO |
+| 26 | AUDITORIA | **RASTREIA** | FUNCIONARIO |
+| 27 | FUNCIONARIO | **AUTORIZA** | AUDITORIA |
+| 28 | FUNCIONARIO | **EXECUTA** | MOVIMENTACAO |
 
 
 ## 14. Cardinalidades
 
-### 1. Cliente – Endereço
-- **Descrição:** 1 Cliente **possui** N endereços
-- **Notação:** CLIENTE (1,N) — possui — ENDEREÇO (1,1)
-
-### 2. Cliente – Pedido
-- **Descrição:** 1 Cliente **efetua** N pedidos
-- **Notação:** CLIENTE (1,N) — efetua — PEDIDO (1,1)
-
-### 3. Pedido – Pagamento
-- **Descrição:** 1 Pedido **recebe** 1 pagamento
-- **Notação:** PEDIDO (1,1) — recebe — PAGAMENTO (1,1)
-
-### 4. Pedido – Nota Fiscal
-- **Descrição:** 1 Pedido **emite** 1 nota fiscal
-- **Notação:** PEDIDO (1,1) — emite — NOTA FISCAL (1,1)
-
-### 5. Pedido – Separação
-- **Descrição:** 1 Pedido **direcionado** 1 separação
-- **Notação:** PEDIDO (1,1) — direcionado — SEPARAÇÃO (1,1)
-
-### 6. Separação – Entrega
-- **Descrição:** 1 Separação **envia** 1 entrega
-- **Notação:** SEPARAÇÃO (1,1) — envia — ENTREGA (1,1)
-
-### 7. Pedido – Item do Pedido
-- **Descrição:** 1 Pedido **contém** N itens pedido
-- **Notação:** PEDIDO (1,N) — contém — ITEM_PEDIDO (1,1)
-
-### 8. Item do Pedido – Aparelho
-- **Descrição:** N itens pedido **identifica** 1 aparelho
-- **Notação:** ITEM_PEDIDO (1,1) — identifica — APARELHO (1,1)
-
-### 9. Aparelho – Estoque
-- **Descrição:** 1 aparelho **movimenta** N estoque
-- **Notação:** APARELHO (1,N) — movimenta — ESTOQUE (1,1)
-
-### 10. Estoque – Usuário
-- **Descrição:** N estoque **registra** 1 usuário
-- **Notação:** ESTOQUE (N,1) — registra — USUÁRIO (1,N)
-
-### 11. Usuário – Log de Auditoria
-- **Descrição:** 1 usuário **audita** N log auditoria
-- **Notação:** USUÁRIO (1,N) — audita — LOG_AUDITORIA (1,1)
+**1. Cliente – Pedido**
+Descrição: 1 CLIENTE realiza N PEDIDOs (cada pedido pertence a exatamente 1 cliente)
+Notação: CLIENTE (1,1) — realiza — PEDIDO (0,N)
+ 
+**2. Pedido – Pagamento**
+Descrição: 1 PEDIDO gera N PAGAMENTOs
+Notação: PEDIDO (1,1) — gera — PAGAMENTO (0,N)
+ 
+**3. Pagamento – Nota Fiscal**
+Descrição: 1 PAGAMENTO origina no máximo 1 NOTA_FISCAL, e cada NOTA_FISCAL desse tipo vem de no máximo 1 PAGAMENTO
+Notação: PAGAMENTO (0,1) — origina — NOTA_FISCAL (0,1)
+ 
+**4. Pedido – Cancelamento**
+Descrição: 1 PEDIDO sofre no máximo 1 CANCELAMENTO
+Notação: PEDIDO (1,1) — sofre — CANCELAMENTO (0,1)
+ 
+**5. Cancelamento – Nota Fiscal**
+Descrição: 1 CANCELAMENTO exige no máximo 1 NOTA_FISCAL
+Notação: CANCELAMENTO (0,1) — exige — NOTA_FISCAL (0,1)
+ 
+**6. Cancelamento – Estorno**
+Descrição: 1 CANCELAMENTO viabiliza no máximo 1 ESTORNO
+Notação: CANCELAMENTO (0,1) — viabiliza — ESTORNO (0,1)
+ 
+**7. Nota Fiscal (original) – Nota Fiscal (derivada)**
+Descrição: 1 NOTA_FISCAL original referencia N NOTA_FISCAL derivadas (autorrelacionamento)
+Notação: NOTA_FISCAL original (1,1) — referencia — NOTA_FISCAL derivada (0,N)
+ 
+**8. Pedido – Entrega**
+Descrição: 1 PEDIDO possui N ENTREGAs
+Notação: PEDIDO (1,1) — possui — ENTREGA (0,N)
+ 
+**9. Pedido – Item do Pedido**
+Descrição: 1 PEDIDO contém N ITEM_PEDIDO (mínimo 1 item por pedido)
+Notação: PEDIDO (1,1) — contém — ITEM_PEDIDO (1,N)
+ 
+**10. Item do Pedido – Pós-Venda**
+Descrição: 1 ITEM_PEDIDO recebe N solicitações de POS_VENDA
+Notação: ITEM_PEDIDO (1,1) — recebe — POS_VENDA (0,N)
+ 
+**11. Nota Fiscal – Pós-Venda**
+Descrição: N NOTA_FISCAL documentam no máximo 1 POS_VENDA cada
+Notação: NOTA_FISCAL (0,N) — documenta — POS_VENDA (0,1)
+ 
+**12. Pós-Venda – Devolução**
+Descrição: 1 POS_VENDA ocasiona no máximo 1 DEVOLUCAO
+Notação: POS_VENDA (1,1) — ocasiona — DEVOLUCAO (0,1)
+ 
+**13. Devolução – Estorno**
+Descrição: 1 DEVOLUCAO resulta em no máximo 1 ESTORNO
+Notação: DEVOLUCAO (0,1) — resulta em — ESTORNO (0,1)
+ 
+**14. Pós-Venda – Troca**
+Descrição: 1 POS_VENDA desencadeia no máximo 1 TROCA
+Notação: POS_VENDA (1,1) — desencadeia — TROCA (0,1)
+ 
+**15. Pós-Venda – Avaliação de Dano**
+Descrição: 1 POS_VENDA passa por no máximo 1 AVALIACAO_DANO
+Notação: POS_VENDA (1,1) — passa por — AVALIACAO_DANO (0,1)
+ 
+**16. Item do Pedido – Aparelho**
+Descrição: N ITEM_PEDIDO correspondem a exatamente 1 APARELHO cada
+Notação: ITEM_PEDIDO (0,N) — corresponde a — APARELHO (1,1)
+ 
+**17. Troca – Aparelho**
+Descrição: N TROCA repõem exatamente 1 APARELHO cada (aparelho de reposição)
+Notação: TROCA (0,N) — repõe — APARELHO (1,1)
+ 
+**18. Troca – Entrega**
+Descrição: 1 TROCA requer no máximo 1 ENTREGA
+Notação: TROCA (0,1) — requer — ENTREGA (0,1)
+ 
+**19. Aparelho – Imagem do Aparelho**
+Descrição: 1 APARELHO detém N IMAGEM_APARELHO
+Notação: APARELHO (1,1) — detém — IMAGEM_APARELHO (0,N)
+ 
+**20. Especificação do Aparelho – Aparelho**
+Descrição: 1 ESPECIFICACAO_APARELHO classifica N APARELHOs
+Notação: ESPECIFICACAO_APARELHO (1,1) — classifica — APARELHO (0,N)
+ 
+**21. Movimentação – Aparelho**
+Descrição: N MOVIMENTACAO mudam exatamente 1 APARELHO cada (mínimo 1 movimentação por aparelho)
+Notação: MOVIMENTACAO (1,N) — muda — APARELHO (1,1)
+ 
+**22. Especificação do Aparelho – Requisição de Compra**
+Descrição: 1 ESPECIFICACAO_APARELHO dispara N REQUISICAO_COMPRA
+Notação: ESPECIFICACAO_APARELHO (1,1) — dispara — REQUISICAO_COMPRA (0,N)
+ 
+**23. Funcionário – Requisição de Compra**
+Descrição: 1 FUNCIONARIO (aprovador) decide N REQUISICAO_COMPRA
+Notação: FUNCIONARIO (0,1) — decide — REQUISICAO_COMPRA (0,N)
+ 
+**24. Funcionário – Aparelho**
+Descrição: 1 FUNCIONARIO cadastra N APARELHOs
+Notação: FUNCIONARIO (1,1) — cadastra — APARELHO (0,N)
+ 
+**25. Funcionário – Avaliação de Dano**
+Descrição: 1 FUNCIONARIO avalia N AVALIACAO_DANO
+Notação: FUNCIONARIO (1,1) — avalia — AVALIACAO_DANO (0,N)
+ 
+**26. Auditoria – Funcionário**
+Descrição: N AUDITORIA rastreiam no máximo 1 FUNCIONARIO cada
+Notação: AUDITORIA (0,N) — rastreia — FUNCIONARIO (0,1)
+ 
+**27. Funcionário – Auditoria**
+Descrição: 1 FUNCIONARIO (autorizador) autoriza N AUDITORIA
+Notação: FUNCIONARIO (0,1) — autoriza — AUDITORIA (0,N)
+ 
+**28. Funcionário – Movimentação**
+Descrição: 1 FUNCIONARIO executa N MOVIMENTACAO
+Notação: FUNCIONARIO (0,1) — executa — MOVIMENTACAO (0,N)
 
 
 ## 15. Dicionário de Dados Conceitual

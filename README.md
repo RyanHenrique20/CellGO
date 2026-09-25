@@ -1313,116 +1313,116 @@ flowchart TD
 ## 14. Cardinalidades
 
 **1. Cliente – Pedido**
-Descrição: 1 CLIENTE realiza N PEDIDOs (cada pedido pertence a exatamente 1 cliente)
-Notação: CLIENTE (1,1) — realiza — PEDIDO (0,N)
+ - Descrição: 1 CLIENTE realiza N PEDIDOs (cada pedido pertence a exatamente 1 cliente)
+ - Notação: CLIENTE (1,1) — realiza — PEDIDO (0,N)
  
 **2. Pedido – Pagamento**
-Descrição: 1 PEDIDO gera N PAGAMENTOs
-Notação: PEDIDO (1,1) — gera — PAGAMENTO (0,N)
+ - Descrição: 1 PEDIDO gera N PAGAMENTOs
+ - Notação: PEDIDO (1,1) — gera — PAGAMENTO (0,N)
  
 **3. Pagamento – Nota Fiscal**
-Descrição: 1 PAGAMENTO origina no máximo 1 NOTA_FISCAL, e cada NOTA_FISCAL desse tipo vem de no máximo 1 PAGAMENTO
-Notação: PAGAMENTO (0,1) — origina — NOTA_FISCAL (0,1)
+ - Descrição: 1 PAGAMENTO origina no máximo 1 NOTA_FISCAL, e cada NOTA_FISCAL desse tipo vem de no máximo 1 PAGAMENTO
+ - Notação: PAGAMENTO (0,1) — origina — NOTA_FISCAL (0,1)
  
 **4. Pedido – Cancelamento**
-Descrição: 1 PEDIDO sofre no máximo 1 CANCELAMENTO
-Notação: PEDIDO (1,1) — sofre — CANCELAMENTO (0,1)
+ - Descrição: 1 PEDIDO sofre no máximo 1 CANCELAMENTO
+ - Notação: PEDIDO (1,1) — sofre — CANCELAMENTO (0,1)
  
 **5. Cancelamento – Nota Fiscal**
-Descrição: 1 CANCELAMENTO exige no máximo 1 NOTA_FISCAL
-Notação: CANCELAMENTO (0,1) — exige — NOTA_FISCAL (0,1)
+ - Descrição: 1 CANCELAMENTO exige no máximo 1 NOTA_FISCAL
+ - Notação: CANCELAMENTO (0,1) — exige — NOTA_FISCAL (0,1)
  
 **6. Cancelamento – Estorno**
-Descrição: 1 CANCELAMENTO viabiliza no máximo 1 ESTORNO
-Notação: CANCELAMENTO (0,1) — viabiliza — ESTORNO (0,1)
+ - Descrição: 1 CANCELAMENTO viabiliza no máximo 1 ESTORNO
+ - Notação: CANCELAMENTO (0,1) — viabiliza — ESTORNO (0,1)
  
 **7. Nota Fiscal (original) – Nota Fiscal (derivada)**
-Descrição: 1 NOTA_FISCAL original referencia N NOTA_FISCAL derivadas (autorrelacionamento)
-Notação: NOTA_FISCAL original (1,1) — referencia — NOTA_FISCAL derivada (0,N)
+ - Descrição: 1 NOTA_FISCAL original referencia N NOTA_FISCAL derivadas (autorrelacionamento)
+ - Notação: NOTA_FISCAL original (1,1) — referencia — NOTA_FISCAL derivada (0,N)
  
 **8. Pedido – Entrega**
-Descrição: 1 PEDIDO possui N ENTREGAs
-Notação: PEDIDO (1,1) — possui — ENTREGA (0,N)
+ - Descrição: 1 PEDIDO possui N ENTREGAs
+ - Notação: PEDIDO (1,1) — possui — ENTREGA (0,N)
  
 **9. Pedido – Item do Pedido**
-Descrição: 1 PEDIDO contém N ITEM_PEDIDO (mínimo 1 item por pedido)
-Notação: PEDIDO (1,1) — contém — ITEM_PEDIDO (1,N)
+ - Descrição: 1 PEDIDO contém N ITEM_PEDIDO (mínimo 1 item por pedido)
+ - Notação: PEDIDO (1,1) — contém — ITEM_PEDIDO (1,N)
  
 **10. Item do Pedido – Pós-Venda**
-Descrição: 1 ITEM_PEDIDO recebe N solicitações de POS_VENDA
-Notação: ITEM_PEDIDO (1,1) — recebe — POS_VENDA (0,N)
+ - Descrição: 1 ITEM_PEDIDO recebe N solicitações de POS_VENDA
+ - Notação: ITEM_PEDIDO (1,1) — recebe — POS_VENDA (0,N)
  
 **11. Nota Fiscal – Pós-Venda**
-Descrição: N NOTA_FISCAL documentam no máximo 1 POS_VENDA cada
-Notação: NOTA_FISCAL (0,N) — documenta — POS_VENDA (0,1)
+ - Descrição: N NOTA_FISCAL documentam no máximo 1 POS_VENDA cada
+ - Notação: NOTA_FISCAL (0,N) — documenta — POS_VENDA (0,1)
  
 **12. Pós-Venda – Devolução**
-Descrição: 1 POS_VENDA ocasiona no máximo 1 DEVOLUCAO
-Notação: POS_VENDA (1,1) — ocasiona — DEVOLUCAO (0,1)
+ - Descrição: 1 POS_VENDA ocasiona no máximo 1 DEVOLUCAO
+ - Notação: POS_VENDA (1,1) — ocasiona — DEVOLUCAO (0,1)
  
 **13. Devolução – Estorno**
-Descrição: 1 DEVOLUCAO resulta em no máximo 1 ESTORNO
-Notação: DEVOLUCAO (0,1) — resulta em — ESTORNO (0,1)
+ - Descrição: 1 DEVOLUCAO resulta em no máximo 1 ESTORNO
+ - Notação: DEVOLUCAO (0,1) — resulta em — ESTORNO (0,1)
  
 **14. Pós-Venda – Troca**
-Descrição: 1 POS_VENDA desencadeia no máximo 1 TROCA
-Notação: POS_VENDA (1,1) — desencadeia — TROCA (0,1)
+ - Descrição: 1 POS_VENDA desencadeia no máximo 1 TROCA
+ - Notação: POS_VENDA (1,1) — desencadeia — TROCA (0,1)
  
 **15. Pós-Venda – Avaliação de Dano**
-Descrição: 1 POS_VENDA passa por no máximo 1 AVALIACAO_DANO
-Notação: POS_VENDA (1,1) — passa por — AVALIACAO_DANO (0,1)
+ - Descrição: 1 POS_VENDA passa por no máximo 1 AVALIACAO_DANO
+ - Notação: POS_VENDA (1,1) — passa por — AVALIACAO_DANO (0,1)
  
 **16. Item do Pedido – Aparelho**
-Descrição: N ITEM_PEDIDO correspondem a exatamente 1 APARELHO cada
-Notação: ITEM_PEDIDO (0,N) — corresponde a — APARELHO (1,1)
+ - Descrição: N ITEM_PEDIDO correspondem a exatamente 1 APARELHO cada
+ - Notação: ITEM_PEDIDO (0,N) — corresponde a — APARELHO (1,1)
  
 **17. Troca – Aparelho**
-Descrição: N TROCA repõem exatamente 1 APARELHO cada (aparelho de reposição)
-Notação: TROCA (0,N) — repõe — APARELHO (1,1)
+ - Descrição: N TROCA repõem exatamente 1 APARELHO cada (aparelho de reposição)
+ - Notação: TROCA (0,N) — repõe — APARELHO (1,1)
  
 **18. Troca – Entrega**
-Descrição: 1 TROCA requer no máximo 1 ENTREGA
-Notação: TROCA (0,1) — requer — ENTREGA (0,1)
+ - Descrição: 1 TROCA requer no máximo 1 ENTREGA
+ - Notação: TROCA (0,1) — requer — ENTREGA (0,1)
  
 **19. Aparelho – Imagem do Aparelho**
-Descrição: 1 APARELHO detém N IMAGEM_APARELHO
-Notação: APARELHO (1,1) — detém — IMAGEM_APARELHO (0,N)
+ - Descrição: 1 APARELHO detém N IMAGEM_APARELHO
+ - Notação: APARELHO (1,1) — detém — IMAGEM_APARELHO (0,N)
  
 **20. Especificação do Aparelho – Aparelho**
-Descrição: 1 ESPECIFICACAO_APARELHO classifica N APARELHOs
-Notação: ESPECIFICACAO_APARELHO (1,1) — classifica — APARELHO (0,N)
+ - Descrição: 1 ESPECIFICACAO_APARELHO classifica N APARELHOs
+ - Notação: ESPECIFICACAO_APARELHO (1,1) — classifica — APARELHO (0,N)
  
 **21. Movimentação – Aparelho**
-Descrição: N MOVIMENTACAO mudam exatamente 1 APARELHO cada (mínimo 1 movimentação por aparelho)
-Notação: MOVIMENTACAO (1,N) — muda — APARELHO (1,1)
+ - Descrição: N MOVIMENTACAO mudam exatamente 1 APARELHO cada (mínimo 1 movimentação por aparelho)
+ - Notação: MOVIMENTACAO (1,N) — muda — APARELHO (1,1)
  
 **22. Especificação do Aparelho – Requisição de Compra**
-Descrição: 1 ESPECIFICACAO_APARELHO dispara N REQUISICAO_COMPRA
-Notação: ESPECIFICACAO_APARELHO (1,1) — dispara — REQUISICAO_COMPRA (0,N)
+ - Descrição: 1 ESPECIFICACAO_APARELHO dispara N REQUISICAO_COMPRA
+ - Notação: ESPECIFICACAO_APARELHO (1,1) — dispara — REQUISICAO_COMPRA (0,N)
  
 **23. Funcionário – Requisição de Compra**
-Descrição: 1 FUNCIONARIO (aprovador) decide N REQUISICAO_COMPRA
-Notação: FUNCIONARIO (0,1) — decide — REQUISICAO_COMPRA (0,N)
+ - Descrição: 1 FUNCIONARIO (aprovador) decide N REQUISICAO_COMPRA
+ - Notação: FUNCIONARIO (0,1) — decide — REQUISICAO_COMPRA (0,N)
  
 **24. Funcionário – Aparelho**
-Descrição: 1 FUNCIONARIO cadastra N APARELHOs
-Notação: FUNCIONARIO (1,1) — cadastra — APARELHO (0,N)
+ - Descrição: 1 FUNCIONARIO cadastra N APARELHOs
+ - Notação: FUNCIONARIO (1,1) — cadastra — APARELHO (0,N)
  
 **25. Funcionário – Avaliação de Dano**
-Descrição: 1 FUNCIONARIO avalia N AVALIACAO_DANO
-Notação: FUNCIONARIO (1,1) — avalia — AVALIACAO_DANO (0,N)
+ - Descrição: 1 FUNCIONARIO avalia N AVALIACAO_DANO
+ - Notação: FUNCIONARIO (1,1) — avalia — AVALIACAO_DANO (0,N)
  
 **26. Auditoria – Funcionário**
-Descrição: N AUDITORIA rastreiam no máximo 1 FUNCIONARIO cada
-Notação: AUDITORIA (0,N) — rastreia — FUNCIONARIO (0,1)
+ - Descrição: N AUDITORIA rastreiam no máximo 1 FUNCIONARIO cada
+ - Notação: AUDITORIA (0,N) — rastreia — FUNCIONARIO (0,1)
  
 **27. Funcionário – Auditoria**
-Descrição: 1 FUNCIONARIO (autorizador) autoriza N AUDITORIA
-Notação: FUNCIONARIO (0,1) — autoriza — AUDITORIA (0,N)
+ - Descrição: 1 FUNCIONARIO (autorizador) autoriza N AUDITORIA
+ - Notação: FUNCIONARIO (0,1) — autoriza — AUDITORIA (0,N)
  
 **28. Funcionário – Movimentação**
-Descrição: 1 FUNCIONARIO executa N MOVIMENTACAO
-Notação: FUNCIONARIO (0,1) — executa — MOVIMENTACAO (0,N)
+ - Descrição: 1 FUNCIONARIO executa N MOVIMENTACAO
+ - Notação: FUNCIONARIO (0,1) — executa — MOVIMENTACAO (0,N)
 
 
 ## 15. Dicionário de Dados Conceitual

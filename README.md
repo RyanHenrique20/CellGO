@@ -1431,6 +1431,132 @@ flowchart TD
 
 ## 16. DER
 
+```mermaid
+flowchart TD
+    classDef entity fill:#e6f1fb,stroke:#185fa5,stroke-width:1px;
+    classDef weak fill:#e6f1fb,stroke:#185fa5,stroke-width:3px;
+    classDef rel fill:#ffffff,stroke:#555555,stroke-width:1px;
+    classDef relid fill:#ffffff,stroke:#555555,stroke-width:3px;
+ 
+    CLIENTE[CLIENTE]
+    PEDIDO[PEDIDO]
+    ENTREGA[ENTREGA]
+    PAGAMENTO[PAGAMENTO]
+    NOTA_FISCAL[NOTA_FISCAL]
+    CANCELAMENTO[CANCELAMENTO]
+    ESTORNO[ESTORNO]
+    ITEM_PEDIDO[ITEM_PEDIDO]:::weak
+    POS_VENDA[POS_VENDA]
+    DEVOLUCAO[DEVOLUCAO]
+    TROCA[TROCA]
+    AVALIACAO_DANO[AVALIACAO_DANO]
+    APARELHO[APARELHO]
+    IMAGEM_APARELHO[IMAGEM_APARELHO]
+    ESPECIFICACAO_APARELHO[ESPECIFICACAO_APARELHO]
+    REQUISICAO_COMPRA[REQUISICAO_COMPRA]
+    MOVIMENTACAO[MOVIMENTACAO]
+    FUNCIONARIO[FUNCIONARIO]
+    AUDITORIA[AUDITORIA]
+ 
+    class CLIENTE,PEDIDO,ENTREGA,PAGAMENTO,NOTA_FISCAL,CANCELAMENTO,ESTORNO,POS_VENDA,DEVOLUCAO,TROCA,AVALIACAO_DANO,APARELHO,IMAGEM_APARELHO,ESPECIFICACAO_APARELHO,REQUISICAO_COMPRA,MOVIMENTACAO,FUNCIONARIO,AUDITORIA entity
+ 
+    CLIENTE -->|1| R1{"realiza"}
+    R1 -->|0..N| PEDIDO
+ 
+    PEDIDO -->|1| R2{"gera"}
+    R2 -->|0..N| PAGAMENTO
+ 
+    PAGAMENTO -->|0..1| R3{"origina"}
+    R3 -->|0..1| NOTA_FISCAL
+ 
+    PEDIDO -->|1| R4{"sofre"}
+    R4 -->|0..1| CANCELAMENTO
+ 
+    CANCELAMENTO -->|0..1| R5{"exige"}
+    R5 -->|0..1| NOTA_FISCAL
+ 
+    CANCELAMENTO -->|0..1| R6{"viabiliza"}
+    R6 -->|0..1| ESTORNO
+ 
+    NOTA_FISCAL -->|1| R7{"referencia"}
+    R7 -->|0..N| NOTA_FISCAL
+ 
+    PEDIDO -->|1| R8{"possui"}
+    R8 -->|0..N| ENTREGA
+ 
+    PEDIDO -->|1| R9{"contem"}
+    class R9 relid
+    R9 -->|1..N| ITEM_PEDIDO
+ 
+    ITEM_PEDIDO -->|1| R10{"recebe"}
+    R10 -->|0..N| POS_VENDA
+ 
+    NOTA_FISCAL -->|0..N| R11{"documenta"}
+    R11 -->|0..1| POS_VENDA
+ 
+    POS_VENDA -->|1| R12{"ocasiona"}
+    R12 -->|0..1| DEVOLUCAO
+ 
+    DEVOLUCAO -->|0..1| R13{"resulta em"}
+    R13 -->|0..1| ESTORNO
+ 
+    POS_VENDA -->|1| R14{"desencadeia"}
+    R14 -->|0..1| TROCA
+ 
+    POS_VENDA -->|1| R15{"passa por"}
+    R15 -->|0..1| AVALIACAO_DANO
+ 
+    ITEM_PEDIDO -->|0..N| R16{"corresponde a"}
+    R16 -->|1| APARELHO
+ 
+    TROCA -->|0..N| R17{"repoe"}
+    R17 -->|1| APARELHO
+ 
+    TROCA -->|0..1| R18{"requer"}
+    R18 -->|0..1| ENTREGA
+ 
+    APARELHO -->|1| R19{"detem"}
+    R19 -->|0..N| IMAGEM_APARELHO
+ 
+    ESPECIFICACAO_APARELHO -->|1| R20{"classifica"}
+    R20 -->|0..N| APARELHO
+ 
+    MOVIMENTACAO -->|1..N| R21{"muda"}
+    R21 -->|1| APARELHO
+ 
+    ESPECIFICACAO_APARELHO -->|1| R22{"dispara"}
+    R22 -->|0..N| REQUISICAO_COMPRA
+ 
+    FUNCIONARIO -->|0..1| R23{"decide"}
+    R23 -->|0..N| REQUISICAO_COMPRA
+ 
+    FUNCIONARIO -->|1| R24{"cadastra"}
+    R24 -->|0..N| APARELHO
+ 
+    FUNCIONARIO -->|1| R25{"avalia"}
+    R25 -->|0..N| AVALIACAO_DANO
+ 
+    AUDITORIA -->|0..N| R26{"rastreia"}
+    R26 -->|0..1| FUNCIONARIO
+ 
+    FUNCIONARIO -->|0..1| R27{"autoriza"}
+    R27 -->|0..N| AUDITORIA
+ 
+    FUNCIONARIO -->|0..1| R28{"executa"}
+    R28 -->|0..N| MOVIMENTACAO
+ 
+    class R1,R2,R3,R4,R5,R6,R7,R8,R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28 rel
+```
+ 
+## Legenda
+ 
+| Forma | Significado |
+|---|---|
+| Retângulo | Entidade |
+| Retângulo de borda mais grossa | Entidade fraca (`ITEM_PEDIDO`) |
+| Losango | Relacionamento |
+| Losango de borda mais grossa | Relacionamento identificador (`contém`, entre `PEDIDO` e `ITEM_PEDIDO`) |
+| Número na linha | Cardinalidade (`1`, `0..1`, `0..N`, `1..N`) |
 
 
 ## 17. Justificativas Técnicas

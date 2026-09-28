@@ -24,7 +24,7 @@ CellGo Comércio de Celulares Ltda.
 E-commerce atuando com aparelhos novos e seminovos.
 
 **O que ela vende ou oferece?**  
-Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos revisados e certificados, com garantia própria da loja; acessórios como capinhas, películas, fones e carregadores; pagamento parcelado em cartão de crédito; e vendas por canal online, além do ponto físico.
+Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos, revisados e certificados, com garantia própria da loja; pagamento parcelado no cartão de crédito; e vendas somente pelo canal online.
 
 **Quem são seus principais clientes?**  
 Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos - tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
@@ -1903,6 +1903,107 @@ flowchart TD
 
 ## 17. Justificativas Técnicas
 
+### Controle de estoque por unidade (IMEI), e não por quantidade
+
+**Decisão:** A entidade APARELHO é controlada individualmente pelo Imei (PK), e não existe nenhuma entidade de "saldo de estoque" por modelo.
+
+**Justificativa:** A RN-03 e o RF-03 exigem que cada aparelho seja acompanhado individualmente, com seu próprio histórico, status, garantia e tempo em estoque. Isso não é possível quando o estoque é controlado apenas pela quantidade de cada modelo. Com um controle por quantidade, a empresa não saberia, por exemplo, qual unidade está parada há mais de 60 dias (RN-05) nem conseguiria ligar a garantia a um aparelho específico (RN-17). A contagem por modelo, usada no ponto de pedido (RN-06), é apenas uma consulta feita sobre os registros de APARELHO, e não uma tabela própria. Assim, não existem dois números de estoque diferentes que poderiam discordar entre si.
+
+### Separação entre APARELHO e ESPECIFICACAO_APARELHO
+
+**Decisão:** Modelo, Marca, Cor, Capacidade, Estoque_Minimo e os limites de dias de giro ficam em uma entidade própria, ESPECIFICACAO_APARELHO, separada da unidade física (APARELHO).
+
+**Justificativa:** Esses dados valem para todos os aparelhos de uma mesma combinação de modelo, cor e capacidade, e não para cada unidade (RN-02, RN-05 e RN-06). Se ficassem dentro de APARELHO, o mesmo estoque mínimo teria de ser repetido em cada IMEI daquele modelo. Quando a Diretoria alterasse esse valor, seria preciso atualizar vários registros, com risco de algum ficar diferente dos outros. Com a separação, basta alterar um único registro. A separação também permite que a REQUISICAO_COMPRA (RN-06) seja gerada a partir da especificação, e não de um aparelho específico. Essa organização segue as regras de normalização: cada informação fica guardada na entidade da qual ela realmente depende.
+
+### Ausência de reserva de estoque e validação no fechamento da venda
+
+**Decisão:** Não existe o status "Reservado" no ciclo de vida do APARELHO. A disponibilidade é conferida quando o cliente monta o pedido e conferida novamente no momento da confirmação do pagamento (RN-04).
+
+**Justificativa:** A proibição de reserva é uma decisão explícita do negócio (RN-03 e RN-04). Ela simplifica o modelo e evita um problema comum em e-commerce: dois clientes "segurando" o mesmo aparelho ao mesmo tempo. Para impedir que duas compras sejam concluídas para a mesma unidade, a conferência da disponibilidade, a confirmação do pagamento e a mudança do status para "Vendido" acontecem como uma única operação: ou tudo é concluído junto, ou nada é gravado. Se outro cliente já tiver comprado o aparelho, a segunda compra é bloqueada e o cliente é informado. Isso sustenta o RNF-06 (confiabilidade).
+
+### Telefone como entidade do cliente
+
+**Decisão:** O telefone deixa de ser um campo único dentro de CLIENTE e passa a ser modelado como uma entidade fraca própria, TELEFONE, ligada a CLIENTE pelo Cpf_Cnpj.
+
+**Justificativa:** A RN-01 e o RF-01 exigem telefone no cadastro, e um mesmo cliente pode ter mais de um número (celular, telefone fixo ou WhatsApp, por exemplo). Um único atributo Telefone em CLIENTE não comporta essa variação. A alternativa seria criar colunas fixas, como Telefone1 e Telefone2, o que viola a 1ª Forma Normal e limita a quantidade de números. Com a entidade TELEFONE, cada número é um registro separado: o cliente pode ter quantos contatos precisar, a estrutura não se repete, e o atendimento de pós-venda e o processo de estorno (RF-24 e RN-19) têm acesso a todos os canais de contato disponíveis, sem perda de histórico.
+
+### Imagem do aparelho como entidade separada
+
+**Decisão:** As fotos de cada aparelho ficam em uma entidade própria, IMAGEM_APARELHO (Id_Imagem, Imei, URL), e não em um atributo de APARELHO.
+
+**Justificativa:** Como a venda é feita exclusivamente pela internet, cada aparelho pode ter várias fotos (frente, verso ou o detalhe de uma marca de uso em um seminovo, por exemplo), e a quantidade varia de uma unidade para outra. Guardar as fotos em um único campo de APARELHO dificultaria incluir ou remover uma imagem sem alterar o registro inteiro. Com a entidade própria, cada foto é um registro, identificado pelo seu próprio código (Id_Imagem) e ligado ao aparelho pelo Imei. Um aparelho pode não ter nenhuma foto ou ter uma ou várias (cardinalidade 1 : 0..N). É a mesma lógica usada para o telefone do cliente: um dado que pode ter vários valores ganha uma entidade própria, ligada à entidade principal.
+
+### ITEM_PEDIDO como entidade fraca (associativa) entre PEDIDO e APARELHO
+
+**Decisão:** ITEM_PEDIDO tem chave composta (Id_Pedido, Imei) e guarda dados próprios do item, como Preco_Unitario e as datas de garantia.
+
+**Justificativa:** Um relacionamento simples entre PEDIDO e APARELHO não teria onde guardar informações que pertencem à combinação dos dois. As datas de início e fim da garantia (RN-17) e o preço cobrado naquela venda, que pode ser diferente do preço atual do aparelho, só fazem sentido para aquele aparelho dentro daquele pedido. Se ficassem em APARELHO, seriam substituídas a cada nova venda da mesma unidade (após uma devolução, por exemplo). Se ficassem em PEDIDO, não funcionariam para pedidos com mais de um aparelho. Por isso, ITEM_PEDIDO é uma entidade fraca, que depende do pedido para existir, e todo pedido tem pelo menos um item (cardinalidade 1 : 1..N).
+
+### POS_VENDA como entidade central de troca, devolução e garantia
+
+**Decisão:** Em vez de ligar TROCA, DEVOLUCAO e AVALIACAO_DANO diretamente a ITEM_PEDIDO, o modelo cria POS_VENDA como ponto único de entrada para as solicitações do cliente sobre um aparelho já vendido. O CANCELAMENTO fica fora desse fluxo e se liga diretamente ao PEDIDO.
+
+**Justificativa:** Troca por defeito (RN-14), devolução por arrependimento (RN-15), devolução por defeito (RN-16) e solicitações de garantia (RN-17) começam da mesma forma: o cliente abre uma solicitação, com data, descrição e status, sobre um aparelho específico. Depois disso, o aparelho passa por avaliação técnica (RN-18), e só então o caso segue para troca, devolução ou encerramento por mau uso. Concentrar essa abertura em POS_VENDA evita repetir os mesmos atributos em várias tabelas e permite que o histórico do cliente (RN-22) e a auditoria (RN-23) encontrem todas as solicitações em um só lugar. O cancelamento é diferente: ele vale para o pedido inteiro, só pode acontecer antes do envio (RN-13) e não passa por avaliação de dano. Por isso, fica em uma entidade própria, ligada ao PEDIDO.
+
+### DEVOLUCAO como entidade única para arrependimento e defeito
+
+**Decisão:** Uma única entidade, DEVOLUCAO, atende tanto a devolução por arrependimento (RN-15) quanto a devolução por defeito (RN-16). O tipo é indicado pelo atributo Tipo_Devolucao.
+
+**Justificativa:** Os dois tipos de devolução guardam as mesmas informações: data, motivo, status e ligação com POS_VENDA e ESTORNO. O que muda é a regra que autoriza cada uma. A devolução por arrependimento não exige defeito e deve ser pedida em até 7 dias após o recebimento. A devolução por defeito só é autorizada quando o defeito é coberto pela garantia e não há aparelho equivalente para troca. Nos dois casos, o aparelho passa por avaliação técnica (AVALIACAO_DANO) antes de voltar ao estoque. Criar duas entidades repetiria os mesmos atributos e dificultaria a consulta do histórico do cliente (RN-22), que precisa mostrar todas as devoluções juntas. A diferença entre os dois tipos fica no atributo Tipo_Devolucao e nas validações de cada regra, e não na estrutura da tabela.
+
+### NOTA_FISCAL com três origens possíveis
+
+**Decisão:** NOTA_FISCAL tem três chaves estrangeiras de origem: Id_Pagamento (nota de venda), Código_Cancelamento (nota de entrada por cancelamento fora do prazo) e Id_PosVenda (nota de entrada por devolução ou troca, e nota de saída do aparelho de reposição). Em cada nota, apenas uma delas é preenchida. O atributo Tipo_Nota indica qual é o documento: Venda/Saída, Entrada (Devolução) ou Saída (Reposição).
+
+**Justificativa:** A RN-20 define notas diferentes para cada situação. A nota de venda é emitida quando o pagamento é confirmado. No cancelamento, se o prazo legal de cancelamento direto já tiver passado (via de regra, 24 horas), a nota de venda não é cancelada, e a operação é desfeita por uma nota de entrada. Nas devoluções e trocas, as notas nascem do atendimento de pós-venda (RN-14, RN-15 e RN-16). Manter todos esses documentos em uma única tabela evita criar várias tabelas quase iguais. A regra de que cada nota tem exatamente uma origem é registrada como restrição do modelo e verificada pelo sistema no momento da gravação.
+
+### Autorrelacionamento em NOTA_FISCAL ("referencia")
+
+**Decisão:** NOTA_FISCAL tem um relacionamento com ela mesma. Uma nota de entrada ou de reposição aponta para a nota de venda original por meio do atributo Chave_Nota_Referencia.
+
+**Justificativa:** A RN-20, seguindo a legislação fiscal, exige que a nota de entrada (devolução) indique a nota de venda que está sendo desfeita: não existe nota de entrada "solta". A nota de saída do aparelho de reposição também fica ligada à nota original, para que toda a troca possa ser rastreada. O autorrelacionamento representa exatamente essa ligação. Uma nota original pode ter várias notas ligadas a ela (na troca, por exemplo, uma de entrada e uma de saída), mas cada uma dessas notas aponta para uma única nota original (cardinalidade 1 : 0..N). A nota de venda comum fica com Chave_Nota_Referencia vazio, porque ela própria é a original.
+
+### ESTORNO com duas origens opcionais que não se misturam
+
+**Decisão:** ESTORNO tem duas chaves estrangeiras opcionais, Código_Cancelamento e Código_Devolucao, mas cada estorno é originado por apenas uma delas.
+
+**Justificativa:** A RN-19 prevê estorno em duas situações diferentes: quando o pedido é cancelado antes do envio e o pagamento já tinha sido feito (RN-13), e quando há devolução, por arrependimento (RN-15) ou por defeito (RN-16). A troca não gera estorno, porque o aparelho de reposição tem valor igual ou superior e não há diferença a devolver ao cliente (RN-14). Um mesmo estorno nunca nasce de um cancelamento e de uma devolução ao mesmo tempo. Usar duas chaves estrangeiras com nomes claros, em vez de um único campo genérico de "origem", deixa evidente de onde veio cada estorno. A garantia de que apenas uma das duas é preenchida é registrada como restrição do modelo e verificada pelo sistema no momento da gravação.
+
+### Cardinalidades opcionais (0,1) nos relacionamentos de pós-venda
+
+**Decisão:** Relacionamentos como POS_VENDA–DEVOLUCAO, POS_VENDA–TROCA e CANCELAMENTO–ESTORNO têm, do lado opcional, cardinalidade máxima 1 (0..1), e nunca 0..N.
+
+**Justificativa:** As regras de negócio determinam que cada solicitação gere no máximo um resultado de cada tipo: uma solicitação de pós-venda gera no máximo uma troca e no máximo uma devolução, e um cancelamento gera no máximo um estorno. A cardinalidade 0..1 impede, já no modelo de dados, que esses registros sejam duplicados. Além disso, a RN-14 determina que uma mesma solicitação resulte em troca ou em devolução, nunca nas duas. Como a cardinalidade sozinha não consegue expressar essa escolha entre dois relacionamentos, ela é registrada como restrição do modelo e verificada pelo sistema.
+
+### Dados bancários restritos ao registro de estorno (LGPD)
+
+**Decisão:** O atributo Dados_Bancarios existe apenas em ESTORNO, e não em CLIENTE ou em qualquer outra entidade.
+
+**Justificativa:** A RNF-02 exige que o sistema guarde o mínimo possível de dados pessoais. O dado bancário só é necessário quando o pagamento original foi feito por boleto e existe um valor a devolver, que é restituído por transferência bancária (RN-19). Em nenhum outro processo do sistema ele é usado. Guardá-lo em CLIENTE manteria essa informação armazenada para sempre, inclusive de clientes que nunca precisaram de restituição, o que aumentaria sem necessidade a quantidade de dados sensíveis protegidos pela LGPD. Ligando o dado apenas ao estorno, ele é coletado somente quando realmente é necessário.
+
+### MOVIMENTACAO como histórico de mudanças de status do APARELHO
+
+**Decisão:** Toda mudança de status do aparelho gera um registro em MOVIMENTACAO, com Status_Anterior, Status_Novo, Funcionário e Data_Hora. O APARELHO continua guardando o seu status atual.
+
+**Justificativa:** A RN-03, a RN-23 e o RF-03 exigem o histórico completo de cada mudança de status: quando o aparelho entrou no estoque, quando foi vendido, quando foi para "Em avaliação", quando voltou a "Disponível" e quem fez cada alteração. O status atual em APARELHO atende às consultas do dia a dia, como verificar se a unidade pode ser vendida, mas não mostra o que aconteceu antes. Por isso, o histórico fica em uma entidade própria, e todo aparelho tem pelo menos uma movimentação: a entrada no estoque (cardinalidade 1..N). O funcionário é opcional porque algumas mudanças são automáticas, como a baixa do aparelho quando o pagamento é confirmado. Esse histórico também ajuda a conferir o controle de aging (RN-05), que reinicia a contagem quando o aparelho volta ao estoque após uma troca ou devolução.
+
+### Perfis de acesso do funcionário (Nível e Perfil)
+
+**Decisão:** FUNCIONARIO tem dois atributos de controle de acesso: Nivel_Acesso (1 – Operacional ou 2 – Estratégico) e Perfil_Acesso (Vendas e Atendimento, Estoque e Logística, Assistência Técnica, Financeiro/Administrativo ou Diretoria).
+
+**Justificativa:** A RN-24 define dois níveis hierárquicos: o Nível 1, operacional, com um perfil para cada uma das quatro áreas, e o Nível 2, estratégico, exclusivo da Diretoria. O perfil diz em qual área o funcionário pode atuar, e o nível diz se ele pode autorizar exceções e aprovar operações sensíveis, como as requisições de compra (RN-06). Na prática, o nível poderia ser deduzido do perfil (Diretoria corresponde ao Nível 2, e as demais áreas, ao Nível 1). Mesmo assim, ele foi mantido como atributo próprio porque é consultado em toda validação de autorização (RF-20 e RN-24), o que deixa essa verificação mais simples e direta. Para evitar informações que se contradizem, o sistema aceita apenas as combinações válidas entre perfil e nível. Essas mesmas informações são usadas para conferir se o funcionário indicado como autorizador em AUDITORIA (Key_Autorizador) realmente tem permissão para autorizar aquela operação.
+
+### Dois relacionamentos distintos entre AUDITORIA e FUNCIONARIO
+
+**Decisão:** AUDITORIA se relaciona com FUNCIONARIO duas vezes: uma para quem executou a ação ("rastreia") e outra para quem a autorizou ("autoriza"). Cada uma usa sua própria chave estrangeira: Código_Funcionario e Key_Autorizador.
+
+**Justificativa:** A RN-23 exige o registro do usuário responsável por cada operação, e a RN-24 exige que, nas operações que precisam de autorização, também fique registrado quem autorizou, com seu perfil e sua área. Essas duas pessoas podem ser diferentes. Por exemplo: quando um aparelho fica encalhado, um colaborador de Estoque e Logística pode registrar a revisão do preço daquele IMEI, mas essa alteração precisa ser autorizada pela Diretoria (RN-05). Uma única chave estrangeira não conseguiria guardar as duas informações. As duas chaves são opcionais (cardinalidade 0..1 do lado do funcionário): o executor fica vazio quando a ação é automática, como a atualização da entrega feita pela integração com a transportadora (Seção 1.3), e o autorizador fica vazio quando a operação não exige autorização.
+
+### REQUISICAO_COMPRA ligada à especificação, e não ao aparelho
+
+**Decisão:** REQUISICAO_COMPRA tem chave estrangeira para ESPECIFICACAO_APARELHO, e não para APARELHO.
+
+**Justificativa:** O ponto de pedido (RN-06) é calculado por combinação de modelo, cor e capacidade, e a requisição trata de uma compra futura, cujos aparelhos ainda não existem no sistema e, portanto, ainda não têm IMEI. Por isso, não seria possível ligar a requisição a um APARELHO específico. A ligação correta é com a especificação. Ela também permite aplicar a regra de que só pode existir uma requisição em aberto para cada especificação, evitando pedidos de compra duplicados. Quando os novos aparelhos chegam, cada um é cadastrado individualmente com seu IMEI (RN-02), já que o pedido de compra ao fornecedor fica fora do escopo do sistema (RN-06).
 
 
 ## 18. Conclusão

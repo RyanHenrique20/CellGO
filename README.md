@@ -1054,6 +1054,7 @@ flowchart TD
 | Entidade | Relação | Entidade |
 |---|---|---|
 | **CLIENTE** | REALIZA | **PEDIDO** |
+| **CLIENTE** | DISPÕE DE |**TELEFONE**| 
 | **PEDIDO** | GERA |**PAGAMENTO** |
 | **PAGAMENTO** | ORIGINA | **NOTA_FISCAL** |
 | **PEDIDO** | SOFRE | **CANCELAMENTO** |
@@ -1098,7 +1099,13 @@ flowchart TD
 - Bairro
 - Cidade
 - CEP
-- Telefone(s) 
+- Telefone(s)
+
+### TELEFONE
+- Cpf_Cnpj (PK, FK)
+- ddd (PK)
+- numero_telefone (PK)
+
 
 ### NOTA_FISCAL
 - Chave nota fiscal (PK)
@@ -1281,33 +1288,34 @@ flowchart TD
 | # | Entidade | Relação | Entidade |
 |---|---|---|---|
 | 1 | CLIENTE | **REALIZA** | PEDIDO |
-| 2 | PEDIDO | **GERA** | PAGAMENTO |
-| 3 | PAGAMENTO | **ORIGINA** | NOTA_FISCAL |
-| 4 | PEDIDO | **SOFRE** | CANCELAMENTO |
-| 5 | CANCELAMENTO | **EXIGE** | NOTA_FISCAL |
-| 6 | CANCELAMENTO | **VIABILIZA** | ESTORNO |
-| 7 | NOTA_FISCAL (original) | **REFERENCIA** | NOTA_FISCAL (derivada) |
-| 8 | PEDIDO | **POSSUI** | ENTREGA |
-| 9 | PEDIDO | **CONTÉM** | ITEM_PEDIDO |
-| 10 | ITEM_PEDIDO | **RECEBE** | POS_VENDA |
-| 11 | NOTA_FISCAL | **DOCUMENTA** | POS_VENDA |
-| 12 | POS_VENDA | **OCASIONA** | DEVOLUCAO |
-| 13 | DEVOLUCAO | **RESULTA EM** | ESTORNO |
-| 14 | POS_VENDA | **DESENCADEIA** | TROCA |
-| 15 | POS_VENDA | **PASSA POR** | AVALIACAO_DANO |
-| 16 | ITEM_PEDIDO | **CORRESPONDE A** | APARELHO |
-| 17 | TROCA | **REPÕE** | APARELHO |
-| 18 | TROCA | **REQUER** | ENTREGA |
-| 19 | APARELHO | **DETÉM** | IMAGEM_APARELHO |
-| 20 | ESPECIFICACAO_APARELHO | **CLASSIFICA** | APARELHO |
-| 21 | MOVIMENTACAO | **MUDA** | APARELHO |
-| 22 | ESPECIFICACAO_APARELHO | **DISPARA** | REQUISICAO_COMPRA |
-| 23 | FUNCIONARIO | **DECIDE** | REQUISICAO_COMPRA |
-| 24 | FUNCIONARIO | **CADASTRA** | APARELHO |
-| 25 | FUNCIONARIO | **AVALIA** | AVALIACAO_DANO |
-| 26 | AUDITORIA | **RASTREIA** | FUNCIONARIO |
-| 27 | FUNCIONARIO | **AUTORIZA** | AUDITORIA |
-| 28 | FUNCIONARIO | **EXECUTA** | MOVIMENTACAO |
+| 2  |CLIENTE| **DISPÕE DE**| TELEFONE |
+| 3 | PEDIDO | **GERA** | PAGAMENTO |
+| 4 | PAGAMENTO | **ORIGINA** | NOTA_FISCAL |
+| 5 | PEDIDO | **SOFRE** | CANCELAMENTO |
+| 6 | CANCELAMENTO | **EXIGE** | NOTA_FISCAL |
+| 7 | CANCELAMENTO | **VIABILIZA** | ESTORNO |
+| 8 | NOTA_FISCAL (original) | **REFERENCIA** | NOTA_FISCAL (derivada) |
+| 9 | PEDIDO | **POSSUI** | ENTREGA |
+| 10 | PEDIDO | **CONTÉM** | ITEM_PEDIDO |
+| 11 | ITEM_PEDIDO | **RECEBE** | POS_VENDA |
+| 12 | NOTA_FISCAL | **DOCUMENTA** | POS_VENDA |
+| 13 | POS_VENDA | **OCASIONA** | DEVOLUCAO |
+| 14 | DEVOLUCAO | **RESULTA EM** | ESTORNO |
+| 15 | POS_VENDA | **DESENCADEIA** | TROCA |
+| 16 | POS_VENDA | **PASSA POR** | AVALIACAO_DANO |
+| 17 | ITEM_PEDIDO | **CORRESPONDE A** | APARELHO |
+| 18 | TROCA | **REPÕE** | APARELHO |
+| 19 | TROCA | **REQUER** | ENTREGA |
+| 20 | APARELHO | **DETÉM** | IMAGEM_APARELHO |
+| 21 | ESPECIFICACAO_APARELHO | **CLASSIFICA** | APARELHO |
+| 22 | MOVIMENTACAO | **MUDA** | APARELHO |
+| 23 | ESPECIFICACAO_APARELHO | **DISPARA** | REQUISICAO_COMPRA |
+| 24 | FUNCIONARIO | **DECIDE** | REQUISICAO_COMPRA |
+| 25 | FUNCIONARIO | **CADASTRA** | APARELHO |
+| 26 | FUNCIONARIO | **AVALIA** | AVALIACAO_DANO |
+| 27 | AUDITORIA | **RASTREIA** | FUNCIONARIO |
+| 28 | FUNCIONARIO | **AUTORIZA** | AUDITORIA |
+| 29 | FUNCIONARIO | **EXECUTA** | MOVIMENTACAO |
 
 
 ## 14. Cardinalidades
@@ -1315,112 +1323,116 @@ flowchart TD
 **1. Cliente – Pedido**
  - Descrição: 1 CLIENTE realiza N PEDIDOs (cada pedido pertence a exatamente 1 cliente)
  - Notação: CLIENTE (1,1) — realiza — PEDIDO (0,N)
+
+**2.Cliente — Telefone**
+ - Descrição: 1 CLIENTE dispõe de N TELEFONE (cada cliente pode ter mais de um telefone)
+ - Notação: CLIENTE (1,1) — dispõe de — TELEFONE (0,N) 
  
-**2. Pedido – Pagamento**
+**3. Pedido – Pagamento**
  - Descrição: 1 PEDIDO gera N PAGAMENTOs
  - Notação: PEDIDO (1,1) — gera — PAGAMENTO (0,N)
  
-**3. Pagamento – Nota Fiscal**
+**4. Pagamento – Nota Fiscal**
  - Descrição: 1 PAGAMENTO origina no máximo 1 NOTA_FISCAL, e cada NOTA_FISCAL desse tipo vem de no máximo 1 PAGAMENTO
  - Notação: PAGAMENTO (0,1) — origina — NOTA_FISCAL (0,1)
  
-**4. Pedido – Cancelamento**
+**5. Pedido – Cancelamento**
  - Descrição: 1 PEDIDO sofre no máximo 1 CANCELAMENTO
  - Notação: PEDIDO (1,1) — sofre — CANCELAMENTO (0,1)
  
-**5. Cancelamento – Nota Fiscal**
+**6. Cancelamento – Nota Fiscal**
  - Descrição: 1 CANCELAMENTO exige no máximo 1 NOTA_FISCAL
  - Notação: CANCELAMENTO (0,1) — exige — NOTA_FISCAL (0,1)
  
-**6. Cancelamento – Estorno**
+**7. Cancelamento – Estorno**
  - Descrição: 1 CANCELAMENTO viabiliza no máximo 1 ESTORNO
  - Notação: CANCELAMENTO (0,1) — viabiliza — ESTORNO (0,1)
  
-**7. Nota Fiscal (original) – Nota Fiscal (derivada)**
+**8. Nota Fiscal (original) – Nota Fiscal (derivada)**
  - Descrição: 1 NOTA_FISCAL original referencia N NOTA_FISCAL derivadas (autorrelacionamento)
  - Notação: NOTA_FISCAL original (1,1) — referencia — NOTA_FISCAL derivada (0,N)
  
-**8. Pedido – Entrega**
+**9. Pedido – Entrega**
  - Descrição: 1 PEDIDO possui N ENTREGAs
  - Notação: PEDIDO (1,1) — possui — ENTREGA (0,N)
  
-**9. Pedido – Item do Pedido**
+**10. Pedido – Item do Pedido**
  - Descrição: 1 PEDIDO contém N ITEM_PEDIDO (mínimo 1 item por pedido)
  - Notação: PEDIDO (1,1) — contém — ITEM_PEDIDO (1,N)
  
-**10. Item do Pedido – Pós-Venda**
+**11. Item do Pedido – Pós-Venda**
  - Descrição: 1 ITEM_PEDIDO recebe N solicitações de POS_VENDA
  - Notação: ITEM_PEDIDO (1,1) — recebe — POS_VENDA (0,N)
  
-**11. Nota Fiscal – Pós-Venda**
+**12. Nota Fiscal – Pós-Venda**
  - Descrição: N NOTA_FISCAL documentam no máximo 1 POS_VENDA cada
  - Notação: NOTA_FISCAL (0,N) — documenta — POS_VENDA (0,1)
  
-**12. Pós-Venda – Devolução**
+**13. Pós-Venda – Devolução**
  - Descrição: 1 POS_VENDA ocasiona no máximo 1 DEVOLUCAO
  - Notação: POS_VENDA (1,1) — ocasiona — DEVOLUCAO (0,1)
  
-**13. Devolução – Estorno**
+**14. Devolução – Estorno**
  - Descrição: 1 DEVOLUCAO resulta em no máximo 1 ESTORNO
  - Notação: DEVOLUCAO (0,1) — resulta em — ESTORNO (0,1)
  
-**14. Pós-Venda – Troca**
+**15. Pós-Venda – Troca**
  - Descrição: 1 POS_VENDA desencadeia no máximo 1 TROCA
  - Notação: POS_VENDA (1,1) — desencadeia — TROCA (0,1)
  
-**15. Pós-Venda – Avaliação de Dano**
+**16. Pós-Venda – Avaliação de Dano**
  - Descrição: 1 POS_VENDA passa por no máximo 1 AVALIACAO_DANO
  - Notação: POS_VENDA (1,1) — passa por — AVALIACAO_DANO (0,1)
  
-**16. Item do Pedido – Aparelho**
+**17. Item do Pedido – Aparelho**
  - Descrição: N ITEM_PEDIDO correspondem a exatamente 1 APARELHO cada
  - Notação: ITEM_PEDIDO (0,N) — corresponde a — APARELHO (1,1)
  
-**17. Troca – Aparelho**
+**18. Troca – Aparelho**
  - Descrição: N TROCA repõem exatamente 1 APARELHO cada (aparelho de reposição)
  - Notação: TROCA (0,N) — repõe — APARELHO (1,1)
  
-**18. Troca – Entrega**
+**19. Troca – Entrega**
  - Descrição: 1 TROCA requer no máximo 1 ENTREGA
  - Notação: TROCA (0,1) — requer — ENTREGA (0,1)
  
-**19. Aparelho – Imagem do Aparelho**
+**20. Aparelho – Imagem do Aparelho**
  - Descrição: 1 APARELHO detém N IMAGEM_APARELHO
  - Notação: APARELHO (1,1) — detém — IMAGEM_APARELHO (0,N)
  
-**20. Especificação do Aparelho – Aparelho**
+**21. Especificação do Aparelho – Aparelho**
  - Descrição: 1 ESPECIFICACAO_APARELHO classifica N APARELHOs
  - Notação: ESPECIFICACAO_APARELHO (1,1) — classifica — APARELHO (0,N)
  
-**21. Movimentação – Aparelho**
+**22. Movimentação – Aparelho**
  - Descrição: N MOVIMENTACAO mudam exatamente 1 APARELHO cada (mínimo 1 movimentação por aparelho)
  - Notação: MOVIMENTACAO (1,N) — muda — APARELHO (1,1)
  
-**22. Especificação do Aparelho – Requisição de Compra**
+**23. Especificação do Aparelho – Requisição de Compra**
  - Descrição: 1 ESPECIFICACAO_APARELHO dispara N REQUISICAO_COMPRA
  - Notação: ESPECIFICACAO_APARELHO (1,1) — dispara — REQUISICAO_COMPRA (0,N)
  
-**23. Funcionário – Requisição de Compra**
+**24. Funcionário – Requisição de Compra**
  - Descrição: 1 FUNCIONARIO (aprovador) decide N REQUISICAO_COMPRA
  - Notação: FUNCIONARIO (0,1) — decide — REQUISICAO_COMPRA (0,N)
  
-**24. Funcionário – Aparelho**
+**25. Funcionário – Aparelho**
  - Descrição: 1 FUNCIONARIO cadastra N APARELHOs
  - Notação: FUNCIONARIO (1,1) — cadastra — APARELHO (0,N)
  
-**25. Funcionário – Avaliação de Dano**
+**26. Funcionário – Avaliação de Dano**
  - Descrição: 1 FUNCIONARIO avalia N AVALIACAO_DANO
  - Notação: FUNCIONARIO (1,1) — avalia — AVALIACAO_DANO (0,N)
  
-**26. Auditoria – Funcionário**
+**27. Auditoria – Funcionário**
  - Descrição: N AUDITORIA rastreiam no máximo 1 FUNCIONARIO cada
  - Notação: AUDITORIA (0,N) — rastreia — FUNCIONARIO (0,1)
  
-**27. Funcionário – Auditoria**
+**28. Funcionário – Auditoria**
  - Descrição: 1 FUNCIONARIO (autorizador) autoriza N AUDITORIA
  - Notação: FUNCIONARIO (0,1) — autoriza — AUDITORIA (0,N)
  
-**28. Funcionário – Movimentação**
+**29. Funcionário – Movimentação**
  - Descrição: 1 FUNCIONARIO executa N MOVIMENTACAO
  - Notação: FUNCIONARIO (0,1) — executa — MOVIMENTACAO (0,N)
 
@@ -1439,6 +1451,7 @@ flowchart TD
     classDef relid fill:#ffffff,stroke:#555555,stroke-width:3px;
  
     CLIENTE[CLIENTE]
+    TELEFONE[TELEFONE]
     PEDIDO[PEDIDO]
     ENTREGA[ENTREGA]
     PAGAMENTO[PAGAMENTO]
@@ -1458,10 +1471,13 @@ flowchart TD
     FUNCIONARIO[FUNCIONARIO]
     AUDITORIA[AUDITORIA]
  
-    class CLIENTE,PEDIDO,ENTREGA,PAGAMENTO,NOTA_FISCAL,CANCELAMENTO,ESTORNO,POS_VENDA,DEVOLUCAO,TROCA,AVALIACAO_DANO,APARELHO,IMAGEM_APARELHO,ESPECIFICACAO_APARELHO,REQUISICAO_COMPRA,MOVIMENTACAO,FUNCIONARIO,AUDITORIA entity
+    class CLIENTE,TELEFONE,PEDIDO,ENTREGA,PAGAMENTO,NOTA_FISCAL,CANCELAMENTO,ESTORNO,POS_VENDA,DEVOLUCAO,TROCA,AVALIACAO_DANO,APARELHO,IMAGEM_APARELHO,ESPECIFICACAO_APARELHO,REQUISICAO_COMPRA,MOVIMENTACAO,FUNCIONARIO,AUDITORIA entity
  
     CLIENTE -->|1| R1{"realiza"}
     R1 -->|0..N| PEDIDO
+ 
+    CLIENTE -->|1| R29{"dispõe de"}
+    R29 -->|0..N| TELEFONE
  
     PEDIDO -->|1| R2{"gera"}
     R2 -->|0..N| PAGAMENTO
@@ -1545,7 +1561,7 @@ flowchart TD
     FUNCIONARIO -->|0..1| R28{"executa"}
     R28 -->|0..N| MOVIMENTACAO
  
-    class R1,R2,R3,R4,R5,R6,R7,R8,R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28 rel
+    class R1,R2,R3,R4,R5,R6,R7,R8,R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28,R29 rel
 ```
  
 ### Legenda

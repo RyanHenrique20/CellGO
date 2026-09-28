@@ -1457,7 +1457,6 @@ Pessoa física ou jurídica que adquire aparelhos junto à loja.
 | Cidade | — | VARCHAR | Cidade do endereço do cliente. | 100 | NÃO |
 | CEP | — | CHAR | Código de Endereçamento Postal do endereço do cliente. | 8 | NÃO |
  
----
  
 ### 2. TELEFONE
  

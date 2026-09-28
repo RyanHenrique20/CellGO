@@ -702,7 +702,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 **Regras:**
 - O sistema deverá verificar a data da venda antes de permitir o cancelamento.
-- O cancelamento por esta regra somente será permitido enquanto o status de entrega da venda for "Aguardando envio". A atualização desse status é feita pela integração com a API da transportadora, conforme definido na Seção 1.3.
+- O cancelamento por esta regra somente será permitido enquanto o status de entrega da venda for "Aguardando envio". A atualização desse status é feita pela integração com a API da transportadora.
 - A partir do momento em que o status de entrega passar para "Em transporte" ou "Entregue", a solicitação do cliente deixa de ser tratada como cancelamento e passa a seguir o fluxo do Módulo 5 — Devolução (RN-15/RN-16), conforme o caso.
 - O motivo do cancelamento deverá ser registrado.
 - Caso o pagamento já tenha sido realizado, deverá ser aberto o processo de estorno (ver RN-19).
@@ -823,7 +823,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 ### RN-20 — Emissão de Nota Fiscal
 
-**Descrição:** O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução. Os status possíveis da nota fiscal e suas regras de transição estão padronizados na Seção 1.
+**Descrição:** O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução.
 
 **Regras:**
 - A nota fiscal deverá estar vinculada à venda, utilizando os dados cadastrados do cliente (RN-01) e do aparelho (RN-02).
@@ -877,7 +877,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 ### RN-24 — Perfis de Acesso e Autorizações
 
-**Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (aging e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio (ver Seção 1.1): Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
+**Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (aging e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio: Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
 
 **Regras:**
 - São definidos 2 níveis hierárquicos de acesso: Nível 1 — Operacional (um perfil por área, para os 8 colaboradores) e Nível 2 — Estratégico (perfil único da Diretoria, para os 2 sócios).

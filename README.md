@@ -21,7 +21,7 @@
 CellGo Comércio de Celulares Ltda.
 
 **Qual é o segmento?**  
-Comércio varejista de celulares , atuando com aparelhos novos e seminovos.
+E-commerce atuando com aparelhos novos e seminovos.
 
 **O que ela vende ou oferece?**  
 Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos revisados e certificados, com garantia própria da loja; acessórios como capinhas, películas, fones e carregadores; pagamento parcelado em cartão de crédito; e vendas por canal online, além do ponto físico.
@@ -1906,3 +1906,15 @@ flowchart TD
 
 
 ## 18. Conclusão
+
+A CellGo Comércio de Celulares Ltda. vende aparelhos novos e seminovos exclusivamente pela internet. Por ser um e-commerce, a empresa não tem loja física, vendedor, comissão nem desconto negociado, e toda a relação com o cliente acontece on-line, do cadastro até o pós-venda. Sem um sistema que integre vendas, estoque, assistência técnica e financeiro, a empresa corre riscos concretos: vender um aparelho que já não está disponível, aceitar uma troca fora da garantia, perder o prazo de um estorno ou deixar uma devolução sem a nota fiscal correta. O problema, portanto, não é de tecnologia, mas de informação que não circula entre as áreas.
+
+O ERP proposto reduz esses riscos pela forma como organiza os dados. Cada aparelho é controlado individualmente pelo IMEI, com seu próprio status, histórico de movimentações e tempo parado em estoque. Não existe reserva de aparelhos: a disponibilidade é conferida no fechamento da venda, e o aparelho só passa a constar como vendido quando o pagamento é confirmado. As formas de pagamento aceitas são Pix, cartão de crédito em até 12 vezes e boleto. O único desconto é o do Pix, aplicado automaticamente conforme a faixa de preço e apenas aos produtos elegíveis.
+
+A entrega é acompanhada por meio de integração com o sistema da transportadora, e o status do envio define o que o cliente pode solicitar. Enquanto o aparelho aguarda envio, e dentro de 7 dias da compra, é possível cancelar a venda. Depois do despacho, o cliente pode pedir a devolução por arrependimento, em até 7 dias após o recebimento, ou o atendimento por defeito. A troca só é feita quando o defeito é coberto pela garantia da loja, em até 30 dias da compra, e sempre por um aparelho equivalente disponível em estoque. Se não houver aparelho equivalente, a empresa faz a devolução com restituição integral do valor. Danos causados por mau uso, identificados na avaliação técnica, não são cobertos nem reparados.
+
+Cada uma dessas operações deixa registro fiscal e financeiro. A nota fiscal de venda é emitida quando o pagamento é confirmado. Se a venda for cancelada dentro do prazo legal, essa nota também é cancelada; fora desse prazo, a operação é desfeita por uma nota de entrada. Devoluções e trocas também geram uma nota de entrada vinculada à nota original, e a troca gera ainda uma nota de saída para o aparelho de reposição. O estorno é feito pela mesma forma de pagamento usada na compra, em no máximo 15 dias, e o Financeiro é alertado em caso de atraso. Nas devoluções, o estorno só é liberado depois que a nota de entrada é emitida.
+
+Na prática, a CellGo ganha três benefícios. O primeiro é menos prejuízo e menos retrabalho, porque o sistema impede erros que, sem ele, dependeriam de alguém lembrar de conferir. O segundo são decisões baseadas em dados. O controle do tempo em estoque classifica cada aparelho como de giro normal, lento ou encalhado e avisa a Diretoria e a área de Estoque e Logística quando uma unidade fica parada por muito tempo, para que ela seja colocada em promoção ou tenha o preço revisto. Já o ponto de pedido abre automaticamente uma requisição de compra quando um modelo atinge o estoque mínimo; essa requisição é analisada pelo Financeiro e aprovada ou recusada pela Diretoria. O terceiro benefício é a segurança fiscal e jurídica: notas, garantias e prazos do Código de Defesa do Consumidor são controlados pelo próprio sistema, e cada operação importante fica registrada na auditoria, com o nome de quem a realizou e, quando necessário, de quem a autorizou.
+
+Com dois sócios e oito colaboradores, distribuídos entre a Diretoria e quatro áreas (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo), a empresa é pequena o bastante para adotar o sistema rapidamente e grande o bastante para perceber os benefícios logo no início. Os dois níveis de acesso garantem que cada pessoa realize apenas as tarefas da sua área. Além disso, a estrutura de dados permite o crescimento em vendas, aparelhos e usuários sem precisar ser refeita.

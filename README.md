@@ -9,12 +9,11 @@
 | 03 | Gabriely Moreira Manna |
 | 04 | Henry Gonçalves dos Santos |
 | 05 | João Wyctor França dos Santos |
-| 06 | Katharine Louise de Oliveira Guedes |
-| 07 | Murilo Alves de Sousa |
-| 08 | Rafaela Teresa de Oliveira Corrente |
-| 09 | Ryan Henrique de Aguiar dos Santos |
-| 10 | Sarah Casas Nicolielo Ponti |
-| 11 | Victor Rodrigues da Costa |
+| 06 | Murilo Alves de Sousa |
+| 07 | Rafaela Teresa de Oliveira Corrente |
+| 08 | Ryan Henrique de Aguiar dos Santos |
+| 09 | Sarah Casas Nicolielo Ponti |
+| 10 | Victor Rodrigues da Costa |
 
 ## 2. Caracterização da Empresa
 

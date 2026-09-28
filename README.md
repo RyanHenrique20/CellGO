@@ -1439,7 +1439,7 @@ flowchart TD
 
 ## 15. Dicionário de Dados Conceitual 
 
-## 1. CLIENTE
+### 1. CLIENTE
  
 Pessoa física ou jurídica que adquire aparelhos junto à loja.
  
@@ -1459,7 +1459,7 @@ Pessoa física ou jurídica que adquire aparelhos junto à loja.
  
 ---
  
-## 2. TELEFONE
+### 2. TELEFONE
  
 | Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
 |---|---|---|---|---|---|
@@ -1469,7 +1469,7 @@ Pessoa física ou jurídica que adquire aparelhos junto à loja.
  
 
  
-## 3. PEDIDO (VENDA)
+### 3. PEDIDO (VENDA)
  
 Registra a solicitação de compra feita por um cliente, reunindo os aparelhos adquiridos e as condições comerciais da venda.
  
@@ -1489,7 +1489,7 @@ Registra a solicitação de compra feita por um cliente, reunindo os aparelhos a
  
 
  
-## 4. ITEM_PEDIDO
+### 4. ITEM_PEDIDO
  
 Associa um pedido a um aparelho específico vendido, registrando o preço praticado e a garantia daquele item.
  
@@ -1504,7 +1504,7 @@ Associa um pedido a um aparelho específico vendido, registrando o preço pratic
  
 
  
-## 5. PAGAMENTO
+### 5. PAGAMENTO
  
 Registra a efetivação do pagamento referente a um pedido.
  
@@ -1521,7 +1521,7 @@ Registra a efetivação do pagamento referente a um pedido.
  
 
  
-## 6. NOTA_FISCAL
+### 6. NOTA_FISCAL
  
 Documento fiscal emitido em decorrência de um pagamento, cancelamento ou atendimento pós-venda.
  
@@ -1539,7 +1539,7 @@ Documento fiscal emitido em decorrência de um pagamento, cancelamento ou atendi
  
 
  
-## 7. CANCELAMENTO
+### 7. CANCELAMENTO
  
 Registra a solicitação de cancelamento de um pedido.
  
@@ -1553,7 +1553,7 @@ Registra a solicitação de cancelamento de um pedido.
  
 
  
-## 8. ESTORNO
+### 8. ESTORNO
  
 Registra a devolução de valores ao cliente decorrente de um cancelamento de pedido ou de uma devolução de aparelho.
  
@@ -1572,7 +1572,7 @@ Registra a devolução de valores ao cliente decorrente de um cancelamento de pe
  
 
  
-## 9. ENTREGA
+### 9. ENTREGA
  
 Registra o envio e o rastreamento de um pedido ou de uma reposição decorrente de uma troca.
  
@@ -1589,7 +1589,7 @@ Registra o envio e o rastreamento de um pedido ou de uma reposição decorrente 
 | Origem_Atualizacao | — | VARCHAR | Indica se a atualização do status da entrega foi feita automaticamente (API) ou manualmente. | 10 | NÃO |
  
  
-## 10. POS_VENDA
+### 10. POS_VENDA
  
 Registra uma solicitação de atendimento pós-venda relacionada a um item comprado, como garantia ou arrependimento.
  
@@ -1605,7 +1605,7 @@ Registra uma solicitação de atendimento pós-venda relacionada a um item compr
  
 
  
-## 11. DEVOLUCAO
+### 11. DEVOLUCAO
  
 Registra a devolução de um aparelho decorrente de uma solicitação de pós-venda.
  
@@ -1620,7 +1620,7 @@ Registra a devolução de um aparelho decorrente de uma solicitação de pós-ve
  
 
  
-## 12. AVALIACAO_DANO
+### 12. AVALIACAO_DANO
  
 Registra a avaliação técnica realizada sobre um aparelho no contexto de uma solicitação de pós-venda.
  
@@ -1637,7 +1637,7 @@ Registra a avaliação técnica realizada sobre um aparelho no contexto de uma s
  
 
  
-## 13. TROCA
+### 13. TROCA
  
 Registra a troca de um aparelho por outro em decorrência de uma solicitação de pós-venda.
  
@@ -1651,7 +1651,7 @@ Registra a troca de um aparelho por outro em decorrência de uma solicitação d
  
 
  
-## 14. APARELHO
+### 14. APARELHO
  
 Representa uma unidade física de celular controlada pela loja, desde a entrada em estoque até a venda.
  
@@ -1670,7 +1670,7 @@ Representa uma unidade física de celular controlada pela loja, desde a entrada 
  
 
  
-## 15. IMAGEM_APARELHO
+### 15. IMAGEM_APARELHO
  
 Armazena as fotografias associadas a um aparelho cadastrado.
  
@@ -1682,7 +1682,7 @@ Armazena as fotografias associadas a um aparelho cadastrado.
  
 
  
-## 16. ESPECIFICACAO_APARELHO
+### 16. ESPECIFICACAO_APARELHO
  
 Descreve o modelo de referência dos aparelhos, com suas características técnicas e parâmetros de controle de estoque.
  
@@ -1699,7 +1699,7 @@ Descreve o modelo de referência dos aparelhos, com suas características técni
  
 
  
-## 17. REQUISICAO_COMPRA
+### 17. REQUISICAO_COMPRA
  
 Registra a solicitação de reposição de estoque para um determinado modelo de aparelho.
  
@@ -1719,7 +1719,7 @@ Registra a solicitação de reposição de estoque para um determinado modelo de
  
 
  
-## 18. MOVIMENTACAO
+### 18. MOVIMENTACAO
  
 Registra o histórico de mudanças de status de um aparelho.
  
@@ -1734,7 +1734,7 @@ Registra o histórico de mudanças de status de um aparelho.
 | Data_Hora | — | DATETIME | Data e hora em que a movimentação ocorreu. | — | NÃO |
  
  
-## 19. AUDITORIA
+### 19. AUDITORIA
  
 Registra as ações realizadas no sistema para fins de rastreabilidade e controle.
  
@@ -1753,7 +1753,7 @@ Registra as ações realizadas no sistema para fins de rastreabilidade e control
  
 
  
-## 20. FUNCIONARIO
+### 20. FUNCIONARIO
  
 Representa o colaborador da empresa que executa operações e atendimentos registrados no sistema.
  

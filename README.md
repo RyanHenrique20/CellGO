@@ -1437,7 +1437,335 @@ flowchart TD
  - Notação: FUNCIONARIO (0,1) — executa — MOVIMENTACAO (0,N)
 
 
-## 15. Dicionário de Dados Conceitual
+## 15. Dicionário de Dados Conceitual 
+
+## 1. CLIENTE
+ 
+Pessoa física ou jurídica que adquire aparelhos junto à loja.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Cpf_Cnpj | PK | VARCHAR | Identificador único do cliente: CPF para pessoa física ou CNPJ para pessoa jurídica. | 14 | NÃO |
+| Nome | — | VARCHAR | Nome completo do cliente ou razão social, quando pessoa jurídica. | 150 | NÃO |
+| Email | — | VARCHAR | Endereço de e-mail de contato do cliente. | 254 | NÃO |
+| Tipo_Pessoa | — | CHAR | Indica se o cliente é pessoa física ou pessoa jurídica. | 2 | NÃO |
+| Tipo_Endereco | — | VARCHAR | Classificação do endereço informado (ex.: residencial, comercial, entrega). | 20 | NÃO |
+| Logradouro | — | VARCHAR | Nome da rua ou avenida do endereço do cliente. | 150 | NÃO |
+| Numero | — | VARCHAR | Número do imóvel no endereço do cliente. | 10 | NÃO |
+| Complemento | — | VARCHAR | Informação complementar do endereço (apartamento, bloco, etc.). | 100 | SIM |
+| Bairro | — | VARCHAR | Bairro do endereço do cliente. | 100 | NÃO |
+| Cidade | — | VARCHAR | Cidade do endereço do cliente. | 100 | NÃO |
+| CEP | — | CHAR | Código de Endereçamento Postal do endereço do cliente. | 8 | NÃO |
+ 
+---
+ 
+## 2. TELEFONE
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Cpf_Cnpj | PK, FK | VARCHAR | Identifica o cliente titular do telefone | 14 | NÃO |
+| DDD | PK | CHAR | Código de área do telefone, apenas dois números identificadores | 2 | NÃO |
+| Número_Telefônico | PK | VARCHAR | Número de telefone apenas sem nenhum caracter especial | — | NÃO |
+ 
+
+ 
+## 3. PEDIDO (VENDA)
+ 
+Registra a solicitação de compra feita por um cliente, reunindo os aparelhos adquiridos e as condições comerciais da venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Pedido | PK | Inteiro | Identificador único do pedido. | 10 | NÃO |
+| Cpf_Cnpj | FK | VARCHAR | Referencia ao cliente que realizou o pedido. | 14 | NÃO |
+| Data_Pedido | — | DATETIME | Data em que o pedido foi realizado. | — | NÃO |
+| Status_Pedido | — | VARCHAR | Situação atual do pedido (ex.: em andamento, concluído, cancelado). | 20 | NÃO |
+| Forma_Pagamento | — | VARCHAR | Meio de pagamento escolhido para o pedido. | 10 | NÃO |
+| Numero_Parcelas | — | Inteiro | Quantidade de parcelas definida para o pagamento do pedido. | 2 | NÃO |
+| Valor_Produtos | — | DECIMAL | Soma dos valores dos aparelhos incluídos no pedido. | (10,2) | NÃO |
+| Percentual_Desconto_Pix | — | DECIMAL | Percentual de desconto concedido para pagamento via Pix. | (5,2) | SIM |
+| Valor_Desconto | — | DECIMAL | Valor total de desconto aplicado ao pedido. | (10,2) | SIM |
+| Valor_Taxas | — | DECIMAL | Valor total de taxas incidentes sobre o pedido. | (10,2) | SIM |
+| Valor_Final | Derivado | DECIMAL | Valor total do pedido após aplicação de descontos e taxas. | (10,2) | NÃO |
+ 
+
+ 
+## 4. ITEM_PEDIDO
+ 
+Associa um pedido a um aparelho específico vendido, registrando o preço praticado e a garantia daquele item.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Pedido | PK, FK | Inteiro | Referencia o PEDIDO ao qual o item pertence. | 10 | NÃO |
+| Imei | PK, FK | CHAR | Referencia o APARELHO vendido nesse item do pedido. | 15 | NÃO |
+| Preco_Unitario | — | DECIMAL | Preço de venda do aparelho praticado naquele pedido. | (10,2) | NÃO |
+| Data_Inicio_Garantia | — | DATETIME | Data de início da garantia do aparelho vendido. | — | NÃO |
+| Data_Fim_Garantia_Loja | — | DATETIME | Data de término da garantia oferecida pela loja. | — | NÃO |
+| Data_Fim_Garantia_Fabric | — | DATETIME | Data de término da garantia oferecida pelo fabricante. | — | NÃO |
+ 
+
+ 
+## 5. PAGAMENTO
+ 
+Registra a efetivação do pagamento referente a um pedido.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Pagamento | PK | Inteiro | Identificador único do pagamento. | 10 | NÃO |
+| Id_Pedido | FK | Inteiro | Referencia o PEDIDO ao qual o pagamento se refere. | 10 | NÃO |
+| Forma_Pagamento | — | VARCHAR | Meio efetivamente utilizado para o pagamento. | 10 | NÃO |
+| Numero_Parcelas | — | Inteiro | Quantidade de parcelas efetivamente praticadas no pagamento. | 2 | NÃO |
+| Data_Pagamento | — | DATETIME | Data em que o pagamento foi efetuado. | — | SIM |
+| Valor | — | DECIMAL | Valor monetário pago. | (10,2) | NÃO |
+| Status | — | VARCHAR | Situação do pagamento (ex.: aprovado, pendente, recusado). | 20 | NÃO |
+| Comprovante | — | VARCHAR | Referência ou identificação do comprovante de pagamento. | 100 | SIM |
+ 
+
+ 
+## 6. NOTA_FISCAL
+ 
+Documento fiscal emitido em decorrência de um pagamento, cancelamento ou atendimento pós-venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Chave_Nota_Fiscal | PK | CHAR | Chave de acesso única da nota fiscal. | 44 | NÃO |
+| Id_Pagamento | FK | Inteiro | Referencia o PAGAMENTO associado à nota fiscal. | 10 | SIM |
+| Codigo_Cancelamento | FK | VARCHAR | Referencia o CANCELAMENTO associado à nota fiscal, quando houver. | 20 | SIM |
+| Id_PosVenda | FK | Inteiro | Referencia o POS_VENDA associado à nota fiscal, quando houver. | 10 | SIM |
+| Chave_Nota_Referencia | FK | CHAR | Referencia a própria NOTA_FISCAL original, quando a nota emitida for de devolução ou complementar. | 44 | SIM |
+| Tipo_Nota | — | VARCHAR | Classificação da nota fiscal (ex.: venda, devolução). | 20 | NÃO |
+| Natureza | — | VARCHAR | Natureza da operação fiscal registrada. | 60 | NÃO |
+| Status | — | VARCHAR | Situação atual da nota fiscal. | 20 | NÃO |
+| Data_Emissao | — | DATETIME | Data de emissão da nota fiscal. | — | NÃO |
+ 
+
+ 
+## 7. CANCELAMENTO
+ 
+Registra a solicitação de cancelamento de um pedido.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Cancelamento | PK | VARCHAR | Identificador único do cancelamento. | 20 | NÃO |
+| Id_Pedido | FK | Inteiro | Referencia o PEDIDO cancelado. | 10 | NÃO |
+| Data_Solicitacao | — | DATETIME | Data em que o cancelamento foi solicitado. | — | NÃO |
+| Motivo | — | VARCHAR | Justificativa apresentada para o cancelamento. | 255 | NÃO |
+| Status | — | VARCHAR | Situação atual do cancelamento. | 20 | NÃO |
+ 
+
+ 
+## 8. ESTORNO
+ 
+Registra a devolução de valores ao cliente decorrente de um cancelamento de pedido ou de uma devolução de aparelho.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Estorno | PK | Inteiro | Identificador único do estorno. | 10 | NÃO |
+| Codigo_Cancelamento | FK | VARCHAR | Referencia o CANCELAMENTO que originou o estorno, quando aplicável. | 20 | SIM |
+| Codigo_Devolucao | FK | VARCHAR | Referencia a DEVOLUCAO que originou o estorno, quando aplicável. | 20 | SIM |
+| Valor | — | DECIMAL | Valor a ser restituído ao cliente. | (10,2) | NÃO |
+| Forma_Restituicao | — | VARCHAR | Meio pelo qual o valor será devolvido ao cliente. | 20 | NÃO |
+| Dados_Bancarios | — | VARCHAR | Informações bancárias necessárias quando a restituição for realizada por meio que exija dados bancários. | 255 | SIM |
+| Data_Abertura | — | DATETIME | Data de abertura do processo de estorno. | — | NÃO |
+| Prazo_Limite | Derivado | DATETIME | Data limite calculada para conclusão do estorno. | — | NÃO |
+| Data_Conclusao | — | DATETIME | Data em que o estorno foi efetivamente concluído. | — | SIM |
+| Status | — | VARCHAR | Situação atual do estorno. | 20 | NÃO |
+ 
+
+ 
+## 9. ENTREGA
+ 
+Registra o envio e o rastreamento de um pedido ou de uma reposição decorrente de uma troca.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Rastreio | PK | VARCHAR | Identificador único de rastreamento da entrega. | 30 | NÃO |
+| Id_Pedido | FK | Inteiro | Referencia o PEDIDO ao qual a entrega se refere. | 10 | NÃO |
+| Codigo_Troca | FK | VARCHAR | Referencia a TROCA que originou uma entrega de reposição, quando aplicável. | 20 | SIM |
+| Transportadora | — | VARCHAR | Empresa responsável pelo transporte da entrega. | 100 | NÃO |
+| Status_Entrega | — | VARCHAR | Situação atual da entrega. | 20 | NÃO |
+| Data_Despacho | — | DATETIME | Data em que a entrega foi despachada. | — | SIM |
+| Data_Entrega | — | DATETIME | Data em que a entrega foi efetivamente concluída. | — | SIM |
+| Tipo_Envio | — | VARCHAR | Indica se a entrega refere-se a uma venda ou a uma reposição de troca. | 10 | NÃO |
+| Origem_Atualizacao | — | VARCHAR | Indica se a atualização do status da entrega foi feita automaticamente (API) ou manualmente. | 10 | NÃO |
+ 
+ 
+## 10. POS_VENDA
+ 
+Registra uma solicitação de atendimento pós-venda relacionada a um item comprado, como garantia ou arrependimento.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_PosVenda | PK | Inteiro | Identificador único da solicitação de pós-venda. | 10 | NÃO |
+| Id_Pedido | FK | Inteiro | Referencia o PEDIDO relacionado à solicitação. | 10 | NÃO |
+| Imei | FK | CHAR | Referencia o APARELHO objeto da solicitação. | 15 | NÃO |
+| Tipo_Solicitacao | — | VARCHAR | Natureza da solicitação de pós-venda registrada. | 15 | NÃO |
+| Data_Abertura | — | DATETIME | Data de abertura da solicitação. | — | NÃO |
+| Descricao | — | VARCHAR | Detalhamento da solicitação registrada pelo cliente. | 500 | NÃO |
+| Status | — | VARCHAR | Situação atual da solicitação. | 20 | NÃO |
+ 
+
+ 
+## 11. DEVOLUCAO
+ 
+Registra a devolução de um aparelho decorrente de uma solicitação de pós-venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Devolucao | PK | VARCHAR | Identificador único da devolução. | 20 | NÃO |
+| Id_PosVenda | FK | Inteiro | Referencia o POS_VENDA que originou a devolução. | 10 | NÃO |
+| Tipo_Devolucao | — | VARCHAR | Motivo classificatório da devolução. | 15 | NÃO |
+| Data_Devolucao | — | DATETIME | Data em que a devolução foi realizada. | — | NÃO |
+| Motivo | — | VARCHAR | Justificativa detalhada da devolução. | 255 | NÃO |
+| Status | — | VARCHAR | Situação atual da devolução. | 20 | NÃO |
+ 
+
+ 
+## 12. AVALIACAO_DANO
+ 
+Registra a avaliação técnica realizada sobre um aparelho no contexto de uma solicitação de pós-venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Avaliacao | PK | VARCHAR | Identificador único da avaliação de dano. | 20 | NÃO |
+| Id_PosVenda | FK | Inteiro | Referencia o POS_VENDA ao qual a avaliação se refere. | 10 | NÃO |
+| Codigo_Funcionario | FK | VARCHAR | Referencia o FUNCIONARIO responsável pela avaliação. | 20 | NÃO |
+| Classificacao_Dano | — | VARCHAR | Classificação do dano identificado no aparelho. | 50 | NÃO |
+| Descricao_Dano | — | VARCHAR | Detalhamento textual do dano constatado. | 500 | NÃO |
+| Cobertura_Garantia | — | CHAR | Indica se o dano está coberto pela garantia. | 03 | NÃO |
+| Destino_Aparelho | — | VARCHAR | Encaminhamento definido para o aparelho após a avaliação. | 50 | NÃO |
+| Data_Avaliacao | — | DATETIME | Data em que a avaliação foi realizada. | — | NÃO |
+ 
+
+ 
+## 13. TROCA
+ 
+Registra a troca de um aparelho por outro em decorrência de uma solicitação de pós-venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Troca | PK | VARCHAR | Identificador único da troca. | 20 | NÃO |
+| Id_PosVenda | FK | Inteiro | Referencia o POS_VENDA que originou a troca. | 10 | NÃO |
+| Imei_Reposicao | FK | CHAR | Referencia o APARELHO utilizado como reposição na troca. | 15 | NÃO |
+| Data_Troca | — | DATETIME | Data em que a troca foi realizada. | — | NÃO |
+| Status | — | VARCHAR | Situação atual da troca. | 20 | NÃO |
+ 
+
+ 
+## 14. APARELHO
+ 
+Representa uma unidade física de celular controlada pela loja, desde a entrada em estoque até a venda.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Imei | PK | CHAR | Identificador único internacional do aparelho. | 15 | NÃO |
+| Id_Especificacao | FK | Inteiro | Referencia a ESPECIFICACAO_APARELHO correspondente ao modelo do aparelho. | 10 | NÃO |
+| Codigo_Funcionario | FK | VARCHAR | Referencia o FUNCIONARIO responsável pelo cadastro do aparelho. | 20 | NÃO |
+| Condicao | — | VARCHAR | Estado de conservação do aparelho. | 10 | NÃO |
+| Preco_Venda | — | DECIMAL | Preço de venda estabelecido para o aparelho. | (10,2) | NÃO |
+| Custo_Aquisicao | — | DECIMAL | Custo de aquisição do aparelho pela loja. | (10,2) | NÃO |
+| Status | — | VARCHAR | Situação atual do aparelho (ex.: disponível, vendido, em avaliação). | 20 | NÃO |
+| Data_Entrada | — | DATETIME | Data de entrada do aparelho no estoque. | — | NÃO |
+| Data_Disponivel | — | DATETIME | Data em que o aparelho ficou disponível para venda. | — | SIM |
+| Elegivel_Desconto_Pix | — | CHAR | Indica se o aparelho é elegível ao desconto por pagamento via Pix. | 03 | NÃO |
+ 
+
+ 
+## 15. IMAGEM_APARELHO
+ 
+Armazena as fotografias associadas a um aparelho cadastrado.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Imagem | PK | Inteiro | Identificador único da imagem. | 10 | NÃO |
+| Imei | FK | CHAR | Referencia o APARELHO fotografado. | 15 | NÃO |
+| URL | — | VARCHAR | Endereço eletrônico onde a imagem está armazenada. | 500 | NÃO |
+ 
+
+ 
+## 16. ESPECIFICACAO_APARELHO
+ 
+Descreve o modelo de referência dos aparelhos, com suas características técnicas e parâmetros de controle de estoque.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Especificacao | PK | Inteiro | Identificador único da especificação de aparelho. | 10 | NÃO |
+| Modelo | — | VARCHAR | Nome do modelo do aparelho. | 100 | NÃO |
+| Marca | — | VARCHAR | Fabricante do aparelho. | 50 | NÃO |
+| Cor | — | VARCHAR | Cor do aparelho. | 30 | NÃO |
+| Capacidade | — | VARCHAR | Capacidade de armazenamento do aparelho. | 20 | NÃO |
+| Estoque_Minimo | — | Inteiro | Quantidade mínima definida em estoque para esse modelo. | 5 | NÃO |
+| Limite_Dias_Atencao | — | Inteiro | Prazo, em dias, que caracteriza nível de atenção quanto ao estoque do modelo. | 5 | NÃO |
+| Limite_Dias_Critico | — | Inteiro | Prazo, em dias, que caracteriza nível crítico quanto ao estoque do modelo. | 5 | NÃO |
+ 
+
+ 
+## 17. REQUISICAO_COMPRA
+ 
+Registra a solicitação de reposição de estoque para um determinado modelo de aparelho.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Requisicao | PK | Inteiro | Identificador único da requisição de compra. | 10 | NÃO |
+| Id_Especificacao | FK | Inteiro | Referencia a ESPECIFICACAO_APARELHO cujo estoque está sendo requisitado. | 10 | NÃO |
+| Codigo_Funcionario | FK | VARCHAR | Referencia o FUNCIONARIO responsável pela aprovação da requisição. | 20 | SIM |
+| Qtd_Atual_Estoque | — | Inteiro | Quantidade em estoque no momento da abertura da requisição. | 5 | NÃO |
+| Estoque_Minimo | — | Inteiro | Quantidade mínima de referência considerada na requisição. | 5 | NÃO |
+| Qtd_Sugerida | — | Inteiro | Quantidade sugerida para reposição de estoque. | 5 | NÃO |
+| Parecer_Financeiro | — | VARCHAR | Avaliação do setor financeiro sobre a requisição. | 500 | SIM |
+| Data_Abertura | — | DATETIME | Data de abertura da requisição. | — | NÃO |
+| Data_Decisao | — | DATETIME | Data em que a requisição foi decidida (aprovada ou recusada). | — | SIM |
+| Motivo_Recusa | — | VARCHAR | Justificativa registrada em caso de recusa da requisição. | 255 | SIM |
+| Status | — | VARCHAR | Situação atual da requisição. | 20 | NÃO |
+ 
+
+ 
+## 18. MOVIMENTACAO
+ 
+Registra o histórico de mudanças de status de um aparelho.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Numero_Movimentacao | PK | Inteiro | Identificador único da movimentação. | 10 | NÃO |
+| Imei | FK | CHAR | Referencia o APARELHO ao qual a movimentação se refere. | 15 | NÃO |
+| Codigo_Funcionario | FK | VARCHAR | Referencia o FUNCIONARIO que realizou a movimentação. | 20 | NÃO |
+| Tipo_Movimento | — | VARCHAR | Classificação do tipo de movimentação registrada. | 30 | NÃO |
+| Status_Anterior | — | VARCHAR | Status do aparelho antes da movimentação. | 20 | NÃO |
+| Status_Novo | — | VARCHAR | Status do aparelho após a movimentação. | 20 | NÃO |
+| Data_Hora | — | DATETIME | Data e hora em que a movimentação ocorreu. | — | NÃO |
+ 
+ 
+## 19. AUDITORIA
+ 
+Registra as ações realizadas no sistema para fins de rastreabilidade e controle.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Auditoria | PK | Inteiro | Identificador único do registro de auditoria. | 10 | NÃO |
+| Codigo_Funcionario | FK | VARCHAR | Referencia o FUNCIONARIO que executou a ação registrada. | 20 | NÃO |
+| Key_Autorizador | FK | VARCHAR | Referencia o FUNCIONARIO que autorizou a ação registrada. | 20 | SIM |
+| Acao | — | VARCHAR | Tipo de ação realizada no sistema. | 50 | NÃO |
+| Tabela_Afetada | — | VARCHAR | Nome da entidade/tabela afetada pela ação. | 50 | NÃO |
+| Registro_Id | — | VARCHAR | Identificador do registro afetado pela ação. | 50 | NÃO |
+| Valor_Anterior | — | VARCHAR | Valor do dado antes da alteração registrada. | 500 | SIM |
+| Valor_Novo | — | VARCHAR | Valor do dado após a alteração registrada. | 500 | SIM |
+| Data_Hora | — | DATETIME | Data e hora em que a ação foi registrada. | — | NÃO |
+| Descricao | — | VARCHAR | Detalhamento textual da ação registrada. | 500 | SIM |
+ 
+
+ 
+## 20. FUNCIONARIO
+ 
+Representa o colaborador da empresa que executa operações e atendimentos registrados no sistema.
+ 
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Funcionario | PK | VARCHAR | Identificador único do funcionário. | 20 | NÃO |
+| Nome | — | VARCHAR | Nome completo do funcionário. | 150 | NÃO |
+| Cargo | — | VARCHAR | Cargo ou função ocupada pelo funcionário na empresa. | 50 | NÃO |
+| Login | Único | VARCHAR | Identificação de acesso do funcionário ao sistema. | 50 | NÃO |
+| Perfil_Acesso | — | VARCHAR | Perfil de permissões associado ao funcionário no sistema. | 30 | NÃO |
+| Nivel_Acesso | — | Inteiro | Nível de permissão de acesso do funcionário. | 1 ou 2 | NÃO |
+| Ativo | — | CHAR | Indica se o funcionário está atualmente ativo na empresa. | 3 | NÃO |
 
 
 

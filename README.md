@@ -24,7 +24,7 @@ CellGo Comércio de Celulares Ltda.
 E-commerce atuando com aparelhos novos e seminovos.
 
 **O que ela vende ou oferece?**  
-Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos, revisados e certificados, com garantia própria da loja; pagamento parcelado no cartão de crédito; e vendas somente pelo canal online.
+Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos, revisados e certificados, com garantia própria da loja; pagamento por Pix, boleto ou cartão de crédito em até 12 parcelas; e vendas somente pelo canal online.
 
 **Quem são seus principais clientes?**  
 Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos - tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
@@ -148,7 +148,7 @@ Esse projeto é adequado para um projeto de modelagem de dados, pois além de es
 
 
 
-## 5. Processos de Negócios
+### 5. Processos de Negócios
 
 **Processos de Venda em sequência**
 
@@ -186,7 +186,7 @@ Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do m
 Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Defeito → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Mau uso identificado → Solicitação recusada → Cliente recebe o diagnóstico (sem troca e sem estorno) → Atualização do histórico do cliente → Encerramento do pós-venda
 
 
-## 6. Requisitos Funcionais
+### 6. Requisitos Funcionais
 
 **RF-01 – Cadastrar clientes** 
 
@@ -501,7 +501,7 @@ O sistema deve fazer cópias de segurança automáticas do banco de dados todos 
 - A restauração dos dados deve ser testada periodicamente.
 
 
-**RNF-11 – Precisão de cálculos e prazos**
+**RNF-10 – Precisão de cálculos e prazos**
 
 O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
@@ -513,9 +513,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 ## 8. Regras de Negócio
 
-## Módulo 1 — Cadastro
+### Módulo 1 — Cadastro
 
-### RN-01 — Cadastro de Cliente
+#### RN-01 — Cadastro de Cliente
 
 
 **Descrição:** O sistema deverá permitir o cadastro dos clientes que realizam compras, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cadastro poderá ser de pessoa física ou pessoa jurídica.
@@ -531,7 +531,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 
 
-### RN-02 — Cadastro de Aparelho/Produto
+#### RN-02 — Cadastro de Aparelho/Produto
 
 
 **Descrição:** O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com as informações necessárias para estoque, garantia, giro/reposição e nota fiscal.
@@ -548,9 +548,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 
 
-## Módulo 2 — Estoque
+### Módulo 2 — Estoque
 
-### RN-03 — Controle de Estoque
+#### RN-03 — Controle de Estoque
 
 **Descrição:** O sistema deverá controlar a disponibilidade individual de cada aparelho comercializado pela empresa, unidade a unidade, identificada univocamente pelo IMEI/número de série (RN-02), sem uso de reserva prévia à confirmação da venda e sem controle por quantidade agregada de modelo.
 
@@ -568,7 +568,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 
 
-### RN-04 — Validação de Disponibilidade no Fechamento da Venda
+#### RN-04 — Validação de Disponibilidade no Fechamento da Venda
 
 **Módulo:** Estoque
 
@@ -583,7 +583,7 @@ O sistema deverá validar novamente a disponibilidade do aparelho no exato momen
 Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
-### RN-05 — Gestão de Aging por IMEI e Identificação de Encalhe
+#### RN-05 — Gestão de Aging por IMEI e Identificação de Encalhe
 
 **Descrição:** O sistema deverá controlar o tempo de permanência de cada aparelho individualmente (via IMEI/número de série) no estoque, identificando unidades específicas paradas e fornecendo dados para estratégias de giro de estoque (ex.: priorização de saída FIFO).
 
@@ -598,7 +598,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
 
-### RN-06 — Ponto de Pedido e Requisição de Compra
+#### RN-06 — Ponto de Pedido e Requisição de Compra
 
 **Descrição:** O sistema deverá monitorar a quantidade de aparelhos disponíveis por modelo/especificação e gerar requisições de compra que tramitam pelo setor Financeiro e pela Diretoria ao atingir o limite mínimo de segurança.
 
@@ -614,9 +614,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 **Resultado esperado:** Evitar ruptura de estoque (estoque zerado) por modelo, antecipando a necessidade de reposição por meio de um fluxo formal de análise financeira e aprovação da Diretoria, sem interferir no controle individual de estoque por IMEI e sem gerar requisições duplicadas para o mesmo modelo.
 
-## Módulo 3 — Venda
+### Módulo 3 — Venda
 
-### RN-07 — Venda de Aparelho
+#### RN-07 — Venda de Aparelho
 
 **Descrição:** O sistema deverá permitir a realização da venda de aparelhos cadastrados no estoque, vinculando o(s) produto(s) a um cliente e registrando todas as informações financeiras da operação.
 
@@ -633,7 +633,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
 
-### RN-08 — Forma de Venda — À Vista ou Parcelada
+#### RN-08 — Forma de Venda — À Vista ou Parcelada
 
 **Regras:**
 - O cliente poderá optar por compra à vista ou parcelada.
@@ -644,7 +644,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
 
 
-### RN-09 — Cálculo do Valor da Venda
+#### RN-09 — Cálculo do Valor da Venda
 
 **Regras:**
 - Valor Final = Valor do Produto − Desconto + Taxas (quando houver).
@@ -656,7 +656,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
 
-### RN-10 — Desconto para Pagamento via Pix
+#### RN-10 — Desconto para Pagamento via Pix
 
 **Regras:**
 - O desconto é aplicado somente quando a forma de pagamento é Pix.
@@ -669,7 +669,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Controlar os descontos concedidos para pagamentos via Pix, evitando descontos indevidos em outras formas de pagamento ou em produtos não elegíveis.
 
 
-### RN-11 — Formas de Pagamento
+#### RN-11 — Formas de Pagamento
 
 **Regras:**
 - A venda deverá informar obrigatoriamente a forma de pagamento.
@@ -681,7 +681,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
 
 
-### RN-12 — Parcelamento
+#### RN-12 — Parcelamento
 
 **Regras:**
 - Número mínimo de parcelas: 1. Número máximo: 12.
@@ -693,9 +693,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
 
 
-## Módulo 4 — Pós-venda: Cancelamento
+### Módulo 4 — Pós-venda: Cancelamento
 
-### RN-13 — Cancelamento da Venda
+#### RN-13 — Cancelamento da Venda
 
 **Descrição:** O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias corridos a partir da data da venda, desde que o aparelho ainda não tenha saído para entrega.
 
@@ -711,9 +711,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
 
 
-## Módulo 5 — Pós-venda: Troca e Devolução
+### Módulo 5 — Pós-venda: Troca e Devolução
 
-### RN-14 — Troca por Defeito Coberto pela Garantia
+#### RN-14 — Troca por Defeito Coberto pela Garantia
 
 **Descrição:** O sistema deverá permitir a troca de um aparelho vendido por outro equivalente, quando for identificado defeito coberto pela garantia da loja, dentro do prazo de 30 dias da compra.
 
@@ -740,7 +740,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 | Existe um aparelho equivalente, porém com status Em avaliação, Em manutenção ou Inativo (não Disponível) no momento da solicitação. | Não (indisponível) | Mesmo tratamento da situação anterior: devolução imediata com restituição integral, sem espera pela liberação desse aparelho. | RN-16 + RN-19 + RN-20 |
 
 
-### RN-15 — Devolução por Arrependimento
+#### RN-15 — Devolução por Arrependimento
 
 **Descrição:** O sistema deverá permitir a devolução de um aparelho no prazo de até 7 dias corridos a partir do recebimento, independentemente de defeito, em conformidade com o direito de arrependimento previsto no Art. 49 do Código de Defesa do Consumidor para compras realizadas fora do estabelecimento comercial (e-commerce).
 
@@ -754,7 +754,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir o cumprimento do direito de arrependimento do consumidor em compras de e-commerce, controlando devoluções sem perder o histórico da venda.
 
 
-### RN-16 — Devolução por Defeito
+#### RN-16 — Devolução por Defeito
 
 **Descrição:** O sistema deverá permitir a devolução (com reembolso) do aparelho quando for identificado defeito coberto pela garantia, sem solução adequada por troca, ou quando o aparelho já tiver sido entregue no momento em que o cliente reporta o problema (ver RN-13).
 
@@ -769,9 +769,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central.
 
 
-## Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
+### Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
 
-### RN-17 — Garantia do Aparelho
+#### RN-17 — Garantia do Aparelho
 
 **Descrição:** Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adicional do fabricante, conforme sua condição de cadastro (Novo ou Seminovo).
 
@@ -787,7 +787,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Controlar os diferentes períodos de garantia e diferenciar claramente a cobertura da loja da cobertura do fabricante.
 
 
-### RN-18 — Avaliação de Dano e Elegibilidade para Cobertura
+#### RN-18 — Avaliação de Dano e Elegibilidade para Cobertura
 
 **Descrição:** Quando o aparelho apresentar dano, o sistema deverá registrar a ocorrência e determinar se o caso é coberto pela garantia ou se é caracterizado como mau uso, sem cobertura da empresa.
 
@@ -801,9 +801,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Diferenciar de forma clara problemas cobertos pela garantia de danos causados por mau uso, sem que a empresa assuma qualquer serviço de reparo nesses casos.
 
 
-## Módulo 7 — Financeiro e Fiscal
+### Módulo 7 — Financeiro e Fiscal
 
-### RN-19 — Estorno e Restituição
+#### RN-19 — Estorno e Restituição
 
 **Descrição:** O sistema deverá processar estornos e restituições decorrentes de cancelamento, devolução ou troca com diferença de valor a favor do cliente.
 
@@ -820,7 +820,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir que todo valor devido ao cliente em cancelamentos, devoluções ou trocas seja restituído de forma rastreável e dentro de um prazo definido.
 
 
-### RN-20 — Emissão de Nota Fiscal
+#### RN-20 — Emissão de Nota Fiscal
 
 **Descrição:** O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução.
 
@@ -836,7 +836,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir que todas as vendas e movimentações de pós-venda sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
 
 
-### RN-21 — Comissão de Vendedores — Não Aplicável
+#### RN-21 — Comissão de Vendedores — Não Aplicável
 
 **Descrição:** O sistema não possuirá controle de comissão de vendedores, pois o modelo de negócio é de e-commerce, sem vendedor associado à venda.
 
@@ -847,9 +847,9 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Manter o módulo financeiro simplificado, coerente com a ausência de vendedores no modelo de e-commerce.
 
 
-## Módulo 8 — Histórico, Auditoria e Acesso
+### Módulo 8 — Histórico, Auditoria e Acesso
 
-### RN-22 — Histórico do Cliente
+#### RN-22 — Histórico do Cliente
 
 **Descrição:** O sistema deverá manter o histórico comercial completo de cada cliente.
 
@@ -862,7 +862,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Permitir que a empresa tenha uma visão completa do relacionamento comercial com o cliente.
 
 
-### RN-23 — Auditoria das Operações
+#### RN-23 — Auditoria das Operações
 
 **Descrição:** Operações importantes realizadas no sistema deverão possuir registro para auditoria.
 
@@ -874,7 +874,7 @@ Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 **Resultado esperado:** Garantir rastreabilidade de todas as operações relevantes realizadas no ERP, incluindo as novas rotinas de gestão de estoque desta revisão.
 
 
-### RN-24 — Perfis de Acesso e Autorizações
+#### RN-24 — Perfis de Acesso e Autorizações
 
 **Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (aging e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio: Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
 

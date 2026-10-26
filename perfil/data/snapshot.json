@@ -1,0 +1,1894 @@
+{
+  "login": "RyanHenrique20",
+  "geradoEm": "2026-10-26T04:47:35Z",
+  "totais": {
+    "commits": 46,
+    "prs": 1,
+    "issues": 0,
+    "reposNovos": 5,
+    "contribuicoes": 52,
+    "reposPublicos": 12
+  },
+  "calendario": {
+    "total": 52,
+    "semanas": [
+      [
+        {
+          "data": "2025-10-26",
+          "n": 0
+        },
+        {
+          "data": "2025-10-27",
+          "n": 0
+        },
+        {
+          "data": "2025-10-28",
+          "n": 0
+        },
+        {
+          "data": "2025-10-29",
+          "n": 0
+        },
+        {
+          "data": "2025-10-30",
+          "n": 0
+        },
+        {
+          "data": "2025-10-31",
+          "n": 0
+        },
+        {
+          "data": "2025-11-01",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-11-02",
+          "n": 0
+        },
+        {
+          "data": "2025-11-03",
+          "n": 0
+        },
+        {
+          "data": "2025-11-04",
+          "n": 0
+        },
+        {
+          "data": "2025-11-05",
+          "n": 0
+        },
+        {
+          "data": "2025-11-06",
+          "n": 0
+        },
+        {
+          "data": "2025-11-07",
+          "n": 0
+        },
+        {
+          "data": "2025-11-08",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-11-09",
+          "n": 0
+        },
+        {
+          "data": "2025-11-10",
+          "n": 0
+        },
+        {
+          "data": "2025-11-11",
+          "n": 0
+        },
+        {
+          "data": "2025-11-12",
+          "n": 0
+        },
+        {
+          "data": "2025-11-13",
+          "n": 0
+        },
+        {
+          "data": "2025-11-14",
+          "n": 0
+        },
+        {
+          "data": "2025-11-15",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-11-16",
+          "n": 0
+        },
+        {
+          "data": "2025-11-17",
+          "n": 0
+        },
+        {
+          "data": "2025-11-18",
+          "n": 0
+        },
+        {
+          "data": "2025-11-19",
+          "n": 0
+        },
+        {
+          "data": "2025-11-20",
+          "n": 0
+        },
+        {
+          "data": "2025-11-21",
+          "n": 0
+        },
+        {
+          "data": "2025-11-22",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-11-23",
+          "n": 0
+        },
+        {
+          "data": "2025-11-24",
+          "n": 0
+        },
+        {
+          "data": "2025-11-25",
+          "n": 0
+        },
+        {
+          "data": "2025-11-26",
+          "n": 0
+        },
+        {
+          "data": "2025-11-27",
+          "n": 0
+        },
+        {
+          "data": "2025-11-28",
+          "n": 0
+        },
+        {
+          "data": "2025-11-29",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-11-30",
+          "n": 0
+        },
+        {
+          "data": "2025-12-01",
+          "n": 0
+        },
+        {
+          "data": "2025-12-02",
+          "n": 0
+        },
+        {
+          "data": "2025-12-03",
+          "n": 0
+        },
+        {
+          "data": "2025-12-04",
+          "n": 0
+        },
+        {
+          "data": "2025-12-05",
+          "n": 0
+        },
+        {
+          "data": "2025-12-06",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-12-07",
+          "n": 0
+        },
+        {
+          "data": "2025-12-08",
+          "n": 0
+        },
+        {
+          "data": "2025-12-09",
+          "n": 0
+        },
+        {
+          "data": "2025-12-10",
+          "n": 0
+        },
+        {
+          "data": "2025-12-11",
+          "n": 0
+        },
+        {
+          "data": "2025-12-12",
+          "n": 0
+        },
+        {
+          "data": "2025-12-13",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-12-14",
+          "n": 0
+        },
+        {
+          "data": "2025-12-15",
+          "n": 0
+        },
+        {
+          "data": "2025-12-16",
+          "n": 0
+        },
+        {
+          "data": "2025-12-17",
+          "n": 0
+        },
+        {
+          "data": "2025-12-18",
+          "n": 0
+        },
+        {
+          "data": "2025-12-19",
+          "n": 0
+        },
+        {
+          "data": "2025-12-20",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-12-21",
+          "n": 0
+        },
+        {
+          "data": "2025-12-22",
+          "n": 0
+        },
+        {
+          "data": "2025-12-23",
+          "n": 0
+        },
+        {
+          "data": "2025-12-24",
+          "n": 0
+        },
+        {
+          "data": "2025-12-25",
+          "n": 0
+        },
+        {
+          "data": "2025-12-26",
+          "n": 0
+        },
+        {
+          "data": "2025-12-27",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2025-12-28",
+          "n": 0
+        },
+        {
+          "data": "2025-12-29",
+          "n": 0
+        },
+        {
+          "data": "2025-12-30",
+          "n": 0
+        },
+        {
+          "data": "2025-12-31",
+          "n": 0
+        },
+        {
+          "data": "2026-01-01",
+          "n": 0
+        },
+        {
+          "data": "2026-01-02",
+          "n": 0
+        },
+        {
+          "data": "2026-01-03",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-01-04",
+          "n": 0
+        },
+        {
+          "data": "2026-01-05",
+          "n": 0
+        },
+        {
+          "data": "2026-01-06",
+          "n": 0
+        },
+        {
+          "data": "2026-01-07",
+          "n": 0
+        },
+        {
+          "data": "2026-01-08",
+          "n": 0
+        },
+        {
+          "data": "2026-01-09",
+          "n": 0
+        },
+        {
+          "data": "2026-01-10",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-01-11",
+          "n": 0
+        },
+        {
+          "data": "2026-01-12",
+          "n": 0
+        },
+        {
+          "data": "2026-01-13",
+          "n": 0
+        },
+        {
+          "data": "2026-01-14",
+          "n": 0
+        },
+        {
+          "data": "2026-01-15",
+          "n": 0
+        },
+        {
+          "data": "2026-01-16",
+          "n": 0
+        },
+        {
+          "data": "2026-01-17",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-01-18",
+          "n": 0
+        },
+        {
+          "data": "2026-01-19",
+          "n": 0
+        },
+        {
+          "data": "2026-01-20",
+          "n": 0
+        },
+        {
+          "data": "2026-01-21",
+          "n": 0
+        },
+        {
+          "data": "2026-01-22",
+          "n": 0
+        },
+        {
+          "data": "2026-01-23",
+          "n": 0
+        },
+        {
+          "data": "2026-01-24",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-01-25",
+          "n": 0
+        },
+        {
+          "data": "2026-01-26",
+          "n": 0
+        },
+        {
+          "data": "2026-01-27",
+          "n": 0
+        },
+        {
+          "data": "2026-01-28",
+          "n": 0
+        },
+        {
+          "data": "2026-01-29",
+          "n": 0
+        },
+        {
+          "data": "2026-01-30",
+          "n": 0
+        },
+        {
+          "data": "2026-01-31",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-02-01",
+          "n": 0
+        },
+        {
+          "data": "2026-02-02",
+          "n": 0
+        },
+        {
+          "data": "2026-02-03",
+          "n": 0
+        },
+        {
+          "data": "2026-02-04",
+          "n": 0
+        },
+        {
+          "data": "2026-02-05",
+          "n": 0
+        },
+        {
+          "data": "2026-02-06",
+          "n": 0
+        },
+        {
+          "data": "2026-02-07",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-02-08",
+          "n": 0
+        },
+        {
+          "data": "2026-02-09",
+          "n": 0
+        },
+        {
+          "data": "2026-02-10",
+          "n": 0
+        },
+        {
+          "data": "2026-02-11",
+          "n": 0
+        },
+        {
+          "data": "2026-02-12",
+          "n": 0
+        },
+        {
+          "data": "2026-02-13",
+          "n": 0
+        },
+        {
+          "data": "2026-02-14",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-02-15",
+          "n": 0
+        },
+        {
+          "data": "2026-02-16",
+          "n": 0
+        },
+        {
+          "data": "2026-02-17",
+          "n": 0
+        },
+        {
+          "data": "2026-02-18",
+          "n": 0
+        },
+        {
+          "data": "2026-02-19",
+          "n": 0
+        },
+        {
+          "data": "2026-02-20",
+          "n": 0
+        },
+        {
+          "data": "2026-02-21",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-02-22",
+          "n": 0
+        },
+        {
+          "data": "2026-02-23",
+          "n": 0
+        },
+        {
+          "data": "2026-02-24",
+          "n": 0
+        },
+        {
+          "data": "2026-02-25",
+          "n": 0
+        },
+        {
+          "data": "2026-02-26",
+          "n": 0
+        },
+        {
+          "data": "2026-02-27",
+          "n": 0
+        },
+        {
+          "data": "2026-02-28",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-03-01",
+          "n": 0
+        },
+        {
+          "data": "2026-03-02",
+          "n": 0
+        },
+        {
+          "data": "2026-03-03",
+          "n": 0
+        },
+        {
+          "data": "2026-03-04",
+          "n": 0
+        },
+        {
+          "data": "2026-03-05",
+          "n": 0
+        },
+        {
+          "data": "2026-03-06",
+          "n": 0
+        },
+        {
+          "data": "2026-03-07",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-03-08",
+          "n": 0
+        },
+        {
+          "data": "2026-03-09",
+          "n": 0
+        },
+        {
+          "data": "2026-03-10",
+          "n": 0
+        },
+        {
+          "data": "2026-03-11",
+          "n": 0
+        },
+        {
+          "data": "2026-03-12",
+          "n": 0
+        },
+        {
+          "data": "2026-03-13",
+          "n": 0
+        },
+        {
+          "data": "2026-03-14",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-03-15",
+          "n": 0
+        },
+        {
+          "data": "2026-03-16",
+          "n": 0
+        },
+        {
+          "data": "2026-03-17",
+          "n": 0
+        },
+        {
+          "data": "2026-03-18",
+          "n": 0
+        },
+        {
+          "data": "2026-03-19",
+          "n": 0
+        },
+        {
+          "data": "2026-03-20",
+          "n": 0
+        },
+        {
+          "data": "2026-03-21",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-03-22",
+          "n": 0
+        },
+        {
+          "data": "2026-03-23",
+          "n": 0
+        },
+        {
+          "data": "2026-03-24",
+          "n": 0
+        },
+        {
+          "data": "2026-03-25",
+          "n": 0
+        },
+        {
+          "data": "2026-03-26",
+          "n": 0
+        },
+        {
+          "data": "2026-03-27",
+          "n": 0
+        },
+        {
+          "data": "2026-03-28",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-03-29",
+          "n": 0
+        },
+        {
+          "data": "2026-03-30",
+          "n": 0
+        },
+        {
+          "data": "2026-03-31",
+          "n": 0
+        },
+        {
+          "data": "2026-04-01",
+          "n": 0
+        },
+        {
+          "data": "2026-04-02",
+          "n": 0
+        },
+        {
+          "data": "2026-04-03",
+          "n": 0
+        },
+        {
+          "data": "2026-04-04",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-04-05",
+          "n": 0
+        },
+        {
+          "data": "2026-04-06",
+          "n": 0
+        },
+        {
+          "data": "2026-04-07",
+          "n": 0
+        },
+        {
+          "data": "2026-04-08",
+          "n": 0
+        },
+        {
+          "data": "2026-04-09",
+          "n": 0
+        },
+        {
+          "data": "2026-04-10",
+          "n": 0
+        },
+        {
+          "data": "2026-04-11",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-04-12",
+          "n": 0
+        },
+        {
+          "data": "2026-04-13",
+          "n": 0
+        },
+        {
+          "data": "2026-04-14",
+          "n": 0
+        },
+        {
+          "data": "2026-04-15",
+          "n": 0
+        },
+        {
+          "data": "2026-04-16",
+          "n": 0
+        },
+        {
+          "data": "2026-04-17",
+          "n": 0
+        },
+        {
+          "data": "2026-04-18",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-04-19",
+          "n": 0
+        },
+        {
+          "data": "2026-04-20",
+          "n": 0
+        },
+        {
+          "data": "2026-04-21",
+          "n": 0
+        },
+        {
+          "data": "2026-04-22",
+          "n": 0
+        },
+        {
+          "data": "2026-04-23",
+          "n": 0
+        },
+        {
+          "data": "2026-04-24",
+          "n": 0
+        },
+        {
+          "data": "2026-04-25",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-04-26",
+          "n": 0
+        },
+        {
+          "data": "2026-04-27",
+          "n": 0
+        },
+        {
+          "data": "2026-04-28",
+          "n": 0
+        },
+        {
+          "data": "2026-04-29",
+          "n": 0
+        },
+        {
+          "data": "2026-04-30",
+          "n": 0
+        },
+        {
+          "data": "2026-05-01",
+          "n": 0
+        },
+        {
+          "data": "2026-05-02",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-05-03",
+          "n": 0
+        },
+        {
+          "data": "2026-05-04",
+          "n": 0
+        },
+        {
+          "data": "2026-05-05",
+          "n": 0
+        },
+        {
+          "data": "2026-05-06",
+          "n": 0
+        },
+        {
+          "data": "2026-05-07",
+          "n": 0
+        },
+        {
+          "data": "2026-05-08",
+          "n": 0
+        },
+        {
+          "data": "2026-05-09",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-05-10",
+          "n": 0
+        },
+        {
+          "data": "2026-05-11",
+          "n": 0
+        },
+        {
+          "data": "2026-05-12",
+          "n": 0
+        },
+        {
+          "data": "2026-05-13",
+          "n": 0
+        },
+        {
+          "data": "2026-05-14",
+          "n": 0
+        },
+        {
+          "data": "2026-05-15",
+          "n": 0
+        },
+        {
+          "data": "2026-05-16",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-05-17",
+          "n": 0
+        },
+        {
+          "data": "2026-05-18",
+          "n": 0
+        },
+        {
+          "data": "2026-05-19",
+          "n": 0
+        },
+        {
+          "data": "2026-05-20",
+          "n": 0
+        },
+        {
+          "data": "2026-05-21",
+          "n": 0
+        },
+        {
+          "data": "2026-05-22",
+          "n": 0
+        },
+        {
+          "data": "2026-05-23",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-05-24",
+          "n": 0
+        },
+        {
+          "data": "2026-05-25",
+          "n": 0
+        },
+        {
+          "data": "2026-05-26",
+          "n": 0
+        },
+        {
+          "data": "2026-05-27",
+          "n": 0
+        },
+        {
+          "data": "2026-05-28",
+          "n": 0
+        },
+        {
+          "data": "2026-05-29",
+          "n": 0
+        },
+        {
+          "data": "2026-05-30",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-05-31",
+          "n": 0
+        },
+        {
+          "data": "2026-06-01",
+          "n": 0
+        },
+        {
+          "data": "2026-06-02",
+          "n": 0
+        },
+        {
+          "data": "2026-06-03",
+          "n": 0
+        },
+        {
+          "data": "2026-06-04",
+          "n": 0
+        },
+        {
+          "data": "2026-06-05",
+          "n": 0
+        },
+        {
+          "data": "2026-06-06",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-06-07",
+          "n": 0
+        },
+        {
+          "data": "2026-06-08",
+          "n": 0
+        },
+        {
+          "data": "2026-06-09",
+          "n": 0
+        },
+        {
+          "data": "2026-06-10",
+          "n": 0
+        },
+        {
+          "data": "2026-06-11",
+          "n": 0
+        },
+        {
+          "data": "2026-06-12",
+          "n": 0
+        },
+        {
+          "data": "2026-06-13",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-06-14",
+          "n": 0
+        },
+        {
+          "data": "2026-06-15",
+          "n": 0
+        },
+        {
+          "data": "2026-06-16",
+          "n": 0
+        },
+        {
+          "data": "2026-06-17",
+          "n": 0
+        },
+        {
+          "data": "2026-06-18",
+          "n": 0
+        },
+        {
+          "data": "2026-06-19",
+          "n": 0
+        },
+        {
+          "data": "2026-06-20",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-06-21",
+          "n": 0
+        },
+        {
+          "data": "2026-06-22",
+          "n": 0
+        },
+        {
+          "data": "2026-06-23",
+          "n": 0
+        },
+        {
+          "data": "2026-06-24",
+          "n": 0
+        },
+        {
+          "data": "2026-06-25",
+          "n": 0
+        },
+        {
+          "data": "2026-06-26",
+          "n": 0
+        },
+        {
+          "data": "2026-06-27",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-06-28",
+          "n": 0
+        },
+        {
+          "data": "2026-06-29",
+          "n": 0
+        },
+        {
+          "data": "2026-06-30",
+          "n": 0
+        },
+        {
+          "data": "2026-07-01",
+          "n": 0
+        },
+        {
+          "data": "2026-07-02",
+          "n": 0
+        },
+        {
+          "data": "2026-07-03",
+          "n": 0
+        },
+        {
+          "data": "2026-07-04",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-07-05",
+          "n": 0
+        },
+        {
+          "data": "2026-07-06",
+          "n": 0
+        },
+        {
+          "data": "2026-07-07",
+          "n": 0
+        },
+        {
+          "data": "2026-07-08",
+          "n": 0
+        },
+        {
+          "data": "2026-07-09",
+          "n": 0
+        },
+        {
+          "data": "2026-07-10",
+          "n": 0
+        },
+        {
+          "data": "2026-07-11",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-07-12",
+          "n": 0
+        },
+        {
+          "data": "2026-07-13",
+          "n": 0
+        },
+        {
+          "data": "2026-07-14",
+          "n": 0
+        },
+        {
+          "data": "2026-07-15",
+          "n": 0
+        },
+        {
+          "data": "2026-07-16",
+          "n": 0
+        },
+        {
+          "data": "2026-07-17",
+          "n": 0
+        },
+        {
+          "data": "2026-07-18",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-07-19",
+          "n": 0
+        },
+        {
+          "data": "2026-07-20",
+          "n": 0
+        },
+        {
+          "data": "2026-07-21",
+          "n": 0
+        },
+        {
+          "data": "2026-07-22",
+          "n": 0
+        },
+        {
+          "data": "2026-07-23",
+          "n": 0
+        },
+        {
+          "data": "2026-07-24",
+          "n": 0
+        },
+        {
+          "data": "2026-07-25",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-07-26",
+          "n": 0
+        },
+        {
+          "data": "2026-07-27",
+          "n": 0
+        },
+        {
+          "data": "2026-07-28",
+          "n": 0
+        },
+        {
+          "data": "2026-07-29",
+          "n": 0
+        },
+        {
+          "data": "2026-07-30",
+          "n": 0
+        },
+        {
+          "data": "2026-07-31",
+          "n": 0
+        },
+        {
+          "data": "2026-08-01",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-08-02",
+          "n": 0
+        },
+        {
+          "data": "2026-08-03",
+          "n": 0
+        },
+        {
+          "data": "2026-08-04",
+          "n": 0
+        },
+        {
+          "data": "2026-08-05",
+          "n": 0
+        },
+        {
+          "data": "2026-08-06",
+          "n": 0
+        },
+        {
+          "data": "2026-08-07",
+          "n": 0
+        },
+        {
+          "data": "2026-08-08",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-08-09",
+          "n": 0
+        },
+        {
+          "data": "2026-08-10",
+          "n": 0
+        },
+        {
+          "data": "2026-08-11",
+          "n": 0
+        },
+        {
+          "data": "2026-08-12",
+          "n": 0
+        },
+        {
+          "data": "2026-08-13",
+          "n": 0
+        },
+        {
+          "data": "2026-08-14",
+          "n": 0
+        },
+        {
+          "data": "2026-08-15",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-08-16",
+          "n": 0
+        },
+        {
+          "data": "2026-08-17",
+          "n": 0
+        },
+        {
+          "data": "2026-08-18",
+          "n": 0
+        },
+        {
+          "data": "2026-08-19",
+          "n": 0
+        },
+        {
+          "data": "2026-08-20",
+          "n": 0
+        },
+        {
+          "data": "2026-08-21",
+          "n": 0
+        },
+        {
+          "data": "2026-08-22",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-08-23",
+          "n": 0
+        },
+        {
+          "data": "2026-08-24",
+          "n": 0
+        },
+        {
+          "data": "2026-08-25",
+          "n": 0
+        },
+        {
+          "data": "2026-08-26",
+          "n": 0
+        },
+        {
+          "data": "2026-08-27",
+          "n": 0
+        },
+        {
+          "data": "2026-08-28",
+          "n": 0
+        },
+        {
+          "data": "2026-08-29",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-08-30",
+          "n": 0
+        },
+        {
+          "data": "2026-08-31",
+          "n": 0
+        },
+        {
+          "data": "2026-09-01",
+          "n": 0
+        },
+        {
+          "data": "2026-09-02",
+          "n": 0
+        },
+        {
+          "data": "2026-09-03",
+          "n": 0
+        },
+        {
+          "data": "2026-09-04",
+          "n": 0
+        },
+        {
+          "data": "2026-09-05",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-09-06",
+          "n": 0
+        },
+        {
+          "data": "2026-09-07",
+          "n": 2
+        },
+        {
+          "data": "2026-09-08",
+          "n": 0
+        },
+        {
+          "data": "2026-09-09",
+          "n": 4
+        },
+        {
+          "data": "2026-09-10",
+          "n": 0
+        },
+        {
+          "data": "2026-09-11",
+          "n": 0
+        },
+        {
+          "data": "2026-09-12",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-09-13",
+          "n": 0
+        },
+        {
+          "data": "2026-09-14",
+          "n": 0
+        },
+        {
+          "data": "2026-09-15",
+          "n": 2
+        },
+        {
+          "data": "2026-09-16",
+          "n": 0
+        },
+        {
+          "data": "2026-09-17",
+          "n": 5
+        },
+        {
+          "data": "2026-09-18",
+          "n": 0
+        },
+        {
+          "data": "2026-09-19",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-09-20",
+          "n": 0
+        },
+        {
+          "data": "2026-09-21",
+          "n": 0
+        },
+        {
+          "data": "2026-09-22",
+          "n": 0
+        },
+        {
+          "data": "2026-09-23",
+          "n": 3
+        },
+        {
+          "data": "2026-09-24",
+          "n": 4
+        },
+        {
+          "data": "2026-09-25",
+          "n": 0
+        },
+        {
+          "data": "2026-09-26",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-09-27",
+          "n": 1
+        },
+        {
+          "data": "2026-09-28",
+          "n": 0
+        },
+        {
+          "data": "2026-09-29",
+          "n": 0
+        },
+        {
+          "data": "2026-09-30",
+          "n": 1
+        },
+        {
+          "data": "2026-10-01",
+          "n": 0
+        },
+        {
+          "data": "2026-10-02",
+          "n": 0
+        },
+        {
+          "data": "2026-10-03",
+          "n": 24
+        }
+      ],
+      [
+        {
+          "data": "2026-10-04",
+          "n": 0
+        },
+        {
+          "data": "2026-10-05",
+          "n": 0
+        },
+        {
+          "data": "2026-10-06",
+          "n": 0
+        },
+        {
+          "data": "2026-10-07",
+          "n": 0
+        },
+        {
+          "data": "2026-10-08",
+          "n": 0
+        },
+        {
+          "data": "2026-10-09",
+          "n": 0
+        },
+        {
+          "data": "2026-10-10",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-10-11",
+          "n": 0
+        },
+        {
+          "data": "2026-10-12",
+          "n": 0
+        },
+        {
+          "data": "2026-10-13",
+          "n": 0
+        },
+        {
+          "data": "2026-10-14",
+          "n": 4
+        },
+        {
+          "data": "2026-10-15",
+          "n": 0
+        },
+        {
+          "data": "2026-10-16",
+          "n": 0
+        },
+        {
+          "data": "2026-10-17",
+          "n": 2
+        }
+      ],
+      [
+        {
+          "data": "2026-10-18",
+          "n": 0
+        },
+        {
+          "data": "2026-10-19",
+          "n": 0
+        },
+        {
+          "data": "2026-10-20",
+          "n": 0
+        },
+        {
+          "data": "2026-10-21",
+          "n": 0
+        },
+        {
+          "data": "2026-10-22",
+          "n": 0
+        },
+        {
+          "data": "2026-10-23",
+          "n": 0
+        },
+        {
+          "data": "2026-10-24",
+          "n": 0
+        }
+      ],
+      [
+        {
+          "data": "2026-10-25",
+          "n": 0
+        },
+        {
+          "data": "2026-10-26",
+          "n": 0
+        }
+      ]
+    ]
+  },
+  "commitsRecentes": [
+    {
+      "sha": "e510024",
+      "data": "2026-10-17T08:51:50.000-03:00",
+      "repo": "RyanHenrique20",
+      "mensagem": "Update focus area from FullStack to Web Developer"
+    },
+    {
+      "sha": "2d597bf",
+      "data": "2026-10-17T08:50:21.000-03:00",
+      "repo": "RyanHenrique20",
+      "mensagem": "Change banner description in README"
+    },
+    {
+      "sha": "2bd4c2c",
+      "data": "2026-10-14T00:27:55.000-03:00",
+      "repo": "RyanHenrique20",
+      "mensagem": "Add more technologies to README"
+    },
+    {
+      "sha": "3c07d17",
+      "data": "2026-10-14T00:20:27.000-03:00",
+      "repo": "RyanHenrique20",
+      "mensagem": "Revise README with personal info and tech stack"
+    },
+    {
+      "sha": "3a7e1d4",
+      "data": "2026-10-14T00:08:27.000-03:00",
+      "repo": "RyanHenrique20",
+      "mensagem": "Initial commit"
+    },
+    {
+      "sha": "9043828",
+      "data": "2026-10-03T18:49:12.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'feature/promocoes'"
+    },
+    {
+      "sha": "063ead5",
+      "data": "2026-10-03T18:41:50.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "fix: Arruma link de botão reserva"
+    },
+    {
+      "sha": "c8b0574",
+      "data": "2026-10-03T18:32:17.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'feature/SAC'"
+    },
+    {
+      "sha": "e2a2b0a",
+      "data": "2026-10-03T18:31:24.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "renamed contato section and form classes to sac in HTML and CSS"
+    },
+    {
+      "sha": "be47466",
+      "data": "2026-10-03T17:57:19.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "atualiza título da página SAC para refletir corretamente o conteúdo"
+    },
+    {
+      "sha": "c471cb6",
+      "data": "2026-10-03T17:56:22.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'feature/SAC'"
+    },
+    {
+      "sha": "249f99c",
+      "data": "2026-10-03T17:54:11.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "ajuste de cabeçalho e correção de links no SAC"
+    },
+    {
+      "sha": "8a1e52c",
+      "data": "2026-10-03T05:20:31.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/orcamento'"
+    },
+    {
+      "sha": "de3e93d",
+      "data": "2026-10-03T05:01:47.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Add alt text to banner image in cardapio.html for accessibility"
+    },
+    {
+      "sha": "202eb63",
+      "data": "2026-10-03T04:59:39.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Update cardapio.html to correct page titles and update navigation links"
+    },
+    {
+      "sha": "ed85eee",
+      "data": "2026-10-03T04:51:53.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'main' of https://github.com/RyanHenrique20/Santo-Taquito"
+    },
+    {
+      "sha": "fc7258c",
+      "data": "2026-10-03T04:51:13.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'feature/contatos'"
+    },
+    {
+      "sha": "125a546",
+      "data": "2026-10-03T04:22:30.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "refactor :  espaça para uma linha para baixo"
+    },
+    {
+      "sha": "11a322f",
+      "data": "2026-10-03T04:16:37.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/cardapio'"
+    },
+    {
+      "sha": "8371f8c",
+      "data": "2026-10-03T04:14:18.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/pag-principal'"
+    },
+    {
+      "sha": "8aa3546",
+      "data": "2026-10-03T04:07:52.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/contatos'"
+    },
+    {
+      "sha": "0fa2e2b",
+      "data": "2026-10-03T04:04:34.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/orcamento'"
+    },
+    {
+      "sha": "47f7f47",
+      "data": "2026-10-03T04:01:58.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/unidades'"
+    },
+    {
+      "sha": "22b1d46",
+      "data": "2026-10-03T03:59:34.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "fix: arrumado link css"
+    },
+    {
+      "sha": "eed200d",
+      "data": "2026-10-03T03:59:10.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "fix: correção"
+    },
+    {
+      "sha": "683415b",
+      "data": "2026-10-03T03:49:24.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge branch 'feature/trabalhe-conosco' of https://github.com/RyanHenrique20/Santo-Taquito into feature/trabalhe-conosco"
+    },
+    {
+      "sha": "aa3a2b4",
+      "data": "2026-10-03T03:43:48.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "Merge remote-tracking branch 'origin/feature/reservas'"
+    },
+    {
+      "sha": "0390a1a",
+      "data": "2026-10-03T03:40:30.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "feat: Acrescenta funcionalidade de aparecer e desaparecer no javascript"
+    },
+    {
+      "sha": "739e1ce",
+      "data": "2026-09-30T17:59:18.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "feat: Adiciona funcionalidades dinamicas javascript e linkagem com parametros intuito de execucao de página dinamica"
+    },
+    {
+      "sha": "9d5f254",
+      "data": "2026-09-27T03:45:31.000-03:00",
+      "repo": "Santo-Taquito",
+      "mensagem": "feat: Cria footer e menu da página index.html e cardapio.html"
+    }
+  ],
+  "commitsPorRepo": [
+    {
+      "repo": "RyanHenrique20/Santo-Taquito",
+      "commits": 29,
+      "linguagem": "HTML"
+    },
+    {
+      "repo": "RyanHenrique20/Cardapio",
+      "commits": 6,
+      "linguagem": "HTML"
+    },
+    {
+      "repo": "RyanHenrique20/RyanHenrique20",
+      "commits": 5,
+      "linguagem": null
+    },
+    {
+      "repo": "RyanHenrique20/CellGO",
+      "commits": 4,
+      "linguagem": null
+    },
+    {
+      "repo": "RyanHenrique20/exercicio-de-distribuicao-de-notas",
+      "commits": 2,
+      "linguagem": "C"
+    }
+  ],
+  "repos": [
+    {
+      "nome": "CellGO",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/CellGO",
+      "linguagem": null,
+      "estrelas": 0,
+      "atualizado": "2026-10-20T23:26:48Z"
+    },
+    {
+      "nome": "RyanHenrique20",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/RyanHenrique20",
+      "linguagem": null,
+      "estrelas": 0,
+      "atualizado": "2026-10-17T11:51:54Z"
+    },
+    {
+      "nome": "Santo-Taquito",
+      "descricao": "Criação de um site de restaurante mexicano ",
+      "url": "https://github.com/RyanHenrique20/Santo-Taquito",
+      "linguagem": "HTML",
+      "estrelas": 2,
+      "atualizado": "2026-10-14T02:58:30Z"
+    },
+    {
+      "nome": "exercicio-de-distribuicao-de-notas",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/exercicio-de-distribuicao-de-notas",
+      "linguagem": "C",
+      "estrelas": 0,
+      "atualizado": "2026-09-24T00:30:43Z"
+    },
+    {
+      "nome": "Cardapio",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/Cardapio",
+      "linguagem": "HTML",
+      "estrelas": 0,
+      "atualizado": "2026-09-17T20:30:20Z"
+    },
+    {
+      "nome": "Serenatto",
+      "descricao": "Projeto curso alura ",
+      "url": "https://github.com/RyanHenrique20/Serenatto",
+      "linguagem": null,
+      "estrelas": 0,
+      "atualizado": "2025-09-09T17:36:01Z"
+    },
+    {
+      "nome": "sortear-amigo-secreto",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/sortear-amigo-secreto",
+      "linguagem": "CSS",
+      "estrelas": 0,
+      "atualizado": "2025-07-02T03:12:34Z"
+    },
+    {
+      "nome": "compra-de-ingressos",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/compra-de-ingressos",
+      "linguagem": "CSS",
+      "estrelas": 0,
+      "atualizado": "2025-07-01T19:27:21Z"
+    },
+    {
+      "nome": "carrinho-de-compras",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/carrinho-de-compras",
+      "linguagem": "CSS",
+      "estrelas": 0,
+      "atualizado": "2025-07-01T17:04:39Z"
+    },
+    {
+      "nome": "projeto-alugames-",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/projeto-alugames-",
+      "linguagem": "CSS",
+      "estrelas": 0,
+      "atualizado": "2025-07-01T14:38:17Z"
+    },
+    {
+      "nome": "sorteador-de-numeros",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/sorteador-de-numeros",
+      "linguagem": "CSS",
+      "estrelas": 0,
+      "atualizado": "2025-06-30T19:10:31Z"
+    },
+    {
+      "nome": "jogo-do-numero-secreto",
+      "descricao": "",
+      "url": "https://github.com/RyanHenrique20/jogo-do-numero-secreto",
+      "linguagem": "HTML",
+      "estrelas": 0,
+      "atualizado": "2025-06-30T15:53:13Z"
+    }
+  ]
+}

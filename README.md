@@ -24,7 +24,7 @@ CellGo Comércio de Celulares Ltda.
 E-commerce de celulares novos e seminovos.
 
 **O que ela vende ou oferece?**  
-Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos, revisados e certificados, com garantia própria da loja; pagamento por Pix, boleto ou cartão de crédito em até 12 parcelas; e vendas somente pelo canal on-line.
+Smartphones novos, lacrados e com garantia de fábrica; smartphones seminovos, revisados e certificados, com garantia própria da loja; pagamento somente por Pix (à vista) ou cartão de crédito (de 1 a 12 parcelas); e vendas somente pelo canal on-line.
 
 **Quem são seus principais clientes?**  
 Consumidores finais (pessoa física) que buscam smartphones com procedência garantida e preço mais acessível do que o de aparelhos novos — tanto quem quer um aparelho novo quanto quem prefere um seminovo confiável em vez de comprar no mercado informal. A empresa também atende pessoa jurídica, já que o cadastro de clientes contempla CNPJ além de CPF.
@@ -162,7 +162,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Processo de venda em sequência**
 
-Cliente → Login/Cadastro → Escolha do aparelho → Verificação de disponibilidade → Escolha da forma de pagamento (Pix, cartão de crédito em até 12x ou boleto) → Apresentação do valor final (desconto no Pix ou valor das parcelas) → Confirmação da compra e pagamento → Confirmação do pagamento e nova verificação de disponibilidade → Aparelho marcado como Vendido → Emissão da nota fiscal → Separação do pedido → Envio pela transportadora (Em transporte) → Rastreamento → Entrega ao cliente (Entregue)
+Cliente → Login/Cadastro → Escolha do aparelho → Verificação de disponibilidade → Escolha da forma de pagamento (Pix à vista ou cartão de crédito em até 12x) → Apresentação do valor final (desconto no Pix ou valor das parcelas) → Confirmação da compra e pagamento → Confirmação do pagamento e nova verificação de disponibilidade → Aparelho marcado como Vendido → Emissão da nota fiscal → Separação do pedido → Envio pela transportadora (Em transporte) → Rastreamento → Entrega ao cliente (Entregue)
 
 **Se o aparelho estiver indisponível na escolha:**
 
@@ -287,15 +287,17 @@ O sistema deve calcular automaticamente o valor final da venda pela fórmula: Va
 O sistema deve aplicar o desconto automaticamente quando o pagamento for via Pix e o produto for elegível.
 
 - Faixas de desconto: produto de até R$ 1.000,00 = 5%; de R$ 1.001,00 a R$ 2.500,00 = 7%; acima de R$ 2.500,00 = 10%.
-- Não há desconto para pagamento com cartão de crédito ou boleto.
+- Não há desconto para pagamento com cartão de crédito.
 - O desconto deve ser mostrado antes da confirmação da compra. Se o produto não for elegível, o cliente também deve ser informado.
 - O percentual e o valor do desconto devem ficar registrados na venda.
 
 **RF-09 – Processar formas de pagamento** 
 
-O sistema deve aceitar apenas Pix, cartão de crédito e boleto bancário. Cartão de débito e dinheiro não são aceitos.
+O sistema deve aceitar apenas duas formas de pagamento: **Pix** e **cartão de crédito**. Boleto bancário, cartão de débito e dinheiro não são aceitos.
 
-- A forma de pagamento é obrigatória em toda venda e é escolhida no pedido, junto com o número de parcelas (no máximo 12, apenas no cartão de crédito).
+- A forma de pagamento é obrigatória em toda venda e é escolhida no pedido, junto com o número de parcelas.
+- Pix: pagamento sempre à vista (1 parcela), com desconto quando o produto for elegível (RF-08) e sem juros.
+- Cartão de crédito: de 1 a 12 parcelas, sem desconto Pix; juros ou taxas do parcelamento, quando houver, são mostrados antes da confirmação (RF-06).
 - Cada pedido é pago com uma única forma de pagamento. Não é permitido dividir o valor entre formas diferentes.
 - Cada cobrança enviada à instituição de pagamento é registrada como um pagamento (uma tentativa), com data, valor, código da transação e status: Pendente, Aprovado, Recusado, Expirado ou Estornado.
 - Um pedido pode ter várias tentativas (por exemplo, um Pix expirado seguido de um novo Pix), mas no máximo um pagamento Aprovado.
@@ -375,7 +377,7 @@ O sistema deve registrar a avaliação técnica de todo aparelho com dano e defi
 O sistema deve processar a devolução de valores ao cliente em casos de cancelamento ou devolução. A troca não gera estorno, pois o aparelho de reposição tem valor igual ou superior e não há cobrança nem devolução de diferença (RF-11).
 
 - Todo estorno é ligado ao pagamento Aprovado que está sendo revertido.
-- O estorno segue a forma de pagamento original: Pix, para a chave ou conta de origem; cartão de crédito, junto à operadora do cartão; boleto, por transferência bancária para a conta informada pelo cliente.
+- O estorno segue a forma de pagamento original: Pix, por devolução para a conta de origem do pagamento; cartão de crédito, por estorno solicitado à operadora do cartão. Como não há boleto, o sistema não precisa pedir nem guardar dados bancários do cliente.
 - O processo completo deve ser concluído em 7 a 15 dias corridos.
 - O sistema deve registrar o valor, a data de abertura, o prazo-limite (data de abertura + 15 dias) e o status do estorno: Pendente, Processado ou Recusado.
 - Se o prazo-limite for ultrapassado com o estorno ainda Pendente, o sistema deve sinalizá-lo como Atrasado (situação calculada, não um status gravado) e notificar o setor Financeiro/Administrativo.
@@ -541,7 +543,7 @@ Os registros de auditoria não podem ser alterados nem excluídos depois de grav
 O sistema deve se comunicar com os seguintes serviços externos:
 
 - SEFAZ, para emissão e cancelamento de notas fiscais eletrônicas;
-- instituições de pagamento e operadoras de cartão, para Pix, cartão de crédito, boleto e estornos;
+- instituições de pagamento e operadoras de cartão, para cobranças por Pix e cartão de crédito e para os estornos;
 - transportadora, para o rastreamento das entregas.
 
 
@@ -714,7 +716,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - O desconto é aplicado somente quando a forma de pagamento é Pix.
 - Faixas confirmadas: produto até R$ 1.000,00 = 5%; de R$ 1.001,00 a R$ 2.500,00 = 7%; acima de R$ 2.500,00 = 10%.
 - Nem todos os produtos participarão do desconto Pix: a elegibilidade de cada produto ao desconto deverá ser configurável no cadastro do aparelho (RN-02).
-- Não será aplicado desconto para pagamentos via cartão de crédito ou boleto.
+- Não será aplicado desconto para pagamentos via cartão de crédito.
 - O desconto deverá ser apresentado ao cliente antes da confirmação da compra, incluindo os casos em que o produto não é elegível ao desconto.
 - O sistema deverá registrar o percentual e o valor do desconto na venda.
 
@@ -725,13 +727,15 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Regras:**
 - A venda deverá informar obrigatoriamente a forma de pagamento, escolhida no pedido.
-- Para cartão de crédito, deverá ser informado o número de parcelas (máximo 12).
+- Formas aceitas: somente Pix e cartão de crédito.
+- No Pix, o pagamento é sempre à vista (Numero_Parcelas = 1).
+- No cartão de crédito, deverá ser informado o número de parcelas (de 1 a 12).
 - Cada pedido é pago com uma única forma de pagamento; não é permitido dividir o valor entre formas diferentes.
 - Cada cobrança enviada à instituição de pagamento é registrada como um pagamento (tentativa), com status Pendente, Aprovado, Recusado, Expirado ou Estornado.
 - Um pedido pode ter várias tentativas de pagamento, mas no máximo um pagamento Aprovado.
 - Se o cliente trocar a forma de pagamento após uma tentativa recusada ou expirada, o pedido deverá ser recalculado (RN-09/RN-10) antes da nova tentativa, enquanto estiver Aguardando pagamento.
 - Uma venda somente passa para o status Pago após a aprovação do pagamento.
-- Cartão de débito não é aceito, por decisão do negócio.
+- Boleto bancário e cartão de débito não são aceitos, por decisão do negócio.
 
 **Resultado esperado:** Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
 
@@ -865,9 +869,8 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 **Regras:**
 - Todo estorno deverá estar vinculado ao pagamento Aprovado que está sendo revertido.
 - O estorno deverá seguir a forma de pagamento original utilizada na venda.
-- Pagamentos via Pix deverão ser estornados diretamente para a chave/conta de origem.
+- Pagamentos via Pix deverão ser devolvidos para a conta de origem do pagamento.
 - Pagamentos via cartão de crédito deverão ser estornados junto à operadora do cartão.
-- Pagamentos via boleto deverão gerar restituição por transferência bancária, mediante dados informados pelo cliente.
 - O processo completo de estorno, da abertura da solicitação até a efetiva liberação do valor ao cliente, deverá ocorrer dentro do prazo de 7 a 15 dias corridos, podendo variar conforme a forma de pagamento.
 - O sistema deverá registrar valor, data de abertura, prazo-limite (data de abertura + 15 dias) e status do estorno (Pendente, Processado, Recusado).
 - Caso o prazo-limite seja ultrapassado com o estorno ainda Pendente, o sistema deverá sinalizá-lo como atrasado e notificar o perfil Financeiro/Administrativo (RN-24) para tratamento manual. "Atrasado" é uma situação calculada (prazo-limite vencido e status Pendente), e não um status gravado.
@@ -1035,11 +1038,17 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 ### Condições de Pagamento
 
-- **Formas aceitas:** Pix, cartão de crédito e boleto.
-- **Forma não aceita:** cartão de débito.
+- **Formas aceitas:** Pix (à vista) e cartão de crédito (de 1 a 12 parcelas).
+- **Formas não aceitas:** boleto bancário, cartão de débito e dinheiro.
 - **Parcelamento:** permitido somente no cartão de crédito, em até 12 vezes.
 - **Taxas do parcelamento:** os juros e encargos cobrados pela operadora do cartão, quando houver, são de responsabilidade do cliente.
 - **Confirmação:** a venda só é considerada paga após a confirmação do pagamento.
+- **Regras de consistência do pedido (usadas no banco de dados):**
+
+| Forma_Pagamento | Numero_Parcelas | Percentual_Desconto_Pix e Valor_Desconto | Valor_Taxas |
+|---|---|---|---|
+| Pix | sempre 1 | preenchidos se o produto for elegível (5%, 7% ou 10%); vazios se não for | vazio |
+| Cartão de crédito | de 1 a 12 | vazios | preenchido só se houver juros ou taxas do parcelamento |
 
 ## 10. Fluxogramas
 
@@ -1052,7 +1061,7 @@ flowchart TD
     C1["Escolhe o aparelho"]
     D1{"Aparelho disponível?"}
     E1["Aparelho indisponível:<br/>cliente é avisado"]:::red
-    F1["Escolhe a forma de pagamento<br/>(Pix, cartão de crédito em até 12x ou boleto)"]
+    F1["Escolhe a forma de pagamento<br/>(Pix à vista ou cartão de crédito em até 12x)"]
     G1["Sistema mostra o valor final<br/>(desconto no Pix ou valor das parcelas)"]
     H1["Cliente confirma a compra e paga"]
     I1{"Pagamento confirmado e<br/>aparelho ainda disponível?"}
@@ -1284,10 +1293,6 @@ flowchart TD
 - Codigo_Devolucao (FK)
 - Codigo_Cancelamento (FK)
 - Valor
-- Banco
-- Agencia
-- Conta
-- Tipo_Conta
 - Data_Abertura
 - Prazo_Limite
 - Data_Conclusao
@@ -1727,13 +1732,13 @@ A venda feita a um cliente e suas condições comerciais: forma de pagamento esc
 | Cpf_Cnpj | FK | VARCHAR | Referencia o CLIENTE que realizou o pedido. | 14 | NÃO |
 | Data_Pedido | — | DATETIME | Data e hora em que o pedido foi realizado. | — | NÃO |
 | Status_Pedido | — | VARCHAR | Situação do pedido: Aberto, Aguardando pagamento, Pago, Finalizado ou Cancelado. | 25 | NÃO |
-| Forma_Pagamento | — | ENUM | Forma de pagamento escolhida: Pix, Cartão de crédito ou Boleto. Define o desconto e as taxas. | — | NÃO |
-| Numero_Parcelas | — | INT | Quantidade de parcelas (1 a 12; maior que 1 apenas no cartão de crédito). | — | NÃO |
+| Forma_Pagamento | — | ENUM | Forma de pagamento escolhida. Valores permitidos: Pix ou Cartão de crédito (boleto e débito não são aceitos). Define o desconto, as parcelas e as taxas. | — | NÃO |
+| Numero_Parcelas | — | INT | Quantidade de parcelas. Pix: sempre 1. Cartão de crédito: de 1 a 12. | — | NÃO |
 | Valor_Produtos | Derivado | DECIMAL | Soma dos preços dos aparelhos do pedido (ITEM_PEDIDO). | (10,2) | NÃO |
-| Percentual_Desconto_Pix | — | DECIMAL | Percentual de desconto Pix aplicado (5, 7 ou 10). Vazio quando não há desconto. | (5,2) | SIM |
-| Valor_Desconto | — | DECIMAL | Valor do desconto aplicado ao pedido. | (10,2) | SIM |
-| Valor_Taxas | — | DECIMAL | Juros ou taxas do parcelamento, quando houver. | (10,2) | SIM |
-| Valor_Final | Derivado | DECIMAL | Valor_Produtos − Valor_Desconto + Valor_Taxas. | (10,2) | NÃO |
+| Percentual_Desconto_Pix | — | DECIMAL | Percentual de desconto aplicado (5, 7 ou 10). Preenchido só quando a forma de pagamento é Pix e o produto é elegível; vazio no cartão de crédito. | (5,2) | SIM |
+| Valor_Desconto | — | DECIMAL | Valor do desconto Pix aplicado ao pedido. Vazio no cartão de crédito. | (10,2) | SIM |
+| Valor_Taxas | — | DECIMAL | Juros ou taxas do parcelamento no cartão de crédito, quando houver. Vazio no Pix. | (10,2) | SIM |
+| Valor_Final | Derivado | DECIMAL | Valor_Produtos − Valor_Desconto + Valor_Taxas (campos vazios contam como zero). | (10,2) | NÃO |
 
 
 ### 5. ITEM_PEDIDO
@@ -1758,7 +1763,7 @@ Cada tentativa de cobrança do pedido enviada à instituição de pagamento. A f
 |---|---|---|---|---|---|
 | Id_Pagamento | PK | INT | Identificador único do pagamento. | — | NÃO |
 | Id_Pedido | FK | INT | Referencia o PEDIDO cobrado. | — | NÃO |
-| Codigo_Transacao | — | VARCHAR | Identificador da transação na instituição de pagamento (txid do Pix, NSU do cartão ou nosso número do boleto). | 100 | SIM |
+| Codigo_Transacao | — | VARCHAR | Identificador da transação na instituição de pagamento: txid do Pix ou código de autorização (NSU) do cartão de crédito. | 100 | SIM |
 | Data_Tentativa | — | DATETIME | Data e hora em que a cobrança foi gerada. | — | NÃO |
 | Data_Confirmacao | — | DATETIME | Data e hora da aprovação. Vazia enquanto o pagamento não for aprovado. | — | SIM |
 | Valor | — | DECIMAL | Valor cobrado nesta tentativa (Valor_Final do pedido no momento da cobrança). | (10,2) | NÃO |
@@ -1816,14 +1821,10 @@ Devolução de valor ao cliente, originada por um cancelamento ou por uma devolu
 | Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
 |---|---|---|---|---|---|
 | Id_Estorno | PK | INT | Identificador único do estorno. | — | NÃO |
-| Id_Pagamento | FK | INT | Referencia o PAGAMENTO Aprovado que está sendo revertido. A forma de restituição vem da forma de pagamento do pedido (Pix → Pix; cartão → estorno no cartão; boleto → transferência). | — | NÃO |
+| Id_Pagamento | FK | INT | Referencia o PAGAMENTO Aprovado que está sendo revertido. A forma de restituição vem da forma de pagamento do pedido: Pix → devolução Pix para a conta de origem; cartão de crédito → estorno na operadora. | — | NÃO |
 | Codigo_Devolucao | FK | INT | Referencia a DEVOLUCAO que originou o estorno, quando aplicável. | — | SIM |
 | Codigo_Cancelamento | FK | INT | Referencia o CANCELAMENTO que originou o estorno, quando aplicável. Apenas uma das duas origens é preenchida. | — | SIM |
 | Valor | — | DECIMAL | Valor a restituir ao cliente. | (10,2) | NÃO |
-| Banco | — | VARCHAR | Código ou nome do banco para a transferência. Preenchido só quando o pagamento original foi por boleto (LGPD: coletado só quando necessário). | 50 | SIM |
-| Agencia | — | VARCHAR | Agência bancária, apenas números. Preenchida só na restituição por transferência. | 10 | SIM |
-| Conta | — | VARCHAR | Número da conta com dígito. Preenchido só na restituição por transferência. | 20 | SIM |
-| Tipo_Conta | — | ENUM | Corrente ou Poupança. Preenchido só na restituição por transferência. | — | SIM |
 | Data_Abertura | — | DATETIME | Data e hora de abertura do estorno. | — | NÃO |
 | Prazo_Limite | Derivado | DATETIME | Data_Abertura + 15 dias. O estorno é considerado atrasado se esse prazo vencer com status Pendente. | — | NÃO |
 | Data_Conclusao | — | DATETIME | Data em que o estorno foi concluído. | — | SIM |
@@ -2393,7 +2394,7 @@ Com essa separação, cada status descreve uma única coisa: Status_Pedido diz e
 
 **Decisão:** Todo ESTORNO tem uma chave estrangeira obrigatória para o PAGAMENTO que está sendo revertido (Id_Pagamento) e duas chaves estrangeiras opcionais de origem, Codigo_Cancelamento e Codigo_Devolucao, das quais apenas uma é preenchida.
 
-**Justificativa:** A RN-19 determina que o estorno siga a forma de pagamento original: Pix para a conta de origem, cartão junto à operadora e boleto por transferência. Para isso, o estorno precisa saber qual cobrança está desfazendo, e essa informação está no pagamento aprovado (código da transação, valor e data). Sem esse vínculo, o sistema teria de "adivinhar" o pagamento a partir do pedido. A forma de restituição não é guardada no ESTORNO, porque é determinada pela forma de pagamento do pedido (Pix → Pix; cartão → estorno no cartão; boleto → transferência bancária); guardá-la também seria uma dependência transitiva. Um mesmo pagamento pode ter mais de um estorno quando o pedido tem vários aparelhos e mais de um deles é devolvido (cardinalidade 1 : 0..N).
+**Justificativa:** A RN-19 determina que o estorno siga a forma de pagamento original: Pix devolvido para a conta de origem e cartão estornado junto à operadora. Para isso, o estorno precisa saber qual cobrança está desfazendo, e essa informação está no pagamento aprovado (código da transação, valor e data). Sem esse vínculo, o sistema teria de "adivinhar" o pagamento a partir do pedido. A forma de restituição não é guardada no ESTORNO, porque é determinada pela forma de pagamento do pedido (Pix → devolução Pix; cartão → estorno no cartão); guardá-la também seria uma dependência transitiva. Um mesmo pagamento pode ter mais de um estorno quando o pedido tem vários aparelhos e mais de um deles é devolvido (cardinalidade 1 : 0..N).
 
 Quanto à origem, a RN-19 prevê estorno em duas situações diferentes: quando o pedido é cancelado antes do envio e o pagamento já tinha sido feito (RN-13), e quando há devolução, por arrependimento (RN-15) ou por defeito (RN-16). A troca não gera estorno, porque o aparelho de reposição tem valor igual ou superior e não há diferença a devolver ao cliente (RN-14). Um mesmo estorno nunca nasce de um cancelamento e de uma devolução ao mesmo tempo. Usar duas chaves estrangeiras com nomes claros, em vez de um único campo genérico de "origem", deixa evidente de onde veio cada estorno. A garantia de que apenas uma das duas é preenchida é registrada como restrição do modelo e verificada pelo sistema no momento da gravação. A situação "atrasado" não é gravada como status: ela é calculada pela comparação entre o Prazo_Limite e a data atual enquanto o estorno estiver Pendente.
 
@@ -2403,11 +2404,11 @@ Quanto à origem, a RN-19 prevê estorno em duas situações diferentes: quando 
 
 **Justificativa:** As regras de negócio determinam que cada solicitação gere no máximo um resultado de cada tipo: uma solicitação de pós-venda gera no máximo uma troca e no máximo uma devolução, e um cancelamento gera no máximo um estorno. A cardinalidade 0..1 impede, já no modelo de dados, que esses registros sejam duplicados. Além disso, a RN-14 determina que uma mesma solicitação resulte em troca ou em devolução, nunca nas duas. Como a cardinalidade sozinha não consegue expressar essa escolha entre dois relacionamentos, ela é registrada como restrição do modelo e verificada pelo sistema.
 
-### Dados bancários restritos ao registro de estorno (LGPD)
+### Nenhum dado bancário armazenado (LGPD)
 
-**Decisão:** Os dados bancários (Banco, Agencia, Conta e Tipo_Conta) existem apenas em ESTORNO, e não em CLIENTE ou em qualquer outra entidade. Cada um é um atributo separado.
+**Decisão:** O sistema não guarda dados bancários do cliente (banco, agência ou conta) em nenhuma entidade.
 
-**Justificativa:** A RNF-02 exige que o sistema guarde o mínimo possível de dados pessoais. O dado bancário só é necessário quando o pagamento original foi feito por boleto e existe um valor a devolver, que é restituído por transferência bancária (RN-19). Em nenhum outro processo do sistema ele é usado. Guardá-lo em CLIENTE manteria essa informação armazenada para sempre, inclusive de clientes que nunca precisaram de restituição, o que aumentaria sem necessidade a quantidade de dados sensíveis protegidos pela LGPD. Ligando o dado apenas ao estorno, ele é coletado somente quando realmente é necessário. Os dados foram divididos em quatro atributos, em vez de um único texto, para que cada campo guarde um único valor, como exige a 1ª Forma Normal; assim é possível, por exemplo, validar a agência e a conta separadamente.
+**Justificativa:** A RNF-02 exige que o sistema guarde o mínimo possível de dados pessoais. Como a loja aceita apenas Pix e cartão de crédito, todo estorno volta pelo mesmo meio usado na compra: o Pix é devolvido para a conta de origem pela própria instituição de pagamento, e o cartão é estornado junto à operadora, a partir do código da transação registrado em PAGAMENTO (RN-19). Em nenhum desses casos a loja precisa conhecer a conta bancária do cliente. Por isso, ESTORNO não tem atributos bancários, o que elimina um dado pessoal sensível do banco de dados e reduz o risco em caso de vazamento.
 
 ### MOVIMENTACAO como histórico de mudanças de status do APARELHO
 
@@ -2454,7 +2455,7 @@ A quarentena não precisou de uma entidade nova: ela é um status do APARELHO (E
 
 **Justificativa:**
 
-**1ª Forma Normal (valores atômicos, sem grupos repetidos).** Todas as tabelas têm chave primária, e cada campo guarda um único valor. Os dados que podem se repetir para um mesmo registro ganharam tabelas próprias: telefones (TELEFONE), endereços (ENDERECO), fotos (IMAGEM_APARELHO), itens do pedido (ITEM_PEDIDO) e itens da nota (ITEM_NOTA_FISCAL). Os dados bancários do estorno foram divididos em Banco, Agencia, Conta e Tipo_Conta. Os campos Valor_Anterior e Valor_Novo de AUDITORIA usam JSON porque guardam uma cópia do registro alterado apenas para consulta: o sistema nunca pesquisa nem altera dados dentro desse conteúdo, e ele não pode mais ser modificado depois de gravado (RNF-07).
+**1ª Forma Normal (valores atômicos, sem grupos repetidos).** Todas as tabelas têm chave primária, e cada campo guarda um único valor. Os dados que podem se repetir para um mesmo registro ganharam tabelas próprias: telefones (TELEFONE), endereços (ENDERECO), fotos (IMAGEM_APARELHO), itens do pedido (ITEM_PEDIDO) e itens da nota (ITEM_NOTA_FISCAL). Os campos Valor_Anterior e Valor_Novo de AUDITORIA usam JSON porque guardam uma cópia do registro alterado apenas para consulta: o sistema nunca pesquisa nem altera dados dentro desse conteúdo, e ele não pode mais ser modificado depois de gravado (RNF-07).
 
 **2ª Forma Normal (sem dependência de parte da chave).** Só se aplica às tabelas com chave composta, e as três atendem: em TELEFONE não há atributos fora da chave; em ITEM_PEDIDO, o preço praticado e as datas de garantia dependem do par pedido + aparelho, e não de só um deles; em ITEM_NOTA_FISCAL, o valor do item depende do par nota + aparelho.
 
@@ -2481,7 +2482,7 @@ Em todos os casos, o valor é calculado pelo sistema no momento da gravação e 
 
 A CellGo Comércio de Celulares Ltda. vende aparelhos novos e seminovos exclusivamente pela internet. Por ser um e-commerce, a empresa não tem loja física, vendedor, comissão nem desconto negociado, e toda a relação com o cliente acontece on-line, do cadastro até o pós-venda. Sem um sistema que integre vendas, estoque, assistência técnica e financeiro, a empresa corre riscos concretos: vender um aparelho que já não está disponível, aceitar uma troca fora da garantia, perder o prazo de um estorno ou deixar uma devolução sem a nota fiscal correta. O problema, portanto, não é de tecnologia, mas de informação que não circula entre as áreas.
 
-O ERP proposto reduz esses riscos pela forma como organiza os dados. Cada aparelho é controlado individualmente pelo IMEI, com seu próprio status, histórico de movimentações e tempo parado em estoque, e só entra no estoque depois de ter a procedência comprovada: o sistema registra quem vendeu o aparelho à loja, o documento da compra, a consulta do IMEI, o checklist técnico e, para seminovos comprados de pessoa física, a quarentena. Não existe reserva de aparelhos: a disponibilidade é conferida no fechamento da venda, e o aparelho só passa a constar como vendido quando o pagamento é aprovado. O pedido guarda as condições da venda, e cada tentativa de cobrança fica registrada como um pagamento separado. As formas de pagamento aceitas são Pix, cartão de crédito em até 12 vezes e boleto. O único desconto é o do Pix, aplicado automaticamente conforme a faixa de preço e apenas aos produtos elegíveis.
+O ERP proposto reduz esses riscos pela forma como organiza os dados. Cada aparelho é controlado individualmente pelo IMEI, com seu próprio status, histórico de movimentações e tempo parado em estoque, e só entra no estoque depois de ter a procedência comprovada: o sistema registra quem vendeu o aparelho à loja, o documento da compra, a consulta do IMEI, o checklist técnico e, para seminovos comprados de pessoa física, a quarentena. Não existe reserva de aparelhos: a disponibilidade é conferida no fechamento da venda, e o aparelho só passa a constar como vendido quando o pagamento é aprovado. O pedido guarda as condições da venda, e cada tentativa de cobrança fica registrada como um pagamento separado. As formas de pagamento aceitas são apenas Pix, sempre à vista, e cartão de crédito, de 1 a 12 vezes. O único desconto é o do Pix, aplicado automaticamente conforme a faixa de preço e apenas aos produtos elegíveis.
 
 A entrega é acompanhada por meio de integração com o sistema da transportadora, e o status do envio define o que o cliente pode solicitar. Enquanto o aparelho aguarda envio e dentro de 7 dias da compra, é possível cancelar a venda. Depois do despacho, o cliente pode pedir a devolução por arrependimento, em até 7 dias após o recebimento, ou o atendimento por defeito. A troca só é feita quando o defeito é coberto pela garantia da loja, em até 30 dias da compra, e sempre por um aparelho equivalente disponível em estoque. Se não houver aparelho equivalente, a empresa faz a devolução com restituição integral do valor. Danos causados por mau uso, identificados na avaliação técnica, não são cobertos nem reparados.
 

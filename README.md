@@ -1,6 +1,20 @@
 # Projeto ERP - CellGO
 
-## 1. Identificação da Equipe
+## 1. Identificação do Projeto
+
+**CellGO** é o projeto de modelagem e implementação do banco de dados de um ERP para a CellGo Comércio de Celulares Ltda., empresa fictícia que vende celulares novos e seminovos pela internet.
+
+| Item | Informação |
+|---|---|
+| Projeto | ERP CellGO |
+| Curso | Análise e Desenvolvimento de Sistemas |
+| Disciplina | Modelagem de Banco de Dados |
+| Instituição | Universidade Cidade de São Paulo |
+| Professor | Clovis Jose Ramos Ferraro |
+| Semestre | 1º Semestre |
+| SGBD | MySQL 8 |
+
+## 2. Integrantes
 
 | Nº | Integrante |
 |---:|---|
@@ -15,7 +29,9 @@
 | 09 | Sarah Casas Nicolielo Ponti |
 | 10 | Victor Rodrigues da Costa |
 
-## 2. Caracterização da Empresa
+## 3. Empresa e Problema
+
+### 3.1 Caracterização da Empresa
 
 **Qual é o nome da empresa?**  
 CellGo Comércio de Celulares Ltda.
@@ -38,7 +54,7 @@ Hoje a operação depende de controles manuais e dispersos: o cadastro de client
 **Quais informações são importantes para o negócio?**  
 Dados completos do cliente (CPF/CNPJ, contato, histórico de compras); identificação única de cada aparelho por IMEI/número de série, com sua condição (novo/seminovo) e status atual; dados de cada venda (valor, forma de pagamento, parcelas, status); prazos e cobertura de garantia por aparelho; registros de trocas, devoluções e estornos com seus prazos; e trilha de auditoria de quem realizou cada operação sensível no sistema.
 
-## 3. Justificativa da Escolha
+### 3.2 Justificativa da Escolha
 
 Escolhemos a CellGo porque vários processos da empresa são manuais, estão espalhados e não ficam guardados em um único sistema. Isso atrapalha a atualização de informações que precisam mudar assim que um evento acontece, como, por exemplo, a venda de um aparelho e o status do estoque, o acompanhamento financeiro, os prazos de garantia, os pedidos de estorno e o histórico de compras de cada cliente.
 
@@ -46,9 +62,9 @@ Falta integração entre vendas, estoque, assistência técnica/pós-venda e fin
 
 Esse caso é adequado para um projeto de modelagem de dados porque, além de partir de um problema real e propor uma solução para ele, permite aplicar na prática os conceitos da modelagem, como entidades, atributos, relacionamentos, cardinalidades e normalização.
 
-## 4. Problemas Identificados
+### 3.3 Problemas Identificados
 
-### 1. Ausência de sistema único e integrado
+#### 1. Ausência de sistema único e integrado
 
 **Situação atual:** Os cadastros de clientes, aparelhos, estoque e financeiro são feitos em várias planilhas separadas, sem uma base de dados centralizada. As vendas também não são integradas a um sistema único.
 
@@ -56,9 +72,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso gera duplicidade de informações, obriga os funcionários a digitar os mesmos dados várias vezes (retrabalho) e deixa vendas, estoque e financeiro com informações desatualizadas, comprometendo a confiabilidade dos dados em toda a empresa.
 
-
-
-### 2. Falta de atualização em tempo real do estoque
+#### 2. Falta de atualização em tempo real do estoque
 
 **Situação atual:** O estoque é controlado em planilhas, e o status do aparelho (Disponível, Vendido, Em avaliação, Em manutenção, Inativo) não é atualizado automaticamente após uma venda.
 
@@ -66,9 +80,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso provoca erros na quantidade disponível e problemas de logística, além do risco real de um cliente comprar um aparelho que já foi vendido para outra pessoa.
 
-
-
-### 3. Falta de histórico e controle de garantia dos aparelhos
+#### 3. Falta de histórico e controle de garantia dos aparelhos
 
 **Situação atual:** Não existe um histórico centralizado por aparelho, nem acompanhamento dos prazos de garantia (30 dias de garantia da loja para seminovos; 30 dias da loja + 1 ano do fabricante para novos).
 
@@ -76,9 +88,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Fica difícil acompanhar manutenções, trocas e devoluções e saber se uma solicitação ainda está dentro do prazo de garantia. Há ainda o risco de aceitar por engano uma garantia já vencida, o que gera prejuízo financeiro.
 
-
-
-### 4. Falta de controle sobre estornos
+#### 4. Falta de controle sobre estornos
 
 **Situação atual:** Os pedidos de estorno não possuem acompanhamento de prazo.
 
@@ -86,9 +96,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Fica difícil identificar quais estornos estão pendentes, em andamento ou atrasados, o que pode prejudicar o relacionamento com o cliente e atrasar o fechamento financeiro do período.
 
-
-
-### 5. Financeiro desatualizado e desconectado das vendas
+#### 5. Financeiro desatualizado e desconectado das vendas
 
 **Situação atual:** Os dados financeiros são mantidos separadamente dos demais setores, e o financeiro não recebe automaticamente as informações de vendas, cancelamentos, trocas e devoluções.
 
@@ -96,9 +104,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso compromete a precisão dos dados financeiros e dificulta o acompanhamento dos resultados, o fechamento de caixa e a tomada de decisões estratégicas com base em números confiáveis.
 
-
-
-### 6. Processos manuais
+#### 6. Processos manuais
 
 **Situação atual:** Grande parte das tarefas operacionais do dia a dia é feita manualmente, sem apoio de automação.
 
@@ -106,9 +112,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso gera maior gasto de tempo dos funcionários com tarefas operacionais, reduzindo a produtividade e o tempo disponível para atividades estratégicas ou de atendimento ao cliente.
 
-
-
-### 7. Ausência de backup
+#### 7. Ausência de backup
 
 **Situação atual:** Não existe uma rotina estruturada de backup dos dados da empresa.
 
@@ -116,9 +120,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso gera o risco de dados importantes serem perdidos, duplicados ou ficarem desatualizados, comprometendo a continuidade das operações em caso de falha, exclusão acidental ou perda de um arquivo.
 
-
-
-### 8. Ausência de relatórios
+#### 8. Ausência de relatórios
 
 **Situação atual:** Não existem relatórios automáticos consolidados sobre vendas, estoque e resultados.
 
@@ -126,9 +128,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso faz com que os gestores tenham dificuldade para analisar vendas, estoque e resultados, prejudicando a visão estratégica do negócio e a tomada de decisões baseada em dados.
 
-
-
-### 9. Histórico do cliente fragmentado
+#### 9. Histórico do cliente fragmentado
 
 **Situação atual:** As informações de cada cliente estão espalhadas entre os diferentes setores da empresa.
 
@@ -136,9 +136,7 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso dificulta o atendimento no pós-venda e na assistência técnica, pois o funcionário precisa consultar vários lugares diferentes para entender o histórico completo do cliente, tornando o atendimento mais lento e sujeito a falhas.
 
-
-
-### 10. Histórico de funcionários fragmentado
+#### 10. Histórico de funcionários fragmentado
 
 **Situação atual:** As informações de cada funcionário (cargo, área de atuação, permissões e operações que realizou ou autorizou) estão espalhadas entre os setores.
 
@@ -146,19 +144,17 @@ Esse caso é adequado para um projeto de modelagem de dados porque, além de par
 
 **Impacto no negócio:** Isso dificulta saber quem pode executar cada operação, quem realizou ou autorizou uma alteração sensível (preço, estorno, troca, mudança de estoque) e controlar o acesso de cada colaborador às informações da empresa.
 
-
-
-### 11. Falta de controle sobre a procedência dos aparelhos adquiridos
+#### 11. Falta de controle sobre a procedência dos aparelhos adquiridos
 
 **Situação atual:** Os aparelhos seminovos comprados de pessoas físicas e os aparelhos comprados de distribuidores entram no estoque sem um registro estruturado de quem os vendeu, da consulta do IMEI, da avaliação técnica de entrada e do prazo de quarentena.
 
-**Causa:** As políticas de aquisição (Seção 9) existem apenas como orientação, sem um registro no sistema que comprove que cada etapa foi cumprida.
+**Causa:** As políticas de aquisição (Seção 5.4) existem apenas como orientação, sem um registro no sistema que comprove que cada etapa foi cumprida.
 
 **Impacto no negócio:** A empresa corre o risco de revender um aparelho roubado, bloqueado ou com peças adulteradas, sem conseguir provar a origem lícita do aparelho nem identificar quem o vendeu à loja.
 
+## 4. Solução Proposta
 
-
-## 5. Processos de Negócios
+### 4.1 Processos de Negócios
 
 **Processo de venda em sequência**
 
@@ -171,7 +167,6 @@ Verificação de disponibilidade → Aparelho indisponível → Cliente é avisa
 **Se o pagamento não for confirmado ou o aparelho já tiver sido vendido:**
 
 Confirmação do pagamento e nova verificação de disponibilidade → Compra bloqueada → Cliente é avisado
-
 
 **Processos de pós-venda em sequência**
 
@@ -195,7 +190,6 @@ Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do m
 
 Cliente → Solicitação (painel do cliente ou e-mail) → Identificação do motivo → Verificação de envio do aparelho → Aparelho enviado → Defeito → Coleta do aparelho → Recebimento (aparelho Em avaliação) → Análise técnica → Mau uso identificado → Solicitação recusada → Cliente recebe o diagnóstico (sem troca e sem estorno) → Atualização do histórico do cliente → Encerramento do pós-venda
 
-
 **Processo de aquisição de aparelhos em sequência**
 
 Fornecedor (pessoa física ou distribuidor) oferece aparelho(s) → Identificação do fornecedor (CPF/CNPJ e documento com foto, quando pessoa física) → Verificação do limite diário por CPF (pessoa física) → Consulta do IMEI de cada aparelho → Checklist técnico de entrada e verificação de bloqueio de conta (iCloud/FRP) → Aparelho aprovado → Registro da nota fiscal ou do termo de compra e venda (e do termo de responsabilidade, quando pessoa física) → Cadastro do aparelho por IMEI → Reset de fábrica → Quarentena (somente seminovos de pessoa física) → Nova consulta do IMEI ao fim da quarentena → Aparelho Disponível
@@ -208,8 +202,128 @@ Avaliação de entrada → Aparelho recusado → Motivo da recusa registrado →
 
 Fim da quarentena → IMEI com restrição → Aparelho Inativo → Diretoria é notificada
 
+### 4.2 Fluxogramas
 
-## 6. Requisitos Funcionais
+#### Fluxo de Venda
+
+```mermaid
+flowchart TD
+    A1(["Cliente acessa a loja on-line"]):::startEnd
+    B1["Faz login ou cadastro"]
+    C1["Escolhe o aparelho"]
+    D1{"Aparelho disponível?"}
+    E1["Aparelho indisponível:<br/>cliente é avisado"]:::red
+    F1["Escolhe a forma de pagamento<br/>(Pix à vista ou cartão de crédito em até 12x)"]
+    G1["Sistema mostra o valor final<br/>(desconto no Pix ou valor das parcelas)"]
+    H1["Cliente confirma a compra e paga"]
+    I1{"Pagamento confirmado e<br/>aparelho ainda disponível?"}
+    J1["Compra bloqueada:<br/>cliente é avisado"]:::red
+    K1["Aparelho é marcado como Vendido"]
+    L1["Emissão da nota fiscal"]
+    M1["Separação do pedido<br/>(prioriza o aparelho há mais tempo no estoque)"]
+    N1["Envio pela transportadora<br/>(status: Em transporte)"]
+    O1["Cliente acompanha o rastreamento"]
+    P1(["Entrega ao cliente<br/>(status: Entregue)"]):::startEnd
+
+    A1 --> B1 --> C1 --> D1
+    D1 -- Não --> E1
+    E1 -. escolhe outro .-> C1
+    D1 -- Sim --> F1 --> G1 --> H1 --> I1
+    I1 -- Não --> J1
+    I1 -- Sim --> K1 --> L1 --> M1 --> N1 --> O1 --> P1
+
+    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
+    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
+```
+
+#### Fluxo de Pós-venda
+
+```mermaid
+flowchart TD
+    A2(["Cliente abre uma solicitação<br/>(painel do cliente ou e-mail)"]):::startEnd
+    B2["Atendimento identifica o motivo"]
+    C2{"O aparelho já foi enviado?"}
+    D2["CANCELAMENTO<br/>(até 7 dias da compra)<br/>Registra o motivo"]:::purple
+    E2["Cancela a nota fiscal<br/>ou emite nota de devolução"]
+    F2["Estorno do valor ao cliente"]
+    G2["Aparelho vai para avaliação<br/>e volta ao estoque"]
+    H2{"Qual o motivo?"}
+    I2["ARREPENDIMENTO<br/>(até 7 dias do recebimento)"]:::purple
+    J2["DEFEITO<br/>(até 30 dias da compra)"]:::purple
+    K2["Coleta do aparelho"]
+    L2["Recebimento<br/>(aparelho fica Em avaliação)"]
+    M2["Análise técnica do aparelho"]
+    N2{"Arrependimento ou defeito?"}
+    O2{"Foi mau uso?"}
+    P2{"Há aparelho igual<br/>ou equivalente disponível?"}
+    Q2["Solicitação recusada:<br/>cliente recebe o diagnóstico<br/>(sem troca e sem estorno)"]:::red
+    R2["TROCA<br/>Nota de devolução do aparelho<br/>com defeito + nota do novo"]:::green2
+    S2["DEVOLUÇÃO<br/>Emissão da nota de devolução"]:::green2
+    T2["Envio do aparelho novo<br/>ao cliente (sem custo)"]
+    U2["Estorno do valor ao cliente<br/>(de 7 a 15 dias)"]
+    V2["Destino do aparelho recebido:<br/>volta ao estoque, manutenção ou inativo"]
+    W2["Atualiza o histórico do cliente"]
+    X2(["Encerramento do pós-venda"]):::startEnd
+
+    A2 --> B2 --> C2
+    C2 -- Não --> D2 --> E2 --> F2 --> G2 --> W2
+    C2 -- Sim --> H2
+    H2 --> I2 --> K2
+    H2 --> J2 --> K2
+    K2 --> L2 --> M2 --> N2
+    N2 -- Arrependimento --> S2
+    N2 -- Defeito --> O2
+    O2 -- Sim --> Q2 --> W2
+    O2 -- Não --> P2
+    P2 -- Sim --> R2 --> T2 --> V2 --> W2
+    P2 -- Não --> S2
+    S2 --> U2 --> V2
+    W2 --> X2
+
+    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
+    classDef purple fill:#e8dff5,stroke:#9c6ade,color:#4a2c73;
+    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
+    classDef green2 fill:#d9f2e1,stroke:#4caf50,color:#1b5e20;
+```
+
+#### Fluxo de Aquisição de Aparelhos
+
+```mermaid
+flowchart TD
+    A3(["Fornecedor oferece aparelho(s) à loja"]):::startEnd
+    B3["Identificação do fornecedor<br/>(CPF/CNPJ e documento com foto, se pessoa física)"]
+    C3{"Pessoa física que já vendeu<br/>3 aparelhos hoje?"}
+    D3["Compra recusada:<br/>limite diário atingido"]:::red
+    E3["Consulta do IMEI"]
+    F3["Checklist técnico e verificação de bloqueio iCloud/FRP<br/>(checklist não se aplica a aparelho lacrado)"]
+    G3{"IMEI regular, checklist aprovado<br/>e sem bloqueio de conta?"}
+    H3["Aparelho recusado:<br/>motivo registrado na avaliação de entrada"]:::red
+    I3["Registro da nota fiscal ou do termo de compra e venda<br/>(e do termo de responsabilidade, se pessoa física)"]
+    J3["Cadastro do aparelho por IMEI<br/>e registro do reset de fábrica"]
+    K3{"Seminovo comprado<br/>de pessoa física?"}
+    L3["Quarentena de 15 dias<br/>(status: Em quarentena)"]:::purple
+    M3{"Nova consulta do IMEI<br/>está regular?"}
+    N3["Aparelho Inativo:<br/>Diretoria é notificada"]:::red
+    O3(["Aparelho Disponível para venda"]):::startEnd
+
+    A3 --> B3 --> C3
+    C3 -- Sim --> D3
+    C3 -- Não --> E3 --> F3 --> G3
+    G3 -- Não --> H3
+    G3 -- Sim --> I3 --> J3 --> K3
+    K3 -- Não --> O3
+    K3 -- Sim --> L3 --> M3
+    M3 -- Sim --> O3
+    M3 -- Não --> N3
+
+    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
+    classDef purple fill:#e8dff5,stroke:#9c6ade,color:#4a2c73;
+    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
+```
+
+## 5. Requisitos e Regras de Negócio
+
+### 5.1 Requisitos Funcionais
 
 **RF-01 – Cadastrar clientes** 
 
@@ -218,7 +332,7 @@ O sistema deve permitir o cadastro de clientes pessoa física ou pessoa jurídic
 - Pessoa física: nome completo, CPF, data de nascimento, e-mail, telefone e endereço.
 - Pessoa jurídica: nome ou razão social, CNPJ, e-mail, telefone e endereço.
 - O cliente pode ter mais de um telefone, e pelo menos um é obrigatório.
-- Somente pessoas físicas maiores de 18 anos podem comprar (Seção 9).
+- Somente pessoas físicas maiores de 18 anos podem comprar (Seção 5.4).
 - O CPF ou o CNPJ deve ser único para cada cliente.
 - Deve ser possível localizar o cliente e suas vendas pelo CPF/CNPJ, pelo e-mail ou pelo número da venda.
 - Os dados cadastrais podem ser atualizados pelo próprio cliente ou por um usuário autorizado.
@@ -471,7 +585,7 @@ O sistema deve avisar o cliente, por e-mail e pelo painel do cliente, sobre os p
 
 **RF-25 – Registrar aquisição e avaliação de entrada dos aparelhos**
 
-O sistema deve registrar a origem de todo aparelho que entra no estoque, cumprindo a Política de Aquisição (Seção 9).
+O sistema deve registrar a origem de todo aparelho que entra no estoque, cumprindo a Política de Aquisição (Seção 5.4).
 
 - Cada aquisição registra o fornecedor (pessoa física ou jurídica), a data, o funcionário que a recebeu e o documento da compra: nota fiscal do fornecedor ou termo de compra e venda.
 - Fornecedor pessoa física: CPF, nome, tipo e número do documento oficial com foto, e aceite do termo de responsabilidade (remoção de contas e dados pessoais).
@@ -490,15 +604,13 @@ O sistema deve gerar relatórios consolidados a partir dos dados registrados, se
 - Cancelamentos, trocas, devoluções e estornos por período, incluindo estornos atrasados.
 - Aquisições por período e por fornecedor, com o total de aparelhos aprovados e recusados.
 
-
-## 7. Requisitos Não Funcionais
+### 5.2 Requisitos Não Funcionais
 
 **RNF-01 – Disponibilidade**  
 
 O sistema deve ficar disponível pelo menos 99% do tempo a cada mês.
 
 - Manutenções programadas devem ser avisadas com antecedência e feitas, de preferência, fora do horário de maior movimento.
-
 
 **RNF-02 – Segurança**  
 
@@ -537,7 +649,6 @@ As operações críticas (fechamento da venda, estorno e troca) devem ser feitas
 
 Os registros de auditoria não podem ser alterados nem excluídos depois de gravados, por nenhum perfil, nem mesmo pela Diretoria.
 
-
 **RNF-08 – Integração com sistemas externos**
 
 O sistema deve se comunicar com os seguintes serviços externos:
@@ -546,14 +657,12 @@ O sistema deve se comunicar com os seguintes serviços externos:
 - instituições de pagamento e operadoras de cartão, para cobranças por Pix e cartão de crédito e para os estornos;
 - transportadora, para o rastreamento das entregas.
 
-
 **RNF-09 – Backup**
 
 O sistema deve fazer cópias de segurança automáticas do banco de dados todos os dias.
 
 - As cópias devem ser guardadas em local separado do servidor principal.
 - A restauração dos dados deve ser testada periodicamente.
-
 
 **RNF-10 – Precisão de cálculos e prazos**
 
@@ -562,15 +671,11 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - Os valores em dinheiro devem ter 2 casas decimais e seguir uma regra única de arredondamento.
 - Os prazos (24 horas e 7, 15 e 30 dias) devem ser calculados pelo horário oficial de Brasília.
 
+### 5.3 Regras de Negócio
 
+#### Módulo 1 — Cadastro
 
-
-## 8. Regras de Negócio
-
-### Módulo 1 — Cadastro
-
-#### RN-01 — Cadastro de Cliente
-
+##### RN-01 — Cadastro de Cliente
 
 **Descrição:** O sistema deverá permitir o cadastro dos clientes que realizam compras, mantendo os dados necessários para localizar vendas, emitir nota fiscal e processar solicitações de pós-venda. O cadastro poderá ser de pessoa física ou pessoa jurídica.
 
@@ -578,17 +683,14 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - Pessoa física: o cadastro deverá conter, no mínimo, nome completo, CPF, data de nascimento, e-mail, telefone e endereço.
 - Pessoa jurídica: o cadastro deverá conter, no mínimo, nome ou razão social, CNPJ, e-mail, telefone e endereço.
 - O cliente poderá informar mais de um telefone, sendo obrigatório pelo menos um.
-- O sistema deverá impedir a compra por pessoa física menor de 18 anos (ver Seção 9 — Política de Revenda).
+- O sistema deverá impedir a compra por pessoa física menor de 18 anos (ver Seção 5.4 — Política de Revenda).
 - O CPF ou CNPJ deverá ser único por cliente.
 - O sistema deverá permitir localizar um cliente e suas vendas por CPF/CNPJ, e-mail ou número da venda.
 - Os dados cadastrais deverão poder ser atualizados pelo próprio cliente ou por usuário autorizado.
 
 **Resultado esperado:** Garantir que todo cliente, pessoa física ou jurídica, tenha um cadastro completo o suficiente para viabilizar venda, nota fiscal, garantia e pós-venda.
 
-
-
-#### RN-02 — Cadastro de Aparelho/Produto
-
+##### RN-02 — Cadastro de Aparelho/Produto
 
 **Descrição:** O sistema deverá permitir o cadastro dos aparelhos disponíveis para venda, com as informações necessárias para estoque, garantia, giro/reposição e nota fiscal.
 
@@ -603,11 +705,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que todo aparelho tenha um cadastro completo, permitindo o correto funcionamento das regras de estoque, giro, reposição, venda, garantia e nota fiscal que dependem desses dados, restrito a usuários autorizados.
 
+#### Módulo 2 — Estoque
 
-
-### Módulo 2 — Estoque
-
-#### RN-03 — Controle de Estoque
+##### RN-03 — Controle de Estoque
 
 **Descrição:** O sistema deverá controlar a disponibilidade individual de cada aparelho comercializado pela empresa, unidade a unidade, identificada univocamente pelo IMEI/número de série (RN-02), sem uso de reserva prévia à confirmação da venda e sem controle por quantidade agregada de modelo.
 
@@ -622,10 +722,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Evitar vendas duplicadas e garantir rastreabilidade individual dos aparelhos comercializados, por IMEI, sem depender de um mecanismo de reserva, e servindo de base para as regras de giro (RN-05) e reposição (RN-06).
 
-
-
-
-#### RN-04 — Validação de Disponibilidade no Fechamento da Venda
+##### RN-04 — Validação de Disponibilidade no Fechamento da Venda
 
 **Descrição:** O sistema deverá validar novamente a disponibilidade do aparelho no exato momento da finalização da venda, para evitar que dois clientes concluam a compra do mesmo aparelho.
 
@@ -635,8 +732,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Evitar conflitos de estoque decorrentes da ausência de reserva prévia.
 
-
-#### RN-05 — Tempo em Estoque (Aging) por IMEI e Identificação de Encalhe
+##### RN-05 — Tempo em Estoque (Aging) por IMEI e Identificação de Encalhe
 
 **Descrição:** O sistema deverá controlar o tempo de permanência de cada aparelho individualmente (via IMEI/número de série) no estoque, identificando unidades específicas paradas e fornecendo dados para estratégias de giro de estoque (ex.: priorização de saída FIFO).
 
@@ -649,9 +745,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Permitir que o setor de Estoque/Logística e a Diretoria identifiquem, por unidade física, quais aparelhos estão parados há mais tempo, viabilizando estratégias de giro (FIFO, promoção ou reprecificação) antes que o encalhe se torne crônico.
 
-
-
-#### RN-06 — Ponto de Pedido e Requisição de Compra
+##### RN-06 — Ponto de Pedido e Requisição de Compra
 
 **Descrição:** O sistema deverá monitorar a quantidade de aparelhos disponíveis por modelo/especificação e gerar requisições de compra que tramitam pelo setor Financeiro e pela Diretoria ao atingir o limite mínimo de segurança.
 
@@ -667,9 +761,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Evitar ruptura de estoque (estoque zerado) por modelo, antecipando a necessidade de reposição por meio de um fluxo formal de análise financeira e aprovação da Diretoria, sem interferir no controle individual de estoque por IMEI e sem gerar requisições duplicadas para o mesmo modelo.
 
-### Módulo 3 — Venda
+#### Módulo 3 — Venda
 
-#### RN-07 — Venda de Aparelho
+##### RN-07 — Venda de Aparelho
 
 **Descrição:** O sistema deverá permitir a realização da venda de aparelhos cadastrados no estoque, vinculando o(s) produto(s) a um cliente e registrando todas as informações financeiras da operação.
 
@@ -685,9 +779,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que toda venda seja registrada corretamente, vinculando cliente, aparelho, estoque e financeiro.
 
-
-
-#### RN-08 — Venda à Vista ou Parcelada
+##### RN-08 — Venda à Vista ou Parcelada
 
 **Regras:**
 - O cliente poderá optar por compra à vista ou parcelada.
@@ -697,8 +789,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Permitir vendas à vista e parceladas, mantendo o controle correto dos valores e parcelas.
 
-
-#### RN-09 — Cálculo do Valor da Venda
+##### RN-09 — Cálculo do Valor da Venda
 
 **Regras:**
 - Valor Final = Valor do Produto − Desconto + Taxas (quando houver).
@@ -708,9 +799,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que o valor cobrado seja calculado corretamente e de forma consistente com o modelo de e-commerce.
 
-
-
-#### RN-10 — Desconto para Pagamento via Pix
+##### RN-10 — Desconto para Pagamento via Pix
 
 **Regras:**
 - O desconto é aplicado somente quando a forma de pagamento é Pix.
@@ -722,8 +811,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Controlar os descontos concedidos para pagamentos via Pix, evitando descontos indevidos em outras formas de pagamento ou em produtos não elegíveis.
 
-
-#### RN-11 — Formas de Pagamento
+##### RN-11 — Formas de Pagamento
 
 **Regras:**
 - A venda deverá informar obrigatoriamente a forma de pagamento, escolhida no pedido.
@@ -739,8 +827,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir o controle dos pagamentos e a correta vinculação entre venda e financeiro, com as formas de pagamento efetivamente aceitas pelo e-commerce.
 
-
-#### RN-12 — Parcelamento
+##### RN-12 — Parcelamento
 
 **Regras:**
 - Número mínimo de parcelas: 1. Número máximo: 12.
@@ -750,11 +837,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Permitir o parcelamento das vendas de forma transparente e controlada.
 
+#### Módulo 4 — Pós-venda: Cancelamento
 
-
-### Módulo 4 — Pós-venda: Cancelamento
-
-#### RN-13 — Cancelamento da Venda
+##### RN-13 — Cancelamento da Venda
 
 **Descrição:** O sistema deverá permitir o cancelamento de uma venda no prazo de até 7 dias corridos a partir da data da venda, desde que o aparelho ainda não tenha saído para entrega.
 
@@ -769,10 +854,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Permitir o cancelamento dentro do prazo estabelecido e apenas antes da saída do aparelho para entrega, mantendo o histórico financeiro e de estoque e direcionando corretamente os casos pós-envio para o fluxo de devolução.
 
+#### Módulo 5 — Pós-venda: Troca e Devolução
 
-### Módulo 5 — Pós-venda: Troca e Devolução
-
-#### RN-14 — Troca por Defeito Coberto pela Garantia
+##### RN-14 — Troca por Defeito Coberto pela Garantia
 
 **Descrição:** O sistema deverá permitir a troca de um aparelho vendido por outro equivalente, quando for identificado defeito coberto pela garantia da loja, dentro do prazo de 30 dias da compra.
 
@@ -798,8 +882,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 | Não existe nenhum aparelho idêntico nem equivalente com status Disponível no momento da solicitação. | Não | Devolução imediata com restituição integral do valor pago. Não é oferecida a opção de aguardar reposição de estoque, pois equivaleria a uma reserva de aparelho, vedada pela política de estoque (RN-03/RN-04). | RN-16 + RN-19 + RN-20 |
 | Existe um aparelho equivalente, porém com status Em avaliação, Em manutenção ou Inativo (não Disponível) no momento da solicitação. | Não (indisponível) | Mesmo tratamento da situação anterior: devolução imediata com restituição integral, sem espera pela liberação desse aparelho. | RN-16 + RN-19 + RN-20 |
 
-
-#### RN-15 — Devolução por Arrependimento
+##### RN-15 — Devolução por Arrependimento
 
 **Descrição:** O sistema deverá permitir a devolução de um aparelho no prazo de até 7 dias corridos a partir do recebimento, independentemente de defeito, em conformidade com o direito de arrependimento previsto no art. 49 do Código de Defesa do Consumidor para compras realizadas fora do estabelecimento comercial (e-commerce).
 
@@ -812,8 +895,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir o cumprimento do direito de arrependimento do consumidor em compras de e-commerce, controlando devoluções sem perder o histórico da venda.
 
-
-#### RN-16 — Devolução por Defeito
+##### RN-16 — Devolução por Defeito
 
 **Descrição:** O sistema deverá permitir a devolução (com reembolso) do aparelho quando for identificado defeito coberto pela garantia, sem solução adequada por troca, ou quando o aparelho já tiver sido entregue no momento em que o cliente reporta o problema (ver RN-13).
 
@@ -827,10 +909,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que devoluções por defeito sejam realizadas somente quando a troca não for uma alternativa viável, mantendo a cobertura de garantia como critério central.
 
+#### Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
 
-### Módulo 6 — Pós-venda: Garantia e Avaliação de Danos
-
-#### RN-17 — Garantia do Aparelho
+##### RN-17 — Garantia do Aparelho
 
 **Descrição:** Todo aparelho vendido possui garantia da loja e, quando aplicável, garantia adicional do fabricante, conforme sua condição de cadastro (Novo ou Seminovo).
 
@@ -845,8 +926,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Controlar os diferentes períodos de garantia e diferenciar claramente a cobertura da loja da cobertura do fabricante.
 
-
-#### RN-18 — Avaliação de Dano e Elegibilidade para Cobertura
+##### RN-18 — Avaliação de Dano e Elegibilidade para Cobertura
 
 **Descrição:** Quando o aparelho apresentar dano, o sistema deverá registrar a ocorrência e determinar se o caso é coberto pela garantia ou se é caracterizado como mau uso, sem cobertura da empresa.
 
@@ -859,10 +939,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Diferenciar de forma clara problemas cobertos pela garantia de danos causados por mau uso, sem que a empresa assuma qualquer serviço de reparo nesses casos.
 
+#### Módulo 7 — Financeiro e Fiscal
 
-### Módulo 7 — Financeiro e Fiscal
-
-#### RN-19 — Estorno e Restituição
+##### RN-19 — Estorno e Restituição
 
 **Descrição:** O sistema deverá processar estornos e restituições decorrentes de cancelamento ou devolução. A troca por defeito não gera estorno, pois o aparelho de reposição tem valor igual ou superior e não há diferença a devolver (RN-14).
 
@@ -878,8 +957,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que todo valor devido ao cliente em cancelamentos e devoluções seja restituído de forma rastreável e dentro de um prazo definido.
 
-
-#### RN-20 — Emissão de Nota Fiscal
+##### RN-20 — Emissão de Nota Fiscal
 
 **Descrição:** O sistema deverá possuir integração ou funcionalidade para emissão de nota fiscal eletrônica referente às vendas realizadas, incluindo tratamento fiscal específico para cancelamento, troca e devolução.
 
@@ -895,8 +973,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que todas as vendas e movimentações de pós-venda sejam devidamente documentadas fiscalmente antes da liberação do respectivo estorno ou da saída do aparelho de reposição.
 
-
-#### RN-21 — Comissão de Vendedores — Não Aplicável
+##### RN-21 — Comissão de Vendedores — Não Aplicável
 
 **Descrição:** O sistema não possuirá controle de comissão de vendedores, pois o modelo de negócio é de e-commerce, sem vendedor associado à venda.
 
@@ -906,10 +983,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Manter o módulo financeiro simplificado, coerente com a ausência de vendedores no modelo de e-commerce.
 
+#### Módulo 8 — Histórico, Auditoria e Acesso
 
-### Módulo 8 — Histórico, Auditoria e Acesso
-
-#### RN-22 — Histórico do Cliente
+##### RN-22 — Histórico do Cliente
 
 **Descrição:** O sistema deverá manter o histórico comercial completo de cada cliente.
 
@@ -921,8 +997,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Permitir que a empresa tenha uma visão completa do relacionamento comercial com o cliente.
 
-
-#### RN-23 — Auditoria das Operações
+##### RN-23 — Auditoria das Operações
 
 **Descrição:** Operações importantes realizadas no sistema deverão possuir registro para auditoria.
 
@@ -933,8 +1008,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir a rastreabilidade de todas as operações relevantes realizadas no ERP, incluindo as rotinas de gestão de estoque e de aquisição de aparelhos.
 
-
-#### RN-24 — Perfis de Acesso e Autorizações
+##### RN-24 — Perfis de Acesso e Autorizações
 
 **Descrição:** O sistema deverá definir perfis de acesso que determinam quais usuários podem executar operações sensíveis, como cancelamentos, aprovações de troca/devolução, cadastro de aparelhos, ajustes financeiros, alertas de gestão de estoque (tempo em estoque e ponto de pedido) e requisições de compra. Os perfis seguem a estrutura organizacional do negócio: Diretoria (2 sócios) e 4 áreas operacionais com 8 colaboradores (Vendas e Atendimento, Estoque e Logística, Assistência Técnica e Financeiro/Administrativo).
 
@@ -948,12 +1022,11 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Fechar a lacuna de definição de quem é o "usuário autorizado"/"usuário responsável" citado em várias regras do documento, com uma estrutura de perfis compatível com o tamanho da empresa (2 sócios e 8 colaboradores), que também cobre as rotinas de gestão de estoque (RN-05/RN-06) e de aquisição (RN-25).
 
+#### Módulo 9 — Aquisição de Aparelhos
 
-### Módulo 9 — Aquisição de Aparelhos
+##### RN-25 — Aquisição, Procedência e Avaliação de Entrada
 
-#### RN-25 — Aquisição, Procedência e Avaliação de Entrada
-
-**Descrição:** O sistema deverá registrar a origem de todo aparelho que entra no estoque, comprovando o cumprimento da Política de Aquisição (Seção 9) antes que o aparelho possa ser vendido.
+**Descrição:** O sistema deverá registrar a origem de todo aparelho que entra no estoque, comprovando o cumprimento da Política de Aquisição (Seção 5.4) antes que o aparelho possa ser vendido.
 
 **Regras:**
 - Toda entrada de aparelho deverá estar vinculada a uma aquisição, que registra o fornecedor, a data, o funcionário que a recebeu e o documento da compra (nota fiscal do fornecedor ou termo de compra e venda).
@@ -969,11 +1042,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 
 **Resultado esperado:** Garantir que a empresa saiba de onde veio cada aparelho, quem o vendeu e quais verificações foram feitas, evitando a revenda de aparelhos roubados, bloqueados ou adulterados e permitindo comprovar a procedência lícita do estoque.
 
+### 5.4 Restrições e Políticas Organizacionais
 
-
-## 9. Restrições e Políticas Organizacionais
-
-### Política de Aquisição de Aparelhos
+#### Política de Aquisição de Aparelhos
 
 - **Verificação de procedência:** consultar o IMEI antes da compra, confirmando que o aparelho não consta como roubado, furtado ou com restrição. A consulta fica registrada na avaliação de entrada (RN-25).
 - **Recusa de aparelhos irregulares:** não aceitar celulares com IMEI adulterado, bloqueado ou com indícios de clonagem. A recusa e o motivo ficam registrados na avaliação de entrada (RN-25).
@@ -981,29 +1052,29 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - **Limite de compras por CPF/dia:** cada CPF pode vender no máximo 3 aparelhos por dia à loja, verificado pelo sistema (RN-25).
 - **Documentação obrigatória:** emissão de nota fiscal ou termo de compra e venda, mesmo em transações entre pessoas físicas, registrada na aquisição (RN-25).
 
-### Política de Avaliação Técnica
+#### Política de Avaliação Técnica
 
 - **Checklist técnico:** avaliação obrigatória de bateria, tela, câmeras, botões, autofalante, som, conectividade e autenticidade das peças em todo aparelho seminovo adquirido, registrada na avaliação de entrada (RN-25).
 - **Verificação de bloqueios de conta:** checagem de bloqueio iCloud/Google (FRP), com recusa do aparelho caso não seja possível desbloquear, registrada na avaliação de entrada (RN-25).
 
-### Política de Revenda
+#### Política de Revenda
 
 - **Reset de fábrica:** remoção de contas, dados pessoais e bloqueios (FRP/iCloud) antes de expor o aparelho para venda, registrada na avaliação de entrada (RN-25).
 - **Prazo de quarentena:** os seminovos comprados de pessoa física ficam 15 dias corridos com status Em quarentena, para confirmar que não haverá contestação de furto; ao fim do prazo, o IMEI é consultado novamente (RN-25).
 - **Restrição etária:** como a venda é exclusivamente on-line, só são permitidos o cadastro e a compra por pessoa física maior de 18 anos. A data de nascimento é informada no cadastro do cliente (RN-01) e o sistema bloqueia a compra de menores.
 
-### Política Fiscal e Documental
+#### Política Fiscal e Documental
 
 - **Emissão de nota fiscal:** obrigatória para toda venda realizada.
 - **Rastreabilidade por IMEI:** registro de garantia e histórico do aparelho vinculado ao número de IMEI.
 - **Retenção de comprovantes:** guarda de comprovantes pelo prazo mínimo exigido pela legislação fiscal.
 
-### Política de Proteção de Dados (LGPD)
+#### Política de Proteção de Dados (LGPD)
 
 - **Termo de responsabilidade do fornecedor:** declaração de que a pessoa física que vende o aparelho à loja removeu contas e dados pessoais antes da entrega, com aceite registrado na aquisição (RN-25).
 - **Minimização de dados:** armazenar apenas os dados pessoais estritamente necessários. Do fornecedor pessoa física são guardados apenas os dados exigidos para comprovar a procedência (CPF, nome e documento com foto).
 
-### Restrições Operacionais
+#### Restrições Operacionais
 
 - **Seguro de estoque:** contratação de seguro patrimonial adequado ao valor e ao perfil do estoque, com cobertura para riscos como roubo, furto qualificado, incêndio e outros eventos previstos na apólice.
 - **Controle e segregação de estoque:** os aparelhos deverão permanecer armazenados em local seguro e com acesso restrito. Fisicamente, o estoque será dividido entre aparelhos em quarentena ou avaliação, aparelhos disponíveis para venda e aparelhos já vendidos aguardando expedição. Essa divisão acompanha o status de cada IMEI e não cria reserva de aparelhos antes da confirmação do pagamento (RN-03/RN-04).
@@ -1012,7 +1083,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - **Conferência na expedição:** todo pedido deverá passar por conferência do modelo, cor, capacidade, número de série/IMEI e integridade do produto antes do envio ao cliente.
 - **Rastreabilidade:** cada aparelho deverá ser identificado e vinculado ao respectivo registro de estoque e, quando aplicável, ao pedido realizado pelo cliente, permitindo o acompanhamento desde a entrada do produto até a entrega.
 
-### Quem Pode Aprovar uma Operação
+#### Quem Pode Aprovar uma Operação
 
 - **Aprovação de exceções:** qualquer operação fora do fluxo automático (cancelamento fora do prazo, troca sem aparelho equivalente, ajuste financeiro extraordinário) só pode ser autorizada pela Diretoria.
 - **Aprovação de cancelamento padrão:** Vendas e Atendimento aprova cancelamentos apenas dentro do prazo de 7 dias corridos.
@@ -1021,14 +1092,14 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 - **Aprovação financeira:** Financeiro/Administrativo aprova liberação de estornos e emissão de nota fiscal, dentro dos valores e prazos definidos.
 - **Aprovação de entrada de aparelho:** Assistência Técnica aprova ou recusa cada aparelho na avaliação de entrada; Estoque e Logística registra a aquisição e libera o aparelho ao fim da quarentena (RN-25).
 
-### Quem Pode Alterar Cadastros
+#### Quem Pode Alterar Cadastros
 
 - **Cadastro de aparelho:** alteração restrita a funcionários autorizados.
 - **Cadastro de cliente:** alteração permitida ao próprio cliente ou a usuário autorizado.
 - **Perfis de acesso:** criação, edição ou remoção exclusiva da Diretoria.
 - **Elegibilidade ao desconto Pix:** definição exclusiva da Diretoria.
 
-### Limites de Desconto
+#### Limites de Desconto
 
 - **Desconto manual:** não é permitido desconto discricionário aplicado por vendedor.
 - **Desconto automático via Pix:** único desconto existente, calculado por faixa de valor do produto (5%, 7% ou 10%).
@@ -1036,7 +1107,7 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
   - 7% de desconto: produtos de R$ 1.001,00 a R$ 2.500,00;
   - 10% de desconto: produtos acima de R$ 2.500,00.
 
-### Condições de Pagamento
+#### Condições de Pagamento
 
 - **Formas aceitas:** Pix (à vista) e cartão de crédito (de 1 a 12 parcelas).
 - **Formas não aceitas:** boleto bancário, cartão de débito e dinheiro.
@@ -1050,129 +1121,9 @@ O sistema deve garantir que valores e prazos sejam calculados corretamente.
 | Pix | sempre 1 | preenchidos se o produto for elegível (5%, 7% ou 10%); vazios se não for | vazio |
 | Cartão de crédito | de 1 a 12 | vazios | preenchido só se houver juros ou taxas do parcelamento |
 
-## 10. Fluxogramas
+## 6. DER Atualizado
 
-### Fluxo de Venda
-
-```mermaid
-flowchart TD
-    A1(["Cliente acessa a loja on-line"]):::startEnd
-    B1["Faz login ou cadastro"]
-    C1["Escolhe o aparelho"]
-    D1{"Aparelho disponível?"}
-    E1["Aparelho indisponível:<br/>cliente é avisado"]:::red
-    F1["Escolhe a forma de pagamento<br/>(Pix à vista ou cartão de crédito em até 12x)"]
-    G1["Sistema mostra o valor final<br/>(desconto no Pix ou valor das parcelas)"]
-    H1["Cliente confirma a compra e paga"]
-    I1{"Pagamento confirmado e<br/>aparelho ainda disponível?"}
-    J1["Compra bloqueada:<br/>cliente é avisado"]:::red
-    K1["Aparelho é marcado como Vendido"]
-    L1["Emissão da nota fiscal"]
-    M1["Separação do pedido<br/>(prioriza o aparelho há mais tempo no estoque)"]
-    N1["Envio pela transportadora<br/>(status: Em transporte)"]
-    O1["Cliente acompanha o rastreamento"]
-    P1(["Entrega ao cliente<br/>(status: Entregue)"]):::startEnd
-
-    A1 --> B1 --> C1 --> D1
-    D1 -- Não --> E1
-    E1 -. escolhe outro .-> C1
-    D1 -- Sim --> F1 --> G1 --> H1 --> I1
-    I1 -- Não --> J1
-    I1 -- Sim --> K1 --> L1 --> M1 --> N1 --> O1 --> P1
-
-    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
-    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
-```
-
-
-### Fluxo de Pós-venda
-
-```mermaid
-flowchart TD
-    A2(["Cliente abre uma solicitação<br/>(painel do cliente ou e-mail)"]):::startEnd
-    B2["Atendimento identifica o motivo"]
-    C2{"O aparelho já foi enviado?"}
-    D2["CANCELAMENTO<br/>(até 7 dias da compra)<br/>Registra o motivo"]:::purple
-    E2["Cancela a nota fiscal<br/>ou emite nota de devolução"]
-    F2["Estorno do valor ao cliente"]
-    G2["Aparelho vai para avaliação<br/>e volta ao estoque"]
-    H2{"Qual o motivo?"}
-    I2["ARREPENDIMENTO<br/>(até 7 dias do recebimento)"]:::purple
-    J2["DEFEITO<br/>(até 30 dias da compra)"]:::purple
-    K2["Coleta do aparelho"]
-    L2["Recebimento<br/>(aparelho fica Em avaliação)"]
-    M2["Análise técnica do aparelho"]
-    N2{"Arrependimento ou defeito?"}
-    O2{"Foi mau uso?"}
-    P2{"Há aparelho igual<br/>ou equivalente disponível?"}
-    Q2["Solicitação recusada:<br/>cliente recebe o diagnóstico<br/>(sem troca e sem estorno)"]:::red
-    R2["TROCA<br/>Nota de devolução do aparelho<br/>com defeito + nota do novo"]:::green2
-    S2["DEVOLUÇÃO<br/>Emissão da nota de devolução"]:::green2
-    T2["Envio do aparelho novo<br/>ao cliente (sem custo)"]
-    U2["Estorno do valor ao cliente<br/>(de 7 a 15 dias)"]
-    V2["Destino do aparelho recebido:<br/>volta ao estoque, manutenção ou inativo"]
-    W2["Atualiza o histórico do cliente"]
-    X2(["Encerramento do pós-venda"]):::startEnd
-
-    A2 --> B2 --> C2
-    C2 -- Não --> D2 --> E2 --> F2 --> G2 --> W2
-    C2 -- Sim --> H2
-    H2 --> I2 --> K2
-    H2 --> J2 --> K2
-    K2 --> L2 --> M2 --> N2
-    N2 -- Arrependimento --> S2
-    N2 -- Defeito --> O2
-    O2 -- Sim --> Q2 --> W2
-    O2 -- Não --> P2
-    P2 -- Sim --> R2 --> T2 --> V2 --> W2
-    P2 -- Não --> S2
-    S2 --> U2 --> V2
-    W2 --> X2
-
-    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
-    classDef purple fill:#e8dff5,stroke:#9c6ade,color:#4a2c73;
-    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
-    classDef green2 fill:#d9f2e1,stroke:#4caf50,color:#1b5e20;
-```
-
-
-### Fluxo de Aquisição de Aparelhos
-
-```mermaid
-flowchart TD
-    A3(["Fornecedor oferece aparelho(s) à loja"]):::startEnd
-    B3["Identificação do fornecedor<br/>(CPF/CNPJ e documento com foto, se pessoa física)"]
-    C3{"Pessoa física que já vendeu<br/>3 aparelhos hoje?"}
-    D3["Compra recusada:<br/>limite diário atingido"]:::red
-    E3["Consulta do IMEI"]
-    F3["Checklist técnico e verificação de bloqueio iCloud/FRP<br/>(checklist não se aplica a aparelho lacrado)"]
-    G3{"IMEI regular, checklist aprovado<br/>e sem bloqueio de conta?"}
-    H3["Aparelho recusado:<br/>motivo registrado na avaliação de entrada"]:::red
-    I3["Registro da nota fiscal ou do termo de compra e venda<br/>(e do termo de responsabilidade, se pessoa física)"]
-    J3["Cadastro do aparelho por IMEI<br/>e registro do reset de fábrica"]
-    K3{"Seminovo comprado<br/>de pessoa física?"}
-    L3["Quarentena de 15 dias<br/>(status: Em quarentena)"]:::purple
-    M3{"Nova consulta do IMEI<br/>está regular?"}
-    N3["Aparelho Inativo:<br/>Diretoria é notificada"]:::red
-    O3(["Aparelho Disponível para venda"]):::startEnd
-
-    A3 --> B3 --> C3
-    C3 -- Sim --> D3
-    C3 -- Não --> E3 --> F3 --> G3
-    G3 -- Não --> H3
-    G3 -- Sim --> I3 --> J3 --> K3
-    K3 -- Não --> O3
-    K3 -- Sim --> L3 --> M3
-    M3 -- Sim --> O3
-    M3 -- Não --> N3
-
-    classDef startEnd fill:#d5f5d5,stroke:#4caf50,color:#1b5e20;
-    classDef purple fill:#e8dff5,stroke:#9c6ade,color:#4a2c73;
-    classDef red fill:#fbe0df,stroke:#e57373,color:#7a1f1f;
-```
-
-
-## 11. Entidades
+### 6.1 Entidades
 
 | Nº | Entidade | Tipo | Descrição |
 |---:|---|---|---|
@@ -1204,18 +1155,16 @@ flowchart TD
 | 26 | **AQUISICAO** | Forte | Compra de um ou mais aparelhos de um fornecedor, com o documento da compra. |
 | 27 | **AVALIACAO_ENTRADA** | Forte | Verificação de procedência e checklist técnico de cada aparelho oferecido à loja. |
 
+### 6.2 Atributos
 
-
-## 12. Atributos
-
-### CLIENTE
+#### CLIENTE
 - Cpf_Cnpj (PK)
 - Nome
 - Email
 - Data_Nascimento
 - Tipo_Pessoa
 
-### ENDERECO
+#### ENDERECO
 - Id_Endereco (PK)
 - Cpf_Cnpj (FK)
 - Rua
@@ -1226,12 +1175,12 @@ flowchart TD
 - Complemento
 - Tipo_Endereco
 
-### TELEFONE
+#### TELEFONE
 - DDD (PK)
 - Numero_Telefone (PK)
 - Cpf_Cnpj (PK, FK)
 
-### PEDIDO
+#### PEDIDO
 - Id_Pedido (PK)
 - Cpf_Cnpj (FK)
 - Data_Pedido
@@ -1244,7 +1193,7 @@ flowchart TD
 - Valor_Taxas
 - Valor_Final
 
-### ITEM_PEDIDO
+#### ITEM_PEDIDO
 - Imei (PK, FK)
 - Id_Pedido (PK, FK)
 - Preco_Unitario
@@ -1252,7 +1201,7 @@ flowchart TD
 - Data_Fim_Garantia_Loja
 - Data_Fim_Garantia_Fabricante
 
-### PAGAMENTO
+#### PAGAMENTO
 - Id_Pagamento (PK)
 - Id_Pedido (FK)
 - Codigo_Transacao
@@ -1262,7 +1211,7 @@ flowchart TD
 - Status
 - Comprovante
 
-### NOTA_FISCAL
+#### NOTA_FISCAL
 - Id_Nota (PK)
 - Numero_Nota
 - Id_PosVenda (FK)
@@ -1275,19 +1224,19 @@ flowchart TD
 - Status
 - Data_Emissao
 
-### ITEM_NOTA_FISCAL
+#### ITEM_NOTA_FISCAL
 - Imei (PK, FK)
 - Id_Nota (PK, FK)
 - Valor_Item
 
-### CANCELAMENTO
+#### CANCELAMENTO
 - Codigo_Cancelamento (PK)
 - Id_Pedido (FK)
 - Data_Solicitacao
 - Motivo
 - Status
 
-### ESTORNO
+#### ESTORNO
 - Id_Estorno (PK)
 - Id_Pagamento (FK)
 - Codigo_Devolucao (FK)
@@ -1298,7 +1247,7 @@ flowchart TD
 - Data_Conclusao
 - Status
 
-### ENTREGA
+#### ENTREGA
 - Codigo_Rastreio (PK)
 - Codigo_Troca (FK)
 - Id_Pedido (FK)
@@ -1308,7 +1257,7 @@ flowchart TD
 - Data_Entrega
 - Origem_Atualizacao
 
-### POS_VENDA
+#### POS_VENDA
 - Id_PosVenda (PK)
 - Imei (FK)
 - Id_Pedido (FK)
@@ -1319,14 +1268,14 @@ flowchart TD
 
 > Id_Pedido e Imei formam juntos uma única chave estrangeira composta, que aponta para ITEM_PEDIDO.
 
-### DEVOLUCAO
+#### DEVOLUCAO
 - Codigo_Devolucao (PK)
 - Id_PosVenda (FK)
 - Data_Devolucao
 - Motivo
 - Status
 
-### AVALIACAO_DANO
+#### AVALIACAO_DANO
 - Codigo_Avaliacao (PK)
 - Id_PosVenda (FK)
 - Codigo_Funcionario (FK)
@@ -1336,14 +1285,14 @@ flowchart TD
 - Destino_Aparelho
 - Data_Avaliacao
 
-### TROCA
+#### TROCA
 - Codigo_Troca (PK)
 - Id_PosVenda (FK)
 - Imei_Reposicao (FK)
 - Data_Troca
 - Status
 
-### APARELHO
+#### APARELHO
 - Imei (PK)
 - Id_Especificacao (FK)
 - Id_Avaliacao_Entrada (FK)
@@ -1357,12 +1306,12 @@ flowchart TD
 - Data_Fim_Quarentena
 - Elegivel_Desconto_Pix
 
-### IMAGEM_APARELHO
+#### IMAGEM_APARELHO
 - Id_Imagem (PK)
 - Imei (FK)
 - URL
 
-### ESPECIFICACAO_APARELHO
+#### ESPECIFICACAO_APARELHO
 - Id_Especificacao (PK)
 - Id_Modelo (FK)
 - Cor
@@ -1371,12 +1320,12 @@ flowchart TD
 - Limite_Dias_Atencao
 - Limite_Dias_Critico
 
-### MODELO
+#### MODELO
 - Id_Modelo (PK)
 - Nome_Modelo
 - Marca
 
-### REQUISICAO_COMPRA
+#### REQUISICAO_COMPRA
 - Id_Requisicao (PK)
 - Codigo_Funcionario (FK)
 - Id_Especificacao (FK)
@@ -1389,7 +1338,7 @@ flowchart TD
 - Status
 - Qtd_Sugerida
 
-### MOVIMENTACAO
+#### MOVIMENTACAO
 - Numero_Movimentacao (PK)
 - Codigo_Funcionario (FK)
 - Imei (FK)
@@ -1398,7 +1347,7 @@ flowchart TD
 - Status_Novo
 - Data_Hora
 
-### AUDITORIA
+#### AUDITORIA
 - Id_Auditoria (PK)
 - Codigo_Funcionario (FK)
 - Codigo_Autorizador (FK)
@@ -1410,7 +1359,7 @@ flowchart TD
 - Data_Hora
 - Descricao
 
-### FUNCIONARIO
+#### FUNCIONARIO
 - Codigo_Funcionario (PK)
 - Nome
 - Cargo
@@ -1418,12 +1367,12 @@ flowchart TD
 - Id_Perfil (FK)
 - Ativo
 
-### PERFIL_ACESSO
+#### PERFIL_ACESSO
 - Id_Perfil (PK)
 - Nome_Perfil
 - Nivel_Acesso
 
-### FORNECEDOR
+#### FORNECEDOR
 - Cpf_Cnpj_Fornecedor (PK)
 - Tipo_Pessoa
 - Nome
@@ -1431,7 +1380,7 @@ flowchart TD
 - Numero_Documento
 - Telefone_Contato
 
-### AQUISICAO
+#### AQUISICAO
 - Id_Aquisicao (PK)
 - Codigo_Funcionario (FK)
 - Cpf_Cnpj_Fornecedor (FK)
@@ -1442,7 +1391,7 @@ flowchart TD
 - Valor_Total
 - Status
 
-### AVALIACAO_ENTRADA
+#### AVALIACAO_ENTRADA
 - Id_Avaliacao_Entrada (PK)
 - Codigo_Funcionario (FK)
 - Id_Aquisicao (FK)
@@ -1464,9 +1413,7 @@ flowchart TD
 - Data_Reconsulta_Imei
 - Resultado_Reconsulta_Imei
 
-
-
-## 13. Relacionamentos
+### 6.3 Relacionamentos
 
 | # | Entidade | Relação | Entidade |
 |---|---|---|---|
@@ -1513,8 +1460,7 @@ flowchart TD
 
 > Os relacionamentos 10 e 17 formam juntos a entidade associativa ITEM_PEDIDO, que resolve o relacionamento N:N entre PEDIDO e APARELHO. Da mesma forma, os relacionamentos 31 e 32 formam a entidade associativa ITEM_NOTA_FISCAL, que resolve o relacionamento N:N entre NOTA_FISCAL e APARELHO.
 
-
-## 14. Cardinalidades
+### 6.4 Cardinalidades
 
 > Leitura da notação: em "A (x,y) — relação — B (z,w)", o par ao lado de cada entidade indica quantas ocorrências dela se ligam a uma ocorrência da outra.
 
@@ -1678,427 +1624,7 @@ flowchart TD
  - Descrição: 1 PERFIL_ACESSO é concedido a N FUNCIONARIOs; cada funcionário tem exatamente 1 perfil
  - Notação: PERFIL_ACESSO (1,1) — concede — FUNCIONARIO (0,N)
 
-
-## 15. Dicionário de Dados
-
-### 1. CLIENTE
-
-Pessoa física ou jurídica que compra aparelhos na loja on-line.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Cpf_Cnpj | PK | VARCHAR | Identificador único do cliente: CPF (11 dígitos) para pessoa física ou CNPJ (14 dígitos) para pessoa jurídica, apenas números. | 14 | NÃO |
-| Nome | — | VARCHAR | Nome completo do cliente ou razão social, quando pessoa jurídica. | 150 | NÃO |
-| Email | — | VARCHAR | Endereço de e-mail de contato do cliente; usado nas notificações (RF-24). | 254 | NÃO |
-| Data_Nascimento | — | DATE | Data de nascimento do cliente pessoa física; usada para impedir compra por menor de 18 anos. Vazia para pessoa jurídica. | — | SIM |
-| Tipo_Pessoa | — | ENUM | Tipo do cliente: PF (pessoa física) ou PJ (pessoa jurídica). | — | NÃO |
-
-
-### 2. ENDERECO
-
-Endereços cadastrados por um cliente, usados para entrega ou cobrança.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Endereco | PK | INT | Identificador único do endereço. | — | NÃO |
-| Cpf_Cnpj | FK | VARCHAR | Referencia o CLIENTE dono do endereço. | 14 | NÃO |
-| Rua | — | VARCHAR | Nome da rua ou avenida. | 150 | NÃO |
-| Bairro | — | VARCHAR | Bairro do endereço. | 100 | NÃO |
-| Cidade | — | VARCHAR | Cidade do endereço. | 100 | NÃO |
-| CEP | — | VARCHAR | Código de Endereçamento Postal, apenas números. | 8 | NÃO |
-| Numero | — | VARCHAR | Número do imóvel (texto, pois pode conter letras, como "120A" ou "S/N"). | 10 | NÃO |
-| Complemento | — | VARCHAR | Informação complementar do endereço (apartamento, bloco etc.). | 100 | SIM |
-| Tipo_Endereco | — | VARCHAR | Finalidade do endereço: residencial, comercial, entrega ou cobrança. | 20 | NÃO |
-
-
-### 3. TELEFONE
-
-Entidade fraca: cada número de telefone de um cliente. Identificada pelo Cpf_Cnpj do cliente junto com DDD e número.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| DDD | PK | INT | Código de área do telefone, com dois dígitos. | — | NÃO |
-| Numero_Telefone | PK | INT | Número do telefone, apenas dígitos (8 para fixo ou 9 para celular). | — | NÃO |
-| Cpf_Cnpj | PK, FK | VARCHAR | Referencia o CLIENTE titular do telefone; faz parte da chave, pois o telefone só existe ligado ao cliente. | 14 | NÃO |
-
-
-### 4. PEDIDO
-
-A venda feita a um cliente e suas condições comerciais: forma de pagamento escolhida e valores calculados. Os aparelhos ficam em ITEM_PEDIDO e as cobranças em PAGAMENTO.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Pedido | PK | INT | Identificador único do pedido. | — | NÃO |
-| Cpf_Cnpj | FK | VARCHAR | Referencia o CLIENTE que realizou o pedido. | 14 | NÃO |
-| Data_Pedido | — | DATETIME | Data e hora em que o pedido foi realizado. | — | NÃO |
-| Status_Pedido | — | VARCHAR | Situação do pedido: Aberto, Aguardando pagamento, Pago, Finalizado ou Cancelado. | 25 | NÃO |
-| Forma_Pagamento | — | ENUM | Forma de pagamento escolhida. Valores permitidos: Pix ou Cartão de crédito (boleto e débito não são aceitos). Define o desconto, as parcelas e as taxas. | — | NÃO |
-| Numero_Parcelas | — | INT | Quantidade de parcelas. Pix: sempre 1. Cartão de crédito: de 1 a 12. | — | NÃO |
-| Valor_Produtos | Derivado | DECIMAL | Soma dos preços dos aparelhos do pedido (ITEM_PEDIDO). | (10,2) | NÃO |
-| Percentual_Desconto_Pix | — | DECIMAL | Percentual de desconto aplicado (5, 7 ou 10). Preenchido só quando a forma de pagamento é Pix e o produto é elegível; vazio no cartão de crédito. | (5,2) | SIM |
-| Valor_Desconto | — | DECIMAL | Valor do desconto Pix aplicado ao pedido. Vazio no cartão de crédito. | (10,2) | SIM |
-| Valor_Taxas | — | DECIMAL | Juros ou taxas do parcelamento no cartão de crédito, quando houver. Vazio no Pix. | (10,2) | SIM |
-| Valor_Final | Derivado | DECIMAL | Valor_Produtos − Valor_Desconto + Valor_Taxas (campos vazios contam como zero). | (10,2) | NÃO |
-
-
-### 5. ITEM_PEDIDO
-
-Entidade associativa: resolve o relacionamento N:N entre PEDIDO e APARELHO, guardando o preço praticado e a garantia de cada aparelho naquele pedido.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Imei | PK, FK | CHAR | Referencia o APARELHO vendido nesse item. | 15 | NÃO |
-| Id_Pedido | PK, FK | INT | Referencia o PEDIDO ao qual o item pertence. | — | NÃO |
-| Preco_Unitario | — | DECIMAL | Preço do aparelho praticado naquele pedido. | (10,2) | NÃO |
-| Data_Inicio_Garantia | — | DATE | Início da garantia (data da venda). | — | NÃO |
-| Data_Fim_Garantia_Loja | Derivado | DATE | Fim da garantia da loja (início + 30 dias). | — | NÃO |
-| Data_Fim_Garantia_Fabricante | — | DATE | Fim da garantia do fabricante. Vazia para seminovos sem garantia do fabricante. | — | SIM |
-
-
-### 6. PAGAMENTO
-
-Cada tentativa de cobrança do pedido enviada à instituição de pagamento. A forma de pagamento e as parcelas ficam no PEDIDO.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Pagamento | PK | INT | Identificador único do pagamento. | — | NÃO |
-| Id_Pedido | FK | INT | Referencia o PEDIDO cobrado. | — | NÃO |
-| Codigo_Transacao | — | VARCHAR | Identificador da transação na instituição de pagamento: txid do Pix ou código de autorização (NSU) do cartão de crédito. | 100 | SIM |
-| Data_Tentativa | — | DATETIME | Data e hora em que a cobrança foi gerada. | — | NÃO |
-| Data_Confirmacao | — | DATETIME | Data e hora da aprovação. Vazia enquanto o pagamento não for aprovado. | — | SIM |
-| Valor | — | DECIMAL | Valor cobrado nesta tentativa (Valor_Final do pedido no momento da cobrança). | (10,2) | NÃO |
-| Status | — | VARCHAR | Pendente, Aprovado, Recusado, Expirado ou Estornado. No máximo um pagamento Aprovado por pedido. | 20 | NÃO |
-| Comprovante | — | VARCHAR | Referência do comprovante de pagamento. | 100 | SIM |
-
-
-### 7. NOTA_FISCAL
-
-Documento fiscal de uma operação com mercadoria: venda, entrada (devolução) ou saída (reposição). Cada nota tem uma única origem: pedido, cancelamento ou pós-venda.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Nota | PK | INT | Identificador interno da nota, criado quando a emissão é iniciada. | — | NÃO |
-| Numero_Nota | — | INT | Número da NF-e atribuído na autorização da SEFAZ. Vazio enquanto a nota estiver Aguardando emissão ou Pendente. | — | SIM |
-| Id_PosVenda | FK | INT | Referencia o POS_VENDA, quando a nota é de devolução, troca ou reposição. | — | SIM |
-| Id_Nota_Referencia | FK | INT | Referencia a NOTA_FISCAL de venda original (autorrelacionamento). Vazia na própria nota de venda. | — | SIM |
-| Codigo_Cancelamento | FK | INT | Referencia o CANCELAMENTO, quando a nota é de entrada por cancelamento fora do prazo de cancelamento direto. | — | SIM |
-| Id_Pedido | FK | INT | Referencia o PEDIDO, quando a nota é de venda. | — | SIM |
-| Chave_Acesso | Único | VARCHAR | Chave de acesso de 44 dígitos gerada pela SEFAZ. Vazia enquanto a nota não for autorizada. | 44 | SIM |
-| Tipo_Nota | — | VARCHAR | Venda, Entrada (Devolução) ou Saída (Reposição). | 20 | NÃO |
-| Natureza | — | VARCHAR | Natureza da operação fiscal. | 60 | NÃO |
-| Status | — | VARCHAR | Aguardando emissão, Emitida, Pendente ou Cancelada. | 20 | NÃO |
-| Data_Emissao | — | DATETIME | Data e hora de emissão. Vazia enquanto a nota não for emitida. | — | SIM |
-
-
-### 8. ITEM_NOTA_FISCAL
-
-Entidade associativa: resolve o relacionamento N:N entre NOTA_FISCAL e APARELHO, registrando cada aparelho (IMEI) documentado em uma nota.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Imei | PK, FK | CHAR | Referencia o APARELHO documentado na nota. | 15 | NÃO |
-| Id_Nota | PK, FK | INT | Referencia a NOTA_FISCAL à qual o item pertence. | — | NÃO |
-| Valor_Item | — | DECIMAL | Valor do aparelho na nota (na reposição de troca, o valor fiscal, sem cobrança ao cliente). | (10,2) | NÃO |
-
-
-### 9. CANCELAMENTO
-
-Cancelamento de um pedido antes do envio, em até 7 dias da compra.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Cancelamento | PK | INT | Identificador único do cancelamento. | — | NÃO |
-| Id_Pedido | FK | INT | Referencia o PEDIDO cancelado. | — | NÃO |
-| Data_Solicitacao | — | DATETIME | Data e hora da solicitação de cancelamento. | — | NÃO |
-| Motivo | — | VARCHAR | Motivo informado para o cancelamento. | 255 | NÃO |
-| Status | — | VARCHAR | Situação do cancelamento. | 20 | NÃO |
-
-
-### 10. ESTORNO
-
-Devolução de valor ao cliente, originada por um cancelamento ou por uma devolução, sempre ligada ao pagamento revertido.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Estorno | PK | INT | Identificador único do estorno. | — | NÃO |
-| Id_Pagamento | FK | INT | Referencia o PAGAMENTO Aprovado que está sendo revertido. A forma de restituição vem da forma de pagamento do pedido: Pix → devolução Pix para a conta de origem; cartão de crédito → estorno na operadora. | — | NÃO |
-| Codigo_Devolucao | FK | INT | Referencia a DEVOLUCAO que originou o estorno, quando aplicável. | — | SIM |
-| Codigo_Cancelamento | FK | INT | Referencia o CANCELAMENTO que originou o estorno, quando aplicável. Apenas uma das duas origens é preenchida. | — | SIM |
-| Valor | — | DECIMAL | Valor a restituir ao cliente. | (10,2) | NÃO |
-| Data_Abertura | — | DATETIME | Data e hora de abertura do estorno. | — | NÃO |
-| Prazo_Limite | Derivado | DATETIME | Data_Abertura + 15 dias. O estorno é considerado atrasado se esse prazo vencer com status Pendente. | — | NÃO |
-| Data_Conclusao | — | DATETIME | Data em que o estorno foi concluído. | — | SIM |
-| Status | — | VARCHAR | Pendente, Processado ou Recusado. | 20 | NÃO |
-
-
-### 11. ENTREGA
-
-Envio e rastreamento de um pedido ou de um aparelho de reposição de troca.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Rastreio | PK | VARCHAR | Código de rastreamento da transportadora (contém letras e números). | 30 | NÃO |
-| Codigo_Troca | FK | INT | Referencia a TROCA que originou uma entrega de reposição. Vazio na entrega de venda; é este campo que indica se o envio é de venda ou de reposição. | — | SIM |
-| Id_Pedido | FK | INT | Referencia o PEDIDO ao qual a entrega se refere. | — | NÃO |
-| Transportadora | — | VARCHAR | Nome da transportadora responsável pela entrega. | 100 | NÃO |
-| Status_Entrega | — | VARCHAR | Aguardando envio, Em transporte ou Entregue. | 20 | NÃO |
-| Data_Despacho | — | DATETIME | Data e hora em que a entrega foi despachada. | — | SIM |
-| Data_Entrega | — | DATETIME | Data e hora em que a entrega foi concluída. | — | SIM |
-| Origem_Atualizacao | — | VARCHAR | Origem da última atualização do status: Automática (API da transportadora) ou Manual. | 10 | NÃO |
-
-
-### 12. POS_VENDA
-
-Solicitação do cliente sobre um aparelho já vendido (arrependimento, defeito ou garantia).
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_PosVenda | PK | INT | Identificador único da solicitação. | — | NÃO |
-| Imei | FK | CHAR | Junto com Id_Pedido, referencia o ITEM_PEDIDO objeto da solicitação (FK composta). | 15 | NÃO |
-| Id_Pedido | FK | INT | Junto com Imei, referencia o ITEM_PEDIDO objeto da solicitação (FK composta). | — | NÃO |
-| Tipo_Solicitacao | — | VARCHAR | Arrependimento, Defeito ou Garantia. | 15 | NÃO |
-| Data_Abertura | — | DATETIME | Data e hora de abertura da solicitação. | — | NÃO |
-| Descricao | — | VARCHAR | Detalhamento da solicitação feito pelo cliente. | 500 | NÃO |
-| Status | — | VARCHAR | Situação atual da solicitação. | 20 | NÃO |
-
-
-### 13. DEVOLUCAO
-
-Devolução de um aparelho, por arrependimento ou por defeito, originada de uma solicitação de pós-venda.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Devolucao | PK | INT | Identificador único da devolução. | — | NÃO |
-| Id_PosVenda | FK | INT | Referencia o POS_VENDA que originou a devolução; o tipo da devolução (Arrependimento ou Defeito) vem do Tipo_Solicitacao do POS_VENDA. | — | NÃO |
-| Data_Devolucao | — | DATETIME | Data e hora da devolução. | — | NÃO |
-| Motivo | — | VARCHAR | Justificativa da devolução. | 255 | NÃO |
-| Status | — | VARCHAR | Situação atual da devolução. | 20 | NÃO |
-
-
-### 14. AVALIACAO_DANO
-
-Avaliação técnica do aparelho em uma solicitação de pós-venda.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Avaliacao | PK | INT | Identificador único da avaliação de dano. | — | NÃO |
-| Id_PosVenda | FK | INT | Referencia o POS_VENDA avaliado. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Assistência Técnica) que fez a avaliação. | — | NÃO |
-| Classificacao_Dano | — | ENUM | Defeito de fabricação, Mau uso, Dano acidental ou Outros. | — | NÃO |
-| Descricao_Dano | — | VARCHAR | Detalhamento do dano constatado. | 500 | NÃO |
-| Cobertura_Garantia | — | BOOLEAN | Verdadeiro quando o dano é coberto pela garantia. | — | NÃO |
-| Destino_Aparelho | — | ENUM | Disponível, Em manutenção ou Inativo. | — | NÃO |
-| Data_Avaliacao | — | DATE | Data da avaliação técnica. | — | NÃO |
-
-
-### 15. TROCA
-
-Troca de um aparelho com defeito coberto pela garantia por um aparelho equivalente.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Troca | PK | INT | Identificador único da troca. | — | NÃO |
-| Id_PosVenda | FK | INT | Referencia o POS_VENDA que originou a troca. | — | NÃO |
-| Imei_Reposicao | FK | CHAR | Referencia o APARELHO enviado como reposição. | 15 | NÃO |
-| Data_Troca | — | DATE | Data em que a troca foi realizada. | — | NÃO |
-| Status | — | ENUM | Situação atual da troca. | — | NÃO |
-
-
-### 16. APARELHO
-
-Unidade física de celular, identificada pelo IMEI, desde a entrada no estoque até a venda.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Imei | PK | CHAR | Identificador único internacional do aparelho (15 dígitos). | 15 | NÃO |
-| Id_Especificacao | FK | INT | Referencia a ESPECIFICACAO_APARELHO (modelo, cor e capacidade). | — | NÃO |
-| Id_Avaliacao_Entrada | FK, Único | INT | Referencia a AVALIACAO_ENTRADA aprovada que liberou a entrada do aparelho; por ela se chega à AQUISICAO e ao FORNECEDOR. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que cadastrou o aparelho. | — | NÃO |
-| Condicao | — | ENUM | Novo ou Seminovo; define o prazo de garantia. | — | NÃO |
-| Preco_Venda | — | DECIMAL | Preço de venda do aparelho. | (10,2) | NÃO |
-| Custo_Aquisicao | — | DECIMAL | Valor pago pela loja na aquisição. | (10,2) | NÃO |
-| Status | — | ENUM | Em quarentena, Disponível, Vendido, Em avaliação, Em manutenção ou Inativo. | — | NÃO |
-| Data_Entrada | — | DATE | Data de entrada no estoque. | — | NÃO |
-| Data_Disponivel | — | DATE | Data em que o aparelho passou a Disponível; base do cálculo do tempo em estoque (RN-05). | — | SIM |
-| Data_Fim_Quarentena | Derivado | DATE | Data_Entrada + 15 dias, apenas para seminovos comprados de pessoa física. | — | SIM |
-| Elegivel_Desconto_Pix | — | BOOLEAN | Verdadeiro quando o aparelho participa do desconto Pix (definido pela Diretoria). | — | NÃO |
-
-
-### 17. IMAGEM_APARELHO
-
-Foto de um aparelho exibida na loja on-line.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Imagem | PK | INT | Identificador único da imagem. | — | NÃO |
-| Imei | FK | CHAR | Referencia o APARELHO fotografado. | 15 | NÃO |
-| URL | — | VARCHAR | Endereço onde a imagem está armazenada. | 500 | NÃO |
-
-
-### 18. ESPECIFICACAO_APARELHO
-
-Combinação de modelo, cor e capacidade, com os parâmetros de estoque mínimo e de giro.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Especificacao | PK | INT | Identificador único da especificação. | — | NÃO |
-| Id_Modelo | FK | INT | Referencia o MODELO do aparelho; a marca vem do modelo. | — | NÃO |
-| Cor | — | VARCHAR | Cor do aparelho. | 30 | NÃO |
-| Capacidade | — | INT | Capacidade de armazenamento, em GB. | — | NÃO |
-| Estoque_Minimo | — | INT | Quantidade mínima de aparelhos Disponíveis; dispara a requisição de compra (RN-06). | — | NÃO |
-| Limite_Dias_Atencao | — | INT | Dias a partir dos quais o aparelho é classificado como Atenção/Giro Lento. | — | NÃO |
-| Limite_Dias_Critico | — | INT | Dias a partir dos quais o aparelho é classificado como Crítico/Encalhado. | — | NÃO |
-
-
-### 19. MODELO
-
-Modelo de celular e sua marca. Separado da especificação porque a marca depende só do modelo, e não da cor ou da capacidade (3FN).
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Modelo | PK | INT | Identificador único do modelo. | — | NÃO |
-| Nome_Modelo | Único | VARCHAR | Nome comercial do modelo (ex.: iPhone 15, Galaxy S24). | 100 | NÃO |
-| Marca | — | VARCHAR | Fabricante do modelo. | 50 | NÃO |
-
-
-### 20. REQUISICAO_COMPRA
-
-Pedido interno de reposição de estoque de uma especificação.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Requisicao | PK | INT | Identificador único da requisição. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO da Diretoria que decidiu a requisição. Vazio até a decisão. | — | SIM |
-| Id_Especificacao | FK | INT | Referencia a ESPECIFICACAO_APARELHO requisitada. | — | NÃO |
-| Qtd_Atual_Estoque | — | INT | Quantidade Disponível no momento da abertura (registro histórico). | — | NÃO |
-| Estoque_Minimo | — | INT | Estoque mínimo vigente na abertura (registro histórico, pois o parâmetro pode mudar). | — | NÃO |
-| Parecer_Financeiro | — | VARCHAR | Análise do Financeiro (fluxo de caixa ou orçamento). | 500 | SIM |
-| Data_Abertura | — | DATE | Data de abertura da requisição. | — | NÃO |
-| Data_Decisao | — | DATE | Data da aprovação ou recusa. | — | SIM |
-| Motivo_Recusa | — | VARCHAR | Justificativa da recusa; obrigatória quando a requisição é recusada. | 255 | SIM |
-| Status | — | ENUM | Aguardando Análise Financeira, Aguardando Aprovação da Diretoria, Aprovada ou Recusada. | — | NÃO |
-| Qtd_Sugerida | — | INT | Quantidade sugerida para compra. | — | NÃO |
-
-
-### 21. MOVIMENTACAO
-
-Histórico de cada mudança de status de um aparelho.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Numero_Movimentacao | PK | INT | Identificador único da movimentação. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que fez a movimentação. Vazio quando a mudança é automática (ex.: baixa na aprovação do pagamento). | — | SIM |
-| Imei | FK | CHAR | Referencia o APARELHO movimentado. | 15 | NÃO |
-| Tipo_Movimento | — | ENUM | Tipo da movimentação (entrada, venda, devolução, avaliação, manutenção, inativação etc.). | — | NÃO |
-| Status_Anterior | — | ENUM | Status antes da movimentação. Vazio na primeira movimentação (entrada no estoque). | — | SIM |
-| Status_Novo | — | ENUM | Status depois da movimentação. | — | NÃO |
-| Data_Hora | — | DATETIME | Data e hora da movimentação. | — | NÃO |
-
-
-### 22. AUDITORIA
-
-Registro das operações sensíveis, com quem executou e quem autorizou.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Auditoria | PK | INT | Identificador único do registro. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que executou a ação. Vazio quando a ação é automática. | — | SIM |
-| Codigo_Autorizador | FK | INT | Referencia o FUNCIONARIO que autorizou a ação. Vazio quando não exige autorização. | — | SIM |
-| Acao | — | VARCHAR | Tipo de ação realizada. | 50 | NÃO |
-| Tabela_Afetada | — | VARCHAR | Tabela afetada pela ação. | 50 | NÃO |
-| Registro_Id | — | VARCHAR | Identificador do registro afetado. | 50 | NÃO |
-| Valor_Anterior | — | JSON | Dados antes da alteração. | — | SIM |
-| Valor_Novo | — | JSON | Dados depois da alteração. | — | SIM |
-| Data_Hora | — | DATETIME | Data e hora do registro. | — | NÃO |
-| Descricao | — | VARCHAR | Detalhamento da ação. | 500 | SIM |
-
-
-### 23. FUNCIONARIO
-
-Colaborador ou sócio que usa o sistema, com o seu perfil de acesso.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Codigo_Funcionario | PK | INT | Identificador único do funcionário. | — | NÃO |
-| Nome | — | VARCHAR | Nome completo. | 150 | NÃO |
-| Cargo | — | VARCHAR | Cargo ou função. | 50 | NÃO |
-| Login | Único | VARCHAR | Login de acesso ao sistema. | 50 | NÃO |
-| Id_Perfil | FK | INT | Referencia o PERFIL_ACESSO do funcionário; o nível de acesso vem do perfil. | — | NÃO |
-| Ativo | — | BOOLEAN | Verdadeiro quando o funcionário está ativo. | — | NÃO |
-
-
-### 24. PERFIL_ACESSO
-
-Perfis de acesso do sistema e o nível hierárquico de cada um. Separado de FUNCIONARIO porque o nível depende só do perfil (3FN).
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Perfil | PK | INT | Identificador único do perfil. | — | NÃO |
-| Nome_Perfil | Único | VARCHAR | Vendas e Atendimento, Estoque e Logística, Assistência Técnica, Financeiro/Administrativo ou Diretoria. | 40 | NÃO |
-| Nivel_Acesso | — | INT | 1 (Operacional) para os perfis das áreas ou 2 (Estratégico) para a Diretoria. | — | NÃO |
-
-
-### 25. FORNECEDOR
-
-Pessoa física ou distribuidor que vende aparelhos para a loja.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Cpf_Cnpj_Fornecedor | PK | VARCHAR | CPF (pessoa física) ou CNPJ (distribuidor), apenas números; base do limite de 3 aparelhos por CPF/dia. | 14 | NÃO |
-| Tipo_Pessoa | — | ENUM | PF ou PJ. | — | NÃO |
-| Nome | — | VARCHAR | Nome completo ou razão social. | 150 | NÃO |
-| Tipo_Documento | — | VARCHAR | Documento oficial com foto apresentado (RG ou CNH). Obrigatório para pessoa física. | 10 | SIM |
-| Numero_Documento | — | VARCHAR | Número do documento com foto. Obrigatório para pessoa física. | 20 | SIM |
-| Telefone_Contato | — | VARCHAR | Telefone de contato com DDD, apenas números. | 11 | NÃO |
-
-
-### 26. AQUISICAO
-
-Cada compra de aparelhos feita pela loja junto a um fornecedor.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Aquisicao | PK | INT | Identificador único da aquisição. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Estoque e Logística) que registrou a aquisição. | — | NÃO |
-| Cpf_Cnpj_Fornecedor | FK | VARCHAR | Referencia o FORNECEDOR que vendeu os aparelhos. | 14 | NÃO |
-| Data_Aquisicao | — | DATE | Data da aquisição; usada no limite diário por CPF. | — | NÃO |
-| Tipo_Documento_Compra | — | VARCHAR | Nota fiscal do fornecedor ou Termo de compra e venda. | 30 | NÃO |
-| Numero_Documento_Compra | — | VARCHAR | Número da nota fiscal ou do termo. | 50 | NÃO |
-| Termo_Responsabilidade_Aceito | — | BOOLEAN | Verdadeiro quando o fornecedor pessoa física aceitou o termo de remoção de contas e dados. Vazio para pessoa jurídica. | — | SIM |
-| Valor_Total | Derivado | DECIMAL | Soma do Custo_Aquisicao dos aparelhos aprovados. | (10,2) | NÃO |
-| Status | — | VARCHAR | Em avaliação, Concluída ou Recusada. | 20 | NÃO |
-
-
-### 27. AVALIACAO_ENTRADA
-
-Consulta do IMEI e checklist técnico de cada aparelho oferecido à loja, registrada mesmo quando o aparelho é recusado.
-
-| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
-|---|---|---|---|---|---|
-| Id_Avaliacao_Entrada | PK | INT | Identificador único da avaliação de entrada. | — | NÃO |
-| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Assistência Técnica) que fez a avaliação. | — | NÃO |
-| Id_Aquisicao | FK | INT | Referencia a AQUISICAO em que o aparelho foi oferecido. | — | NÃO |
-| Imei_Avaliado | — | CHAR | IMEI do aparelho oferecido. Não é FK, porque o aparelho recusado não é cadastrado em APARELHO. | 15 | NÃO |
-| Base_Consultada | — | VARCHAR | Base em que o IMEI foi consultado. | 50 | NÃO |
-| Resultado_Consulta_Imei | — | VARCHAR | Regular, Roubado/Furtado, Bloqueado ou Adulterado. | 20 | NÃO |
-| Data_Consulta | — | DATETIME | Data e hora da consulta do IMEI. | — | NÃO |
-| Checklist_Bateria | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Tela | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Cameras | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Botoes | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Som | — | BOOLEAN | Verdadeiro quando aprovado (autofalante e microfone). Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Conectividade | — | BOOLEAN | Verdadeiro quando aprovado (rede, Wi-Fi e Bluetooth). Vazio para aparelho lacrado. | — | SIM |
-| Checklist_Pecas_Originais | — | BOOLEAN | Verdadeiro quando as peças são originais. Vazio para aparelho lacrado. | — | SIM |
-| Bloqueio_Conta | — | BOOLEAN | Verdadeiro quando há bloqueio iCloud/FRP que não pôde ser removido (motivo de recusa). Vazio para aparelho lacrado. | — | SIM |
-| Reset_Fabrica_Realizado | — | BOOLEAN | Verdadeiro quando o reset de fábrica foi feito. Vazio para aparelho recusado. | — | SIM |
-| Resultado | — | VARCHAR | Aprovado ou Recusado. | 10 | NÃO |
-| Motivo_Recusa | — | VARCHAR | Motivo da recusa; obrigatório quando o resultado for Recusado. | 255 | SIM |
-| Data_Reconsulta_Imei | — | DATETIME | Data da nova consulta do IMEI ao fim da quarentena. Vazia quando não há quarentena. | — | SIM |
-| Resultado_Reconsulta_Imei | — | VARCHAR | Resultado da nova consulta: Regular, Roubado/Furtado, Bloqueado ou Adulterado. Vazio quando não há quarentena. | 20 | SIM |
-
-
-
-## 16. DER
+### 6.5 Diagrama Entidade-Relacionamento
 
 ```mermaid
 flowchart TD
@@ -2264,7 +1790,7 @@ flowchart TD
     class R2 relid
 ```
 
-### Legenda
+#### Legenda
 
 | Forma | Significado |
 |---|---|
@@ -2275,35 +1801,33 @@ flowchart TD
 | Losango de borda grossa | Relacionamento identificador (`dispõe de`, entre `CLIENTE` e `TELEFONE`) |
 | Número na linha | Cardinalidade (`1`, `0..1`, `0..N`, `1..N`) |
 
-
-## 17. Modelo Lógico
+## 7. Modelo Lógico
 
 O modelo lógico mostra cada tabela com os seus campos, tipos e chaves (PK e FK), e as ligações entre as tabelas com as cardinalidades. A cor do cabeçalho indica a área de cada tabela (legenda no canto inferior direito).
 
 ![Modelo lógico do CellGO](modelo_logico_cellgo.png)
 
+### 7.1 Justificativas Técnicas
 
-## 18. Justificativas Técnicas
-
-### Controle de estoque por unidade (IMEI), e não por quantidade
+#### Controle de estoque por unidade (IMEI), e não por quantidade
 
 **Decisão:** A entidade APARELHO é controlada individualmente pelo Imei (PK), e não existe nenhuma entidade de "saldo de estoque" por modelo.
 
 **Justificativa:** A RN-03 e o RF-03 exigem que cada aparelho seja acompanhado individualmente, com seu próprio histórico, status, garantia e tempo em estoque. Isso não é possível quando o estoque é controlado apenas pela quantidade de cada modelo. Com um controle por quantidade, a empresa não saberia, por exemplo, qual unidade está parada há mais de 60 dias (RN-05) nem conseguiria ligar a garantia a um aparelho específico (RN-17). A contagem por modelo, usada no ponto de pedido (RN-06), é apenas uma consulta feita sobre os registros de APARELHO, e não uma tabela própria. Assim, não existem dois números de estoque diferentes que poderiam discordar entre si.
 
-### Separação entre APARELHO e ESPECIFICACAO_APARELHO
+#### Separação entre APARELHO e ESPECIFICACAO_APARELHO
 
 **Decisão:** Cor, Capacidade, Estoque_Minimo e os limites de dias de giro ficam em uma entidade própria, ESPECIFICACAO_APARELHO, separada da unidade física (APARELHO). O nome do modelo e a marca ficam em MODELO, ligada à especificação.
 
 **Justificativa:** Esses dados valem para todos os aparelhos de uma mesma combinação de modelo, cor e capacidade, e não para cada unidade (RN-02, RN-05 e RN-06). Se ficassem dentro de APARELHO, o mesmo estoque mínimo teria de ser repetido em cada IMEI daquele modelo. Quando a Diretoria alterasse esse valor, seria preciso atualizar vários registros, com risco de algum ficar diferente dos outros. Com a separação, basta alterar um único registro. A separação também permite que a REQUISICAO_COMPRA (RN-06) seja gerada a partir da especificação, e não de um aparelho específico. Pelo mesmo motivo, o modelo e a marca ficam em MODELO: a marca depende só do modelo (todo iPhone 15 é da Apple), e não da cor nem da capacidade. Se a marca ficasse na especificação, ela se repetiria em cada combinação de cor e capacidade do mesmo modelo, o que seria uma dependência transitiva (Id_Especificacao → Modelo → Marca) e violaria a 3ª Forma Normal. Essa organização segue as regras de normalização: cada informação fica guardada na entidade da qual ela realmente depende.
 
-### Ausência de reserva de estoque e validação no fechamento da venda
+#### Ausência de reserva de estoque e validação no fechamento da venda
 
 **Decisão:** Não existe o status "Reservado" no ciclo de vida do APARELHO. A disponibilidade é conferida quando o cliente monta o pedido e conferida novamente no momento da aprovação do pagamento (RN-04).
 
 **Justificativa:** A proibição de reserva é uma decisão explícita do negócio (RN-03 e RN-04). Ela simplifica o modelo e evita um problema comum em e-commerce: dois clientes "segurando" o mesmo aparelho ao mesmo tempo. Para impedir que duas compras sejam concluídas para a mesma unidade, a conferência da disponibilidade, a aprovação do pagamento e a mudança do status para "Vendido" acontecem como uma única operação: ou tudo é concluído junto, ou nada é gravado. Se outro cliente já tiver comprado o aparelho, a segunda compra é bloqueada e o cliente é informado. Isso sustenta o RNF-06 (confiabilidade).
 
-### Entidade fraca × entidade associativa
+#### Entidade fraca × entidade associativa
 
 **Decisão:** O modelo usa os dois conceitos, cada um no lugar certo: TELEFONE é uma **entidade fraca**; ITEM_PEDIDO e ITEM_NOTA_FISCAL são **entidades associativas**.
 
@@ -2320,31 +1844,31 @@ TELEFONE é fraca porque não tem identidade fora do cliente: DDD e número só 
 
 ITEM_PEDIDO não é fraca: sua chave não é "chave do pedido + discriminador", mas a junção das chaves de duas entidades fortes, PEDIDO e APARELHO. A relação entre elas é N:N, porque um pedido pode ter vários aparelhos e um mesmo aparelho pode aparecer em vários pedidos ao longo do tempo (quando é devolvido e revendido). Esse relacionamento precisa guardar dados que pertencem à combinação dos dois: o preço praticado naquela venda e as datas de garantia daquele aparelho naquele pedido. Se ficassem em APARELHO, seriam substituídos a cada revenda; se ficassem em PEDIDO, não funcionariam para pedidos com mais de um aparelho. Por isso o relacionamento N:N é promovido a entidade associativa. A mesma lógica vale para ITEM_NOTA_FISCAL (uma nota lista vários aparelhos, e um aparelho aparece em várias notas: venda, devolução, reposição).
 
-### Telefone como entidade do cliente
+#### Telefone como entidade do cliente
 
 **Decisão:** O telefone não é um campo dentro de CLIENTE: ele é modelado como a entidade fraca TELEFONE, ligada a CLIENTE por um relacionamento identificador, com cardinalidade 1..N.
 
 **Justificativa:** A RN-01 e o RF-01 exigem telefone no cadastro, e um mesmo cliente pode ter mais de um número (celular, fixo ou WhatsApp). Um único atributo não comporta essa variação, e colunas fixas como Telefone1 e Telefone2 violariam a 1ª Forma Normal e limitariam a quantidade de números. Com a entidade TELEFONE, cada número é um registro separado. A cardinalidade mínima 1 no lado do telefone garante que todo cliente tenha pelo menos um contato, como exige a regra. Já no FORNECEDOR a regra pede apenas um contato, por isso lá o telefone é um atributo simples (Telefone_Contato).
 
-### Endereço como entidade própria
+#### Endereço como entidade própria
 
 **Decisão:** Os dados de endereço (Rua, Numero, Complemento, Bairro, Cidade, CEP e Tipo_Endereco) saíram de CLIENTE e passaram para a entidade ENDERECO, com identificador próprio (Id_Endereco) e ligada ao cliente pelo Cpf_Cnpj, com cardinalidade 1..N.
 
 **Justificativa:** Um mesmo cliente pode ter mais de um endereço: o residencial, o de entrega e, para pessoa jurídica, o comercial ou de cobrança. Com o endereço dentro de CLIENTE, só caberia um, ou seria preciso repetir colunas (Rua1, Rua2...), o que viola a 1ª Forma Normal. Com a entidade própria, cada endereço é um registro e o atributo Tipo_Endereco diz para que ele serve. ENDERECO tem identificador próprio (Id_Endereco) em vez de usar o Cpf_Cnpj como parte da chave porque nenhum outro atributo identifica o endereço com segurança: o cliente pode ter dois endereços do mesmo tipo, e qualquer campo do endereço pode ser alterado. A cardinalidade mínima 1 no lado do endereço garante que todo cliente tenha pelo menos um endereço, como exige a RN-01, já que ele é necessário para a entrega e para a nota fiscal.
 
-### Tipos de dados das chaves e dos valores
+#### Tipos de dados das chaves e dos valores
 
 **Decisão:** IMEI é CHAR(15); CPF/CNPJ é VARCHAR(14); código de rastreio é VARCHAR(30); valores em dinheiro são DECIMAL(10,2). Os identificadores gerados pelo próprio sistema (Id_* e Codigo_*) são INT.
 
 **Justificativa:** IMEI, CPF, CNPJ e código de rastreio são códigos, e não números usados em cálculos. O IMEI tem 15 dígitos e o CNPJ tem 14, o que não cabe em um INT; o CPF pode começar com zero, que seria perdido em um campo numérico; e o código de rastreio tem letras. Por isso são guardados como texto. Os valores em dinheiro usam DECIMAL(10,2), e não FLOAT, porque o FLOAT guarda valores aproximados e pode errar centavos em somas, descontos e estornos; o RNF-10 exige valores com duas casas decimais exatas.
 
-### Imagem do aparelho como entidade separada
+#### Imagem do aparelho como entidade separada
 
 **Decisão:** As fotos de cada aparelho ficam em uma entidade própria, IMAGEM_APARELHO (Id_Imagem, Imei, URL), e não em um atributo de APARELHO.
 
 **Justificativa:** Como a venda é feita exclusivamente pela internet, cada aparelho pode ter várias fotos (frente, verso ou o detalhe de uma marca de uso em um seminovo, por exemplo), e a quantidade varia de uma unidade para outra. Guardar as fotos em um único campo de APARELHO dificultaria incluir ou remover uma imagem sem alterar o registro inteiro. Com a entidade própria, cada foto é um registro, identificado pelo seu próprio código (Id_Imagem) e ligado ao aparelho pelo Imei. Um aparelho pode não ter nenhuma foto ou ter uma ou várias (cardinalidade 1 : 0..N). Diferente de TELEFONE, IMAGEM_APARELHO tem identificador próprio (Id_Imagem), por isso é uma entidade forte.
 
-### Semântica de PEDIDO × PAGAMENTO
+#### Semântica de PEDIDO × PAGAMENTO
 
 **Decisão:** PEDIDO representa a **venda e suas condições comerciais**: o que foi vendido (ITEM_PEDIDO), a forma de pagamento escolhida, o número de parcelas, o desconto, as taxas e o valor final. PAGAMENTO representa **cada tentativa de cobrança** desse valor enviada à instituição de pagamento, com código da transação, datas, valor e status. Os atributos Forma_Pagamento e Numero_Parcelas ficam apenas em PEDIDO, e os status das duas entidades são separados.
 
@@ -2354,43 +1878,43 @@ A forma de pagamento pertence ao pedido porque é ela que define o valor da vend
 
 Com essa separação, cada status descreve uma única coisa: Status_Pedido diz em que ponto está a venda (Aberto, Aguardando pagamento, Pago, Finalizado, Cancelado), e o Status do pagamento diz o que aconteceu com cada cobrança. O status "Parcialmente pago" foi removido, pois o negócio não aceita dividir o pagamento entre formas diferentes e, no cartão parcelado, quem recebe as parcelas é a operadora, e não a loja.
 
-### NOTA_FISCAL ligada ao PEDIDO, e não ao PAGAMENTO
+#### NOTA_FISCAL ligada ao PEDIDO, e não ao PAGAMENTO
 
 **Decisão:** A nota fiscal de venda passa a ser originada pelo PEDIDO (Id_Pedido), e não pelo PAGAMENTO. A NOTA_FISCAL continua tendo três origens possíveis e excludentes: Id_Pedido (nota de venda), Codigo_Cancelamento (nota de entrada por cancelamento fora do prazo de cancelamento direto) e Id_PosVenda (nota de entrada por devolução ou troca, e nota de saída do aparelho de reposição). O atributo Tipo_Nota indica qual é o documento.
 
 **Justificativa:** A nota fiscal documenta uma operação com mercadoria: quem comprou, quais aparelhos (IMEI) e por qual valor. Essas informações estão no pedido e em seus itens, e não no pagamento. A aprovação do pagamento é apenas o **gatilho** que inicia a emissão (RN-20), ou seja, uma regra de momento, e não um vínculo entre os dados. Ligar a nota ao pagamento trazia ainda um problema: como um pedido pode ter várias tentativas de pagamento, a nota ficaria presa a uma tentativa específica, e não à venda. Ligada ao pedido, a nota de venda acompanha a venda inteira, independentemente de quantas tentativas de cobrança houve. A regra de que cada nota tem exatamente uma origem é registrada como restrição do modelo e verificada pelo sistema no momento da gravação.
 
-### Identificador próprio da NOTA_FISCAL e chave de acesso opcional
+#### Identificador próprio da NOTA_FISCAL e chave de acesso opcional
 
 **Decisão:** A chave primária de NOTA_FISCAL passa a ser um identificador interno (Id_Nota). A chave de acesso (Chave_Acesso) e o número da nota (Numero_Nota) passam a ser atributos que podem ficar vazios, com a chave de acesso marcada como única.
 
 **Justificativa:** A chave de acesso de 44 dígitos e o número da NF-e só existem depois que a SEFAZ autoriza a nota. Pela RN-20, a nota nasce com status "Aguardando emissão" e pode ficar "Pendente" em caso de erro, situações em que ainda não há chave nem número. Uma chave primária não pode ser vazia, por isso usar a chave de acesso como PK impediria registrar a nota antes da autorização. Com o Id_Nota, o registro existe desde o início da emissão, e a chave de acesso e o número são preenchidos quando a nota é autorizada. O número da nota também foi incluído porque o RF-17 e a RN-20 exigem registrá-lo.
 
-### ITEM_NOTA_FISCAL: os aparelhos documentados em cada nota
+#### ITEM_NOTA_FISCAL: os aparelhos documentados em cada nota
 
 **Decisão:** A entidade associativa ITEM_NOTA_FISCAL (Id_Nota, Imei, Valor_Item) registra quais aparelhos cada nota documenta.
 
 **Justificativa:** Uma nota fiscal lista mercadorias, e no CellGO cada mercadoria é um aparelho identificado pelo IMEI (Política Fiscal e Documental: rastreabilidade por IMEI). Sem essa entidade, a nota de saída da troca não teria como indicar o aparelho de reposição, porque esse aparelho não faz parte do pedido original (não é um ITEM_PEDIDO). Da mesma forma, a nota de entrada de uma devolução precisa indicar qual IMEI está voltando. Como uma nota pode listar vários aparelhos e um aparelho aparece em várias notas ao longo da vida (venda, devolução, reposição), a relação é N:N, resolvida pela entidade associativa.
 
-### Autorrelacionamento em NOTA_FISCAL ("referencia")
+#### Autorrelacionamento em NOTA_FISCAL ("referencia")
 
 **Decisão:** NOTA_FISCAL tem um relacionamento com ela mesma. Uma nota de entrada ou de reposição aponta para a nota de venda original por meio do atributo Id_Nota_Referencia.
 
 **Justificativa:** A RN-20, seguindo a legislação fiscal, exige que a nota de entrada (devolução) indique a nota de venda que está sendo desfeita: não existe nota de entrada "solta". A nota de saída do aparelho de reposição também fica ligada à nota original, para que toda a troca possa ser rastreada. O autorrelacionamento representa exatamente essa ligação. Uma nota original pode ter várias notas ligadas a ela (na troca, por exemplo, uma de entrada e uma de saída), mas cada uma dessas notas aponta para uma única nota original (cardinalidade 1 : 0..N). A nota de venda comum fica com Id_Nota_Referencia vazio, porque ela própria é a original.
 
-### POS_VENDA como entidade central de troca, devolução e garantia
+#### POS_VENDA como entidade central de troca, devolução e garantia
 
 **Decisão:** Em vez de ligar TROCA, DEVOLUCAO e AVALIACAO_DANO diretamente a ITEM_PEDIDO, o modelo cria POS_VENDA como ponto único de entrada para as solicitações do cliente sobre um aparelho já vendido. O CANCELAMENTO fica fora desse fluxo e se liga diretamente ao PEDIDO.
 
 **Justificativa:** Troca por defeito (RN-14), devolução por arrependimento (RN-15), devolução por defeito (RN-16) e solicitações de garantia (RN-17) começam da mesma forma: o cliente abre uma solicitação, com data, descrição e status, sobre um aparelho específico. Depois disso, o aparelho passa por avaliação técnica (RN-18), e só então o caso segue para troca, devolução ou encerramento por mau uso. Concentrar essa abertura em POS_VENDA evita repetir os mesmos atributos em várias tabelas e permite que o histórico do cliente (RN-22) e a auditoria (RN-23) encontrem todas as solicitações em um só lugar. O cancelamento é diferente: ele vale para o pedido inteiro, só pode acontecer antes do envio (RN-13) e não passa por avaliação de dano. Por isso, fica em uma entidade própria, ligada ao PEDIDO.
 
-### DEVOLUCAO como entidade única para arrependimento e defeito
+#### DEVOLUCAO como entidade única para arrependimento e defeito
 
 **Decisão:** Uma única entidade, DEVOLUCAO, atende tanto a devolução por arrependimento (RN-15) quanto a devolução por defeito (RN-16). O tipo vem do atributo Tipo_Solicitacao do POS_VENDA que originou a devolução.
 
 **Justificativa:** Os dois tipos de devolução guardam as mesmas informações: data, motivo, status e ligação com POS_VENDA e ESTORNO. O que muda é a regra que autoriza cada uma. A devolução por arrependimento não exige defeito e deve ser pedida em até 7 dias após o recebimento. A devolução por defeito só é autorizada quando o defeito é coberto pela garantia e não há aparelho equivalente para troca. Nos dois casos, o aparelho passa por avaliação técnica (AVALIACAO_DANO) antes de voltar ao estoque. Criar duas entidades repetiria os mesmos atributos e dificultaria a consulta do histórico do cliente (RN-22), que precisa mostrar todas as devoluções juntas. A diferença entre os dois tipos fica no Tipo_Solicitacao do POS_VENDA e nas validações de cada regra, e não na estrutura da tabela. DEVOLUCAO não repete esse tipo em um atributo próprio porque ele já é determinado pela solicitação de origem; guardá-lo de novo criaria uma dependência transitiva (Codigo_Devolucao → Id_PosVenda → Tipo_Solicitacao), contrária à 3ª Forma Normal.
 
-### ESTORNO ligado ao pagamento revertido, com duas origens que não se misturam
+#### ESTORNO ligado ao pagamento revertido, com duas origens que não se misturam
 
 **Decisão:** Todo ESTORNO tem uma chave estrangeira obrigatória para o PAGAMENTO que está sendo revertido (Id_Pagamento) e duas chaves estrangeiras opcionais de origem, Codigo_Cancelamento e Codigo_Devolucao, das quais apenas uma é preenchida.
 
@@ -2398,47 +1922,47 @@ Com essa separação, cada status descreve uma única coisa: Status_Pedido diz e
 
 Quanto à origem, a RN-19 prevê estorno em duas situações diferentes: quando o pedido é cancelado antes do envio e o pagamento já tinha sido feito (RN-13), e quando há devolução, por arrependimento (RN-15) ou por defeito (RN-16). A troca não gera estorno, porque o aparelho de reposição tem valor igual ou superior e não há diferença a devolver ao cliente (RN-14). Um mesmo estorno nunca nasce de um cancelamento e de uma devolução ao mesmo tempo. Usar duas chaves estrangeiras com nomes claros, em vez de um único campo genérico de "origem", deixa evidente de onde veio cada estorno. A garantia de que apenas uma das duas é preenchida é registrada como restrição do modelo e verificada pelo sistema no momento da gravação. A situação "atrasado" não é gravada como status: ela é calculada pela comparação entre o Prazo_Limite e a data atual enquanto o estorno estiver Pendente.
 
-### Cardinalidades opcionais (0,1) nos relacionamentos de pós-venda
+#### Cardinalidades opcionais (0,1) nos relacionamentos de pós-venda
 
 **Decisão:** Relacionamentos como POS_VENDA–DEVOLUCAO, POS_VENDA–TROCA e CANCELAMENTO–ESTORNO têm, do lado opcional, cardinalidade máxima 1 (0..1), e nunca 0..N.
 
 **Justificativa:** As regras de negócio determinam que cada solicitação gere no máximo um resultado de cada tipo: uma solicitação de pós-venda gera no máximo uma troca e no máximo uma devolução, e um cancelamento gera no máximo um estorno. A cardinalidade 0..1 impede, já no modelo de dados, que esses registros sejam duplicados. Além disso, a RN-14 determina que uma mesma solicitação resulte em troca ou em devolução, nunca nas duas. Como a cardinalidade sozinha não consegue expressar essa escolha entre dois relacionamentos, ela é registrada como restrição do modelo e verificada pelo sistema.
 
-### Nenhum dado bancário armazenado (LGPD)
+#### Nenhum dado bancário armazenado (LGPD)
 
 **Decisão:** O sistema não guarda dados bancários do cliente (banco, agência ou conta) em nenhuma entidade.
 
 **Justificativa:** A RNF-02 exige que o sistema guarde o mínimo possível de dados pessoais. Como a loja aceita apenas Pix e cartão de crédito, todo estorno volta pelo mesmo meio usado na compra: o Pix é devolvido para a conta de origem pela própria instituição de pagamento, e o cartão é estornado junto à operadora, a partir do código da transação registrado em PAGAMENTO (RN-19). Em nenhum desses casos a loja precisa conhecer a conta bancária do cliente. Por isso, ESTORNO não tem atributos bancários, o que elimina um dado pessoal sensível do banco de dados e reduz o risco em caso de vazamento.
 
-### MOVIMENTACAO como histórico de mudanças de status do APARELHO
+#### MOVIMENTACAO como histórico de mudanças de status do APARELHO
 
 **Decisão:** Toda mudança de status do aparelho gera um registro em MOVIMENTACAO, com Status_Anterior, Status_Novo, Funcionário e Data_Hora. O APARELHO continua guardando o seu status atual.
 
 **Justificativa:** A RN-03, a RN-23 e o RF-03 exigem o histórico completo de cada mudança de status: quando o aparelho entrou no estoque, quando saiu da quarentena, quando foi vendido, quando foi para "Em avaliação", quando voltou a "Disponível" e quem fez cada alteração. O status atual em APARELHO atende às consultas do dia a dia, como verificar se a unidade pode ser vendida, mas não mostra o que aconteceu antes. Por isso, o histórico fica em uma entidade própria, e todo aparelho tem pelo menos uma movimentação: a entrada no estoque (cardinalidade 1..N). O funcionário é opcional (Codigo_Funcionario pode ficar vazio) porque algumas mudanças são automáticas, como a baixa do aparelho quando o pagamento é aprovado. Esse histórico também ajuda a conferir o controle do tempo em estoque (RN-05), que reinicia a contagem quando o aparelho volta ao estoque após uma troca ou devolução.
 
-### Perfis de acesso em uma entidade própria (PERFIL_ACESSO)
+#### Perfis de acesso em uma entidade própria (PERFIL_ACESSO)
 
 **Decisão:** Os perfis de acesso ficam na entidade PERFIL_ACESSO (Id_Perfil, Nome_Perfil, Nivel_Acesso), e cada FUNCIONARIO aponta para o seu perfil (Id_Perfil). O nível de acesso deixa de ser um atributo do funcionário.
 
 **Justificativa:** A RN-24 define cinco perfis (um para cada uma das quatro áreas e um para a Diretoria) e dois níveis hierárquicos: o Nível 1, operacional, para os perfis das áreas, e o Nível 2, estratégico, exclusivo da Diretoria. O nível depende apenas do perfil: todo funcionário com o perfil Diretoria tem Nível 2, e todos os outros têm Nível 1. Se o nível ficasse em FUNCIONARIO junto com o perfil, haveria uma dependência transitiva (Codigo_Funcionario → Perfil → Nivel_Acesso), que viola a 3ª Forma Normal e permitiria gravar combinações contraditórias, como um funcionário de Vendas com Nível 2. Com PERFIL_ACESSO, a relação entre perfil e nível é cadastrada uma única vez, e o funcionário só indica o seu perfil. Essa tabela também é consultada em toda validação de autorização (RF-20 e RN-24), por exemplo para conferir se o funcionário indicado como autorizador em AUDITORIA (Codigo_Autorizador) tem permissão para autorizar aquela operação.
 
-### Dois relacionamentos distintos entre AUDITORIA e FUNCIONARIO
+#### Dois relacionamentos distintos entre AUDITORIA e FUNCIONARIO
 
 **Decisão:** AUDITORIA se relaciona com FUNCIONARIO duas vezes: uma para quem executou a ação ("rastreia") e outra para quem a autorizou ("autoriza"). Cada uma usa sua própria chave estrangeira: Codigo_Funcionario e Codigo_Autorizador.
 
 **Justificativa:** A RN-23 exige o registro do usuário responsável por cada operação, e a RN-24 exige que, nas operações que precisam de autorização, também fique registrado quem autorizou, com seu perfil e sua área. Essas duas pessoas podem ser diferentes. Por exemplo: quando um aparelho fica encalhado, um colaborador de Estoque e Logística pode registrar a revisão do preço daquele IMEI, mas essa alteração precisa ser autorizada pela Diretoria (RN-05). Uma única chave estrangeira não conseguiria guardar as duas informações. As duas chaves são opcionais (cardinalidade 0..1 do lado do funcionário): o executor fica vazio quando a ação é automática, como a atualização da entrega feita pela integração com a transportadora (RF-23), e o autorizador fica vazio quando a operação não exige autorização.
 
-### REQUISICAO_COMPRA ligada à especificação, e não ao aparelho
+#### REQUISICAO_COMPRA ligada à especificação, e não ao aparelho
 
 **Decisão:** REQUISICAO_COMPRA tem chave estrangeira para ESPECIFICACAO_APARELHO, e não para APARELHO.
 
 **Justificativa:** O ponto de pedido (RN-06) é calculado por combinação de modelo, cor e capacidade, e a requisição trata de uma compra futura, cujos aparelhos ainda não existem no sistema e, portanto, ainda não têm IMEI. Por isso, não seria possível ligar a requisição a um APARELHO específico. A ligação correta é com a especificação. Ela também permite aplicar a regra de que só pode existir uma requisição em aberto para cada especificação, evitando pedidos de compra duplicados. O pedido de compra ao fornecedor fica fora do escopo do sistema (RN-06); quando os novos aparelhos chegam, a entrada deles segue o fluxo de aquisição (RN-25).
 
-### Aquisição e procedência: FORNECEDOR, AQUISICAO e AVALIACAO_ENTRADA
+#### Aquisição e procedência: FORNECEDOR, AQUISICAO e AVALIACAO_ENTRADA
 
 **Decisão:** A entrada de aparelhos no estoque passa a ser modelada por três entidades: FORNECEDOR (quem vende o aparelho para a loja), AQUISICAO (cada compra, com o documento da compra) e AVALIACAO_ENTRADA (a consulta do IMEI e o checklist técnico de cada aparelho oferecido). Todo APARELHO fica ligado à avaliação de entrada aprovada que permitiu o seu cadastro.
 
-**Justificativa:** A Política de Aquisição (Seção 9) e a RN-25 exigem várias informações que, na versão anterior, não tinham onde ser guardadas: quem vendeu o aparelho e com qual documento, o resultado da consulta do IMEI, o checklist técnico, a verificação de bloqueio iCloud/FRP, o termo de responsabilidade, o documento da compra, o limite de aparelhos por CPF/dia e a quarentena. Sem essas entidades, a empresa não conseguiria comprovar a procedência lícita do estoque, que é justamente o objetivo das políticas.
+**Justificativa:** A Política de Aquisição (Seção 5.4) e a RN-25 exigem várias informações que, na versão anterior, não tinham onde ser guardadas: quem vendeu o aparelho e com qual documento, o resultado da consulta do IMEI, o checklist técnico, a verificação de bloqueio iCloud/FRP, o termo de responsabilidade, o documento da compra, o limite de aparelhos por CPF/dia e a quarentena. Sem essas entidades, a empresa não conseguiria comprovar a procedência lícita do estoque, que é justamente o objetivo das políticas.
 
 Cada entidade guarda o que depende dela. Os dados de identificação ficam em FORNECEDOR, porque valem para todas as vendas que aquela pessoa ou empresa fizer à loja. O documento da compra, a data e o termo de responsabilidade ficam em AQUISICAO, porque pertencem àquela transação. Os resultados de verificação ficam em AVALIACAO_ENTRADA, porque são feitos aparelho por aparelho. O limite de 3 aparelhos por CPF/dia não precisa de atributo: é uma consulta que conta as avaliações aprovadas das aquisições daquele fornecedor naquela data.
 
@@ -2448,8 +1972,7 @@ Os itens do checklist foram modelados como atributos de AVALIACAO_ENTRADA, e nã
 
 A quarentena não precisou de uma entidade nova: ela é um status do APARELHO (Em quarentena), com a data de término calculada (Data_Fim_Quarentena), e a nova consulta do IMEI ao fim do prazo fica registrada na própria avaliação de entrada (Data_Reconsulta_Imei e Resultado_Reconsulta_Imei). Isso mantém o controle por IMEI (RN-03) e registra a mudança de status em MOVIMENTACAO, como acontece com qualquer outro status.
 
-
-### Normalização (1FN, 2FN e 3FN)
+## 8. Normalização (1FN, 2FN e 3FN)
 
 **Decisão:** O modelo foi revisado para atender à 1ª, à 2ª e à 3ª Forma Normal. Os campos calculados (marcados como "Derivado" no dicionário) foram mantidos de propósito, como desnormalização controlada.
 
@@ -2477,8 +2000,473 @@ Em todos os casos, o valor é calculado pelo sistema no momento da gravação e 
 
 **Endereço e CEP.** Em ENDERECO, a cidade pode ser deduzida do CEP. Mesmo assim, Cidade, Bairro e Rua foram mantidos como atributos do endereço porque, no Brasil, o CEP nem sempre identifica a rua (em muitas cidades pequenas, um único CEP vale para a cidade inteira) e porque o endereço precisa ser guardado exatamente como foi informado para a entrega e para a nota fiscal. Criar uma tabela de CEPs exigiria manter uma base nacional atualizada, o que está fora do escopo do sistema.
 
+## 9. Dicionário de Dados
 
-## 19. Conclusão
+### 1. CLIENTE
+
+Pessoa física ou jurídica que compra aparelhos na loja on-line.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Cpf_Cnpj | PK | VARCHAR | Identificador único do cliente: CPF (11 dígitos) para pessoa física ou CNPJ (14 dígitos) para pessoa jurídica, apenas números. | 14 | NÃO |
+| Nome | — | VARCHAR | Nome completo do cliente ou razão social, quando pessoa jurídica. | 150 | NÃO |
+| Email | — | VARCHAR | Endereço de e-mail de contato do cliente; usado nas notificações (RF-24). | 254 | NÃO |
+| Data_Nascimento | — | DATE | Data de nascimento do cliente pessoa física; usada para impedir compra por menor de 18 anos. Vazia para pessoa jurídica. | — | SIM |
+| Tipo_Pessoa | — | ENUM | Tipo do cliente: PF (pessoa física) ou PJ (pessoa jurídica). | — | NÃO |
+
+### 2. ENDERECO
+
+Endereços cadastrados por um cliente, usados para entrega ou cobrança.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Endereco | PK | INT | Identificador único do endereço. | — | NÃO |
+| Cpf_Cnpj | FK | VARCHAR | Referencia o CLIENTE dono do endereço. | 14 | NÃO |
+| Rua | — | VARCHAR | Nome da rua ou avenida. | 150 | NÃO |
+| Bairro | — | VARCHAR | Bairro do endereço. | 100 | NÃO |
+| Cidade | — | VARCHAR | Cidade do endereço. | 100 | NÃO |
+| CEP | — | VARCHAR | Código de Endereçamento Postal, apenas números. | 8 | NÃO |
+| Numero | — | VARCHAR | Número do imóvel (texto, pois pode conter letras, como "120A" ou "S/N"). | 10 | NÃO |
+| Complemento | — | VARCHAR | Informação complementar do endereço (apartamento, bloco etc.). | 100 | SIM |
+| Tipo_Endereco | — | VARCHAR | Finalidade do endereço: residencial, comercial, entrega ou cobrança. | 20 | NÃO |
+
+### 3. TELEFONE
+
+Entidade fraca: cada número de telefone de um cliente. Identificada pelo Cpf_Cnpj do cliente junto com DDD e número.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| DDD | PK | INT | Código de área do telefone, com dois dígitos. | — | NÃO |
+| Numero_Telefone | PK | INT | Número do telefone, apenas dígitos (8 para fixo ou 9 para celular). | — | NÃO |
+| Cpf_Cnpj | PK, FK | VARCHAR | Referencia o CLIENTE titular do telefone; faz parte da chave, pois o telefone só existe ligado ao cliente. | 14 | NÃO |
+
+### 4. PEDIDO
+
+A venda feita a um cliente e suas condições comerciais: forma de pagamento escolhida e valores calculados. Os aparelhos ficam em ITEM_PEDIDO e as cobranças em PAGAMENTO.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Pedido | PK | INT | Identificador único do pedido. | — | NÃO |
+| Cpf_Cnpj | FK | VARCHAR | Referencia o CLIENTE que realizou o pedido. | 14 | NÃO |
+| Data_Pedido | — | DATETIME | Data e hora em que o pedido foi realizado. | — | NÃO |
+| Status_Pedido | — | VARCHAR | Situação do pedido: Aberto, Aguardando pagamento, Pago, Finalizado ou Cancelado. | 25 | NÃO |
+| Forma_Pagamento | — | ENUM | Forma de pagamento escolhida. Valores permitidos: Pix ou Cartão de crédito (boleto e débito não são aceitos). Define o desconto, as parcelas e as taxas. | — | NÃO |
+| Numero_Parcelas | — | INT | Quantidade de parcelas. Pix: sempre 1. Cartão de crédito: de 1 a 12. | — | NÃO |
+| Valor_Produtos | Derivado | DECIMAL | Soma dos preços dos aparelhos do pedido (ITEM_PEDIDO). | (10,2) | NÃO |
+| Percentual_Desconto_Pix | — | DECIMAL | Percentual de desconto aplicado (5, 7 ou 10). Preenchido só quando a forma de pagamento é Pix e o produto é elegível; vazio no cartão de crédito. | (5,2) | SIM |
+| Valor_Desconto | — | DECIMAL | Valor do desconto Pix aplicado ao pedido. Vazio no cartão de crédito. | (10,2) | SIM |
+| Valor_Taxas | — | DECIMAL | Juros ou taxas do parcelamento no cartão de crédito, quando houver. Vazio no Pix. | (10,2) | SIM |
+| Valor_Final | Derivado | DECIMAL | Valor_Produtos − Valor_Desconto + Valor_Taxas (campos vazios contam como zero). | (10,2) | NÃO |
+
+### 5. ITEM_PEDIDO
+
+Entidade associativa: resolve o relacionamento N:N entre PEDIDO e APARELHO, guardando o preço praticado e a garantia de cada aparelho naquele pedido.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Imei | PK, FK | CHAR | Referencia o APARELHO vendido nesse item. | 15 | NÃO |
+| Id_Pedido | PK, FK | INT | Referencia o PEDIDO ao qual o item pertence. | — | NÃO |
+| Preco_Unitario | — | DECIMAL | Preço do aparelho praticado naquele pedido. | (10,2) | NÃO |
+| Data_Inicio_Garantia | — | DATE | Início da garantia (data da venda). | — | NÃO |
+| Data_Fim_Garantia_Loja | Derivado | DATE | Fim da garantia da loja (início + 30 dias). | — | NÃO |
+| Data_Fim_Garantia_Fabricante | — | DATE | Fim da garantia do fabricante. Vazia para seminovos sem garantia do fabricante. | — | SIM |
+
+### 6. PAGAMENTO
+
+Cada tentativa de cobrança do pedido enviada à instituição de pagamento. A forma de pagamento e as parcelas ficam no PEDIDO.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Pagamento | PK | INT | Identificador único do pagamento. | — | NÃO |
+| Id_Pedido | FK | INT | Referencia o PEDIDO cobrado. | — | NÃO |
+| Codigo_Transacao | — | VARCHAR | Identificador da transação na instituição de pagamento: txid do Pix ou código de autorização (NSU) do cartão de crédito. | 100 | SIM |
+| Data_Tentativa | — | DATETIME | Data e hora em que a cobrança foi gerada. | — | NÃO |
+| Data_Confirmacao | — | DATETIME | Data e hora da aprovação. Vazia enquanto o pagamento não for aprovado. | — | SIM |
+| Valor | — | DECIMAL | Valor cobrado nesta tentativa (Valor_Final do pedido no momento da cobrança). | (10,2) | NÃO |
+| Status | — | VARCHAR | Pendente, Aprovado, Recusado, Expirado ou Estornado. No máximo um pagamento Aprovado por pedido. | 20 | NÃO |
+| Comprovante | — | VARCHAR | Referência do comprovante de pagamento. | 100 | SIM |
+
+### 7. NOTA_FISCAL
+
+Documento fiscal de uma operação com mercadoria: venda, entrada (devolução) ou saída (reposição). Cada nota tem uma única origem: pedido, cancelamento ou pós-venda.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Nota | PK | INT | Identificador interno da nota, criado quando a emissão é iniciada. | — | NÃO |
+| Numero_Nota | — | INT | Número da NF-e atribuído na autorização da SEFAZ. Vazio enquanto a nota estiver Aguardando emissão ou Pendente. | — | SIM |
+| Id_PosVenda | FK | INT | Referencia o POS_VENDA, quando a nota é de devolução, troca ou reposição. | — | SIM |
+| Id_Nota_Referencia | FK | INT | Referencia a NOTA_FISCAL de venda original (autorrelacionamento). Vazia na própria nota de venda. | — | SIM |
+| Codigo_Cancelamento | FK | INT | Referencia o CANCELAMENTO, quando a nota é de entrada por cancelamento fora do prazo de cancelamento direto. | — | SIM |
+| Id_Pedido | FK | INT | Referencia o PEDIDO, quando a nota é de venda. | — | SIM |
+| Chave_Acesso | Único | VARCHAR | Chave de acesso de 44 dígitos gerada pela SEFAZ. Vazia enquanto a nota não for autorizada. | 44 | SIM |
+| Tipo_Nota | — | VARCHAR | Venda, Entrada (Devolução) ou Saída (Reposição). | 20 | NÃO |
+| Natureza | — | VARCHAR | Natureza da operação fiscal. | 60 | NÃO |
+| Status | — | VARCHAR | Aguardando emissão, Emitida, Pendente ou Cancelada. | 20 | NÃO |
+| Data_Emissao | — | DATETIME | Data e hora de emissão. Vazia enquanto a nota não for emitida. | — | SIM |
+
+### 8. ITEM_NOTA_FISCAL
+
+Entidade associativa: resolve o relacionamento N:N entre NOTA_FISCAL e APARELHO, registrando cada aparelho (IMEI) documentado em uma nota.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Imei | PK, FK | CHAR | Referencia o APARELHO documentado na nota. | 15 | NÃO |
+| Id_Nota | PK, FK | INT | Referencia a NOTA_FISCAL à qual o item pertence. | — | NÃO |
+| Valor_Item | — | DECIMAL | Valor do aparelho na nota (na reposição de troca, o valor fiscal, sem cobrança ao cliente). | (10,2) | NÃO |
+
+### 9. CANCELAMENTO
+
+Cancelamento de um pedido antes do envio, em até 7 dias da compra.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Cancelamento | PK | INT | Identificador único do cancelamento. | — | NÃO |
+| Id_Pedido | FK | INT | Referencia o PEDIDO cancelado. | — | NÃO |
+| Data_Solicitacao | — | DATETIME | Data e hora da solicitação de cancelamento. | — | NÃO |
+| Motivo | — | VARCHAR | Motivo informado para o cancelamento. | 255 | NÃO |
+| Status | — | VARCHAR | Situação do cancelamento. | 20 | NÃO |
+
+### 10. ESTORNO
+
+Devolução de valor ao cliente, originada por um cancelamento ou por uma devolução, sempre ligada ao pagamento revertido.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Estorno | PK | INT | Identificador único do estorno. | — | NÃO |
+| Id_Pagamento | FK | INT | Referencia o PAGAMENTO Aprovado que está sendo revertido. A forma de restituição vem da forma de pagamento do pedido: Pix → devolução Pix para a conta de origem; cartão de crédito → estorno na operadora. | — | NÃO |
+| Codigo_Devolucao | FK | INT | Referencia a DEVOLUCAO que originou o estorno, quando aplicável. | — | SIM |
+| Codigo_Cancelamento | FK | INT | Referencia o CANCELAMENTO que originou o estorno, quando aplicável. Apenas uma das duas origens é preenchida. | — | SIM |
+| Valor | — | DECIMAL | Valor a restituir ao cliente. | (10,2) | NÃO |
+| Data_Abertura | — | DATETIME | Data e hora de abertura do estorno. | — | NÃO |
+| Prazo_Limite | Derivado | DATETIME | Data_Abertura + 15 dias. O estorno é considerado atrasado se esse prazo vencer com status Pendente. | — | NÃO |
+| Data_Conclusao | — | DATETIME | Data em que o estorno foi concluído. | — | SIM |
+| Status | — | VARCHAR | Pendente, Processado ou Recusado. | 20 | NÃO |
+
+### 11. ENTREGA
+
+Envio e rastreamento de um pedido ou de um aparelho de reposição de troca.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Rastreio | PK | VARCHAR | Código de rastreamento da transportadora (contém letras e números). | 30 | NÃO |
+| Codigo_Troca | FK | INT | Referencia a TROCA que originou uma entrega de reposição. Vazio na entrega de venda; é este campo que indica se o envio é de venda ou de reposição. | — | SIM |
+| Id_Pedido | FK | INT | Referencia o PEDIDO ao qual a entrega se refere. | — | NÃO |
+| Transportadora | — | VARCHAR | Nome da transportadora responsável pela entrega. | 100 | NÃO |
+| Status_Entrega | — | VARCHAR | Aguardando envio, Em transporte ou Entregue. | 20 | NÃO |
+| Data_Despacho | — | DATETIME | Data e hora em que a entrega foi despachada. | — | SIM |
+| Data_Entrega | — | DATETIME | Data e hora em que a entrega foi concluída. | — | SIM |
+| Origem_Atualizacao | — | VARCHAR | Origem da última atualização do status: Automática (API da transportadora) ou Manual. | 10 | NÃO |
+
+### 12. POS_VENDA
+
+Solicitação do cliente sobre um aparelho já vendido (arrependimento, defeito ou garantia).
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_PosVenda | PK | INT | Identificador único da solicitação. | — | NÃO |
+| Imei | FK | CHAR | Junto com Id_Pedido, referencia o ITEM_PEDIDO objeto da solicitação (FK composta). | 15 | NÃO |
+| Id_Pedido | FK | INT | Junto com Imei, referencia o ITEM_PEDIDO objeto da solicitação (FK composta). | — | NÃO |
+| Tipo_Solicitacao | — | VARCHAR | Arrependimento, Defeito ou Garantia. | 15 | NÃO |
+| Data_Abertura | — | DATETIME | Data e hora de abertura da solicitação. | — | NÃO |
+| Descricao | — | VARCHAR | Detalhamento da solicitação feito pelo cliente. | 500 | NÃO |
+| Status | — | VARCHAR | Situação atual da solicitação. | 20 | NÃO |
+
+### 13. DEVOLUCAO
+
+Devolução de um aparelho, por arrependimento ou por defeito, originada de uma solicitação de pós-venda.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Devolucao | PK | INT | Identificador único da devolução. | — | NÃO |
+| Id_PosVenda | FK | INT | Referencia o POS_VENDA que originou a devolução; o tipo da devolução (Arrependimento ou Defeito) vem do Tipo_Solicitacao do POS_VENDA. | — | NÃO |
+| Data_Devolucao | — | DATETIME | Data e hora da devolução. | — | NÃO |
+| Motivo | — | VARCHAR | Justificativa da devolução. | 255 | NÃO |
+| Status | — | VARCHAR | Situação atual da devolução. | 20 | NÃO |
+
+### 14. AVALIACAO_DANO
+
+Avaliação técnica do aparelho em uma solicitação de pós-venda.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Avaliacao | PK | INT | Identificador único da avaliação de dano. | — | NÃO |
+| Id_PosVenda | FK | INT | Referencia o POS_VENDA avaliado. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Assistência Técnica) que fez a avaliação. | — | NÃO |
+| Classificacao_Dano | — | ENUM | Defeito de fabricação, Mau uso, Dano acidental ou Outros. | — | NÃO |
+| Descricao_Dano | — | VARCHAR | Detalhamento do dano constatado. | 500 | NÃO |
+| Cobertura_Garantia | — | BOOLEAN | Verdadeiro quando o dano é coberto pela garantia. | — | NÃO |
+| Destino_Aparelho | — | ENUM | Disponível, Em manutenção ou Inativo. | — | NÃO |
+| Data_Avaliacao | — | DATE | Data da avaliação técnica. | — | NÃO |
+
+### 15. TROCA
+
+Troca de um aparelho com defeito coberto pela garantia por um aparelho equivalente.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Troca | PK | INT | Identificador único da troca. | — | NÃO |
+| Id_PosVenda | FK | INT | Referencia o POS_VENDA que originou a troca. | — | NÃO |
+| Imei_Reposicao | FK | CHAR | Referencia o APARELHO enviado como reposição. | 15 | NÃO |
+| Data_Troca | — | DATE | Data em que a troca foi realizada. | — | NÃO |
+| Status | — | ENUM | Situação atual da troca. | — | NÃO |
+
+### 16. APARELHO
+
+Unidade física de celular, identificada pelo IMEI, desde a entrada no estoque até a venda.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Imei | PK | CHAR | Identificador único internacional do aparelho (15 dígitos). | 15 | NÃO |
+| Id_Especificacao | FK | INT | Referencia a ESPECIFICACAO_APARELHO (modelo, cor e capacidade). | — | NÃO |
+| Id_Avaliacao_Entrada | FK, Único | INT | Referencia a AVALIACAO_ENTRADA aprovada que liberou a entrada do aparelho; por ela se chega à AQUISICAO e ao FORNECEDOR. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que cadastrou o aparelho. | — | NÃO |
+| Condicao | — | ENUM | Novo ou Seminovo; define o prazo de garantia. | — | NÃO |
+| Preco_Venda | — | DECIMAL | Preço de venda do aparelho. | (10,2) | NÃO |
+| Custo_Aquisicao | — | DECIMAL | Valor pago pela loja na aquisição. | (10,2) | NÃO |
+| Status | — | ENUM | Em quarentena, Disponível, Vendido, Em avaliação, Em manutenção ou Inativo. | — | NÃO |
+| Data_Entrada | — | DATE | Data de entrada no estoque. | — | NÃO |
+| Data_Disponivel | — | DATE | Data em que o aparelho passou a Disponível; base do cálculo do tempo em estoque (RN-05). | — | SIM |
+| Data_Fim_Quarentena | Derivado | DATE | Data_Entrada + 15 dias, apenas para seminovos comprados de pessoa física. | — | SIM |
+| Elegivel_Desconto_Pix | — | BOOLEAN | Verdadeiro quando o aparelho participa do desconto Pix (definido pela Diretoria). | — | NÃO |
+
+### 17. IMAGEM_APARELHO
+
+Foto de um aparelho exibida na loja on-line.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Imagem | PK | INT | Identificador único da imagem. | — | NÃO |
+| Imei | FK | CHAR | Referencia o APARELHO fotografado. | 15 | NÃO |
+| URL | — | VARCHAR | Endereço onde a imagem está armazenada. | 500 | NÃO |
+
+### 18. ESPECIFICACAO_APARELHO
+
+Combinação de modelo, cor e capacidade, com os parâmetros de estoque mínimo e de giro.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Especificacao | PK | INT | Identificador único da especificação. | — | NÃO |
+| Id_Modelo | FK | INT | Referencia o MODELO do aparelho; a marca vem do modelo. | — | NÃO |
+| Cor | — | VARCHAR | Cor do aparelho. | 30 | NÃO |
+| Capacidade | — | INT | Capacidade de armazenamento, em GB. | — | NÃO |
+| Estoque_Minimo | — | INT | Quantidade mínima de aparelhos Disponíveis; dispara a requisição de compra (RN-06). | — | NÃO |
+| Limite_Dias_Atencao | — | INT | Dias a partir dos quais o aparelho é classificado como Atenção/Giro Lento. | — | NÃO |
+| Limite_Dias_Critico | — | INT | Dias a partir dos quais o aparelho é classificado como Crítico/Encalhado. | — | NÃO |
+
+### 19. MODELO
+
+Modelo de celular e sua marca. Separado da especificação porque a marca depende só do modelo, e não da cor ou da capacidade (3FN).
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Modelo | PK | INT | Identificador único do modelo. | — | NÃO |
+| Nome_Modelo | Único | VARCHAR | Nome comercial do modelo (ex.: iPhone 15, Galaxy S24). | 100 | NÃO |
+| Marca | — | VARCHAR | Fabricante do modelo. | 50 | NÃO |
+
+### 20. REQUISICAO_COMPRA
+
+Pedido interno de reposição de estoque de uma especificação.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Requisicao | PK | INT | Identificador único da requisição. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO da Diretoria que decidiu a requisição. Vazio até a decisão. | — | SIM |
+| Id_Especificacao | FK | INT | Referencia a ESPECIFICACAO_APARELHO requisitada. | — | NÃO |
+| Qtd_Atual_Estoque | — | INT | Quantidade Disponível no momento da abertura (registro histórico). | — | NÃO |
+| Estoque_Minimo | — | INT | Estoque mínimo vigente na abertura (registro histórico, pois o parâmetro pode mudar). | — | NÃO |
+| Parecer_Financeiro | — | VARCHAR | Análise do Financeiro (fluxo de caixa ou orçamento). | 500 | SIM |
+| Data_Abertura | — | DATE | Data de abertura da requisição. | — | NÃO |
+| Data_Decisao | — | DATE | Data da aprovação ou recusa. | — | SIM |
+| Motivo_Recusa | — | VARCHAR | Justificativa da recusa; obrigatória quando a requisição é recusada. | 255 | SIM |
+| Status | — | ENUM | Aguardando Análise Financeira, Aguardando Aprovação da Diretoria, Aprovada ou Recusada. | — | NÃO |
+| Qtd_Sugerida | — | INT | Quantidade sugerida para compra. | — | NÃO |
+
+### 21. MOVIMENTACAO
+
+Histórico de cada mudança de status de um aparelho.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Numero_Movimentacao | PK | INT | Identificador único da movimentação. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que fez a movimentação. Vazio quando a mudança é automática (ex.: baixa na aprovação do pagamento). | — | SIM |
+| Imei | FK | CHAR | Referencia o APARELHO movimentado. | 15 | NÃO |
+| Tipo_Movimento | — | ENUM | Tipo da movimentação (entrada, venda, devolução, avaliação, manutenção, inativação etc.). | — | NÃO |
+| Status_Anterior | — | ENUM | Status antes da movimentação. Vazio na primeira movimentação (entrada no estoque). | — | SIM |
+| Status_Novo | — | ENUM | Status depois da movimentação. | — | NÃO |
+| Data_Hora | — | DATETIME | Data e hora da movimentação. | — | NÃO |
+
+### 22. AUDITORIA
+
+Registro das operações sensíveis, com quem executou e quem autorizou.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Auditoria | PK | INT | Identificador único do registro. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO que executou a ação. Vazio quando a ação é automática. | — | SIM |
+| Codigo_Autorizador | FK | INT | Referencia o FUNCIONARIO que autorizou a ação. Vazio quando não exige autorização. | — | SIM |
+| Acao | — | VARCHAR | Tipo de ação realizada. | 50 | NÃO |
+| Tabela_Afetada | — | VARCHAR | Tabela afetada pela ação. | 50 | NÃO |
+| Registro_Id | — | VARCHAR | Identificador do registro afetado. | 50 | NÃO |
+| Valor_Anterior | — | JSON | Dados antes da alteração. | — | SIM |
+| Valor_Novo | — | JSON | Dados depois da alteração. | — | SIM |
+| Data_Hora | — | DATETIME | Data e hora do registro. | — | NÃO |
+| Descricao | — | VARCHAR | Detalhamento da ação. | 500 | SIM |
+
+### 23. FUNCIONARIO
+
+Colaborador ou sócio que usa o sistema, com o seu perfil de acesso.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Codigo_Funcionario | PK | INT | Identificador único do funcionário. | — | NÃO |
+| Nome | — | VARCHAR | Nome completo. | 150 | NÃO |
+| Cargo | — | VARCHAR | Cargo ou função. | 50 | NÃO |
+| Login | Único | VARCHAR | Login de acesso ao sistema. | 50 | NÃO |
+| Id_Perfil | FK | INT | Referencia o PERFIL_ACESSO do funcionário; o nível de acesso vem do perfil. | — | NÃO |
+| Ativo | — | BOOLEAN | Verdadeiro quando o funcionário está ativo. | — | NÃO |
+
+### 24. PERFIL_ACESSO
+
+Perfis de acesso do sistema e o nível hierárquico de cada um. Separado de FUNCIONARIO porque o nível depende só do perfil (3FN).
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Perfil | PK | INT | Identificador único do perfil. | — | NÃO |
+| Nome_Perfil | Único | VARCHAR | Vendas e Atendimento, Estoque e Logística, Assistência Técnica, Financeiro/Administrativo ou Diretoria. | 40 | NÃO |
+| Nivel_Acesso | — | INT | 1 (Operacional) para os perfis das áreas ou 2 (Estratégico) para a Diretoria. | — | NÃO |
+
+### 25. FORNECEDOR
+
+Pessoa física ou distribuidor que vende aparelhos para a loja.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Cpf_Cnpj_Fornecedor | PK | VARCHAR | CPF (pessoa física) ou CNPJ (distribuidor), apenas números; base do limite de 3 aparelhos por CPF/dia. | 14 | NÃO |
+| Tipo_Pessoa | — | ENUM | PF ou PJ. | — | NÃO |
+| Nome | — | VARCHAR | Nome completo ou razão social. | 150 | NÃO |
+| Tipo_Documento | — | VARCHAR | Documento oficial com foto apresentado (RG ou CNH). Obrigatório para pessoa física. | 10 | SIM |
+| Numero_Documento | — | VARCHAR | Número do documento com foto. Obrigatório para pessoa física. | 20 | SIM |
+| Telefone_Contato | — | VARCHAR | Telefone de contato com DDD, apenas números. | 11 | NÃO |
+
+### 26. AQUISICAO
+
+Cada compra de aparelhos feita pela loja junto a um fornecedor.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Aquisicao | PK | INT | Identificador único da aquisição. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Estoque e Logística) que registrou a aquisição. | — | NÃO |
+| Cpf_Cnpj_Fornecedor | FK | VARCHAR | Referencia o FORNECEDOR que vendeu os aparelhos. | 14 | NÃO |
+| Data_Aquisicao | — | DATE | Data da aquisição; usada no limite diário por CPF. | — | NÃO |
+| Tipo_Documento_Compra | — | VARCHAR | Nota fiscal do fornecedor ou Termo de compra e venda. | 30 | NÃO |
+| Numero_Documento_Compra | — | VARCHAR | Número da nota fiscal ou do termo. | 50 | NÃO |
+| Termo_Responsabilidade_Aceito | — | BOOLEAN | Verdadeiro quando o fornecedor pessoa física aceitou o termo de remoção de contas e dados. Vazio para pessoa jurídica. | — | SIM |
+| Valor_Total | Derivado | DECIMAL | Soma do Custo_Aquisicao dos aparelhos aprovados. | (10,2) | NÃO |
+| Status | — | VARCHAR | Em avaliação, Concluída ou Recusada. | 20 | NÃO |
+
+### 27. AVALIACAO_ENTRADA
+
+Consulta do IMEI e checklist técnico de cada aparelho oferecido à loja, registrada mesmo quando o aparelho é recusado.
+
+| Nome do campo | Chave | Tipo do dado | Descrição/Regra de negócio | Tamanho/precisão | Nulo? |
+|---|---|---|---|---|---|
+| Id_Avaliacao_Entrada | PK | INT | Identificador único da avaliação de entrada. | — | NÃO |
+| Codigo_Funcionario | FK | INT | Referencia o FUNCIONARIO (Assistência Técnica) que fez a avaliação. | — | NÃO |
+| Id_Aquisicao | FK | INT | Referencia a AQUISICAO em que o aparelho foi oferecido. | — | NÃO |
+| Imei_Avaliado | — | CHAR | IMEI do aparelho oferecido. Não é FK, porque o aparelho recusado não é cadastrado em APARELHO. | 15 | NÃO |
+| Base_Consultada | — | VARCHAR | Base em que o IMEI foi consultado. | 50 | NÃO |
+| Resultado_Consulta_Imei | — | VARCHAR | Regular, Roubado/Furtado, Bloqueado ou Adulterado. | 20 | NÃO |
+| Data_Consulta | — | DATETIME | Data e hora da consulta do IMEI. | — | NÃO |
+| Checklist_Bateria | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Tela | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Cameras | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Botoes | — | BOOLEAN | Verdadeiro quando aprovado. Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Som | — | BOOLEAN | Verdadeiro quando aprovado (autofalante e microfone). Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Conectividade | — | BOOLEAN | Verdadeiro quando aprovado (rede, Wi-Fi e Bluetooth). Vazio para aparelho lacrado. | — | SIM |
+| Checklist_Pecas_Originais | — | BOOLEAN | Verdadeiro quando as peças são originais. Vazio para aparelho lacrado. | — | SIM |
+| Bloqueio_Conta | — | BOOLEAN | Verdadeiro quando há bloqueio iCloud/FRP que não pôde ser removido (motivo de recusa). Vazio para aparelho lacrado. | — | SIM |
+| Reset_Fabrica_Realizado | — | BOOLEAN | Verdadeiro quando o reset de fábrica foi feito. Vazio para aparelho recusado. | — | SIM |
+| Resultado | — | VARCHAR | Aprovado ou Recusado. | 10 | NÃO |
+| Motivo_Recusa | — | VARCHAR | Motivo da recusa; obrigatório quando o resultado for Recusado. | 255 | SIM |
+| Data_Reconsulta_Imei | — | DATETIME | Data da nova consulta do IMEI ao fim da quarentena. Vazia quando não há quarentena. | — | SIM |
+| Resultado_Reconsulta_Imei | — | VARCHAR | Resultado da nova consulta: Regular, Roubado/Furtado, Bloqueado ou Adulterado. Vazio quando não há quarentena. | 20 | SIM |
+
+## 10. Implementação SQL
+
+Os scripts ficam na branch [`feature/scripts`](https://github.com/RyanHenrique20/CellGO/tree/feature/scripts) e foram feitos para MySQL 8. A estrutura do banco está dividida em dois arquivos:
+
+| Arquivo | O que faz |
+|---|---|
+| [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql) | Cria o banco `cellgo` e as 27 tabelas do modelo lógico, com chaves primárias e estrangeiras, restrições `CHECK` e colunas calculadas |
+| [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql) | Cria as 67 triggers que aplicam as regras de negócio direto no banco: controle de status por IMEI, desconto Pix pela faixa de preço, permissões da Diretoria, registro automático em `MOVIMENTACAO` e `AUDITORIA` e bloqueio de exclusão de dados históricos |
+| [`update.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/update.sql) | Exemplos de alteração de registros (`UPDATE` com cálculo, subconsulta e `JOIN`), sempre informando o funcionário responsável em `@cellgo_funcionario` |
+| [`delete.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/delete.sql) | Exemplos de exclusão permitida e de exclusões que o banco barra de propósito, seguindo a política de não apagar dados fiscais e de auditoria |
+
+Para comprovar que as regras funcionam, há dois arquivos de teste. Cada teste roda dentro de uma transação desfeita no final, então o banco não é alterado:
+
+| Arquivo | O que testa |
+|---|---|
+| [`testes_triggers.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_triggers.sql) | Se as triggers aceitam as operações corretas e barram as erradas (135 testes) |
+| [`testes_validacoes.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_validacoes.sql) | Se as restrições das tabelas barram dados preenchidos de forma errada (171 testes) |
+
+**Ordem de execução**
+
+1. `DROP DATABASE IF EXISTS cellgo;` (só quando for rodar de novo)
+2. [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql)
+3. [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql)
+4. [`insert_validos.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/insert_validos.sql)
+5. [`select.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/select.sql)
+6. [`join.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/join.sql)
+7. [`consultas_gerenciais.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/consultas_gerenciais.sql)
+8. [`auditoria.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/auditoria.sql)
+9. [`update.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/update.sql)
+10. [`delete.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/delete.sql). A parte 5 tem erros intencionais, que mostram o banco barrando exclusões proibidas. Por isso é preciso rodar com "continuar em caso de erro" ou executar esses comandos um por um
+
+Os testes devem rodar em um banco limpo: `DROP DATABASE`, [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql), [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql), [`testes_triggers.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_triggers.sql) e [`testes_validacoes.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_validacoes.sql).
+
+## 11. Massa de Dados
+
+O arquivo [`insert_validos.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/insert_validos.sql) carrega os dados de teste do projeto. Os `INSERT` seguem a ordem em que as operações aconteceriam na loja: fornecedores e aquisições, avaliação de entrada, cadastro dos aparelhos, pedidos, pagamentos, notas fiscais, entregas e pós-venda.
+
+Parte dos dados não é digitada, e sim calculada pelas triggers. É o caso dos valores do pedido e do desconto Pix, do valor total da aquisição e do histórico em `MOVIMENTACAO`. Assim, a massa de dados também serve para mostrar as regras de negócio funcionando. Ela inclui casos que dão certo e casos com problema, como um pedido cancelado, um cancelamento recusado, uma devolução por arrependimento, uma garantia negada por mau uso e aparelhos recusados na avaliação de entrada por IMEI irregular.
+
+Para consultar os dados carregados, use [`select.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/select.sql) (consultas em uma tabela, com filtros, ordenação e agregação) e [`join.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/join.sql) (consultas que juntam várias tabelas).
+
+## 12. Consultas Gerenciais
+
+O arquivo [`consultas_gerenciais.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/consultas_gerenciais.sql) reúne as consultas que respondem perguntas de quem decide, como quanto foi vendido, quais modelos dão mais lucro e o que precisa ser reposto. Elas usam `JOIN`, `GROUP BY` e funções de agregação (`SUM`, `COUNT`, `AVG`) e consideram como venda apenas os pedidos Pagos ou Finalizados.
+
+Os indicadores e relatórios gerenciais da Etapa 8 também foram calculados direto no banco e estão documentados em:
+
+- [8.1 e 8.2 Indicadores](docs/etapa8/CellGO_Etapa8_Indicadores.docx): margem bruta por modelo, tempo em estoque por IMEI e taxa de recusa por fornecedor, com a consulta SQL de cada um
+- [8.3 Informações Gerenciais](docs/etapa8/CellGO_Etapa8_Informacoes_Gerenciais.docx): painel de vendas, situação do pós-venda e dos estornos e histórico completo do cliente
+- [8.4 Tomada de Decisão](docs/etapa8/CellGO_Etapa8_Tomada_de_Decisao.docx): quatro decisões apoiadas pelos dados e como cada uma fica registrada no banco
+
+## 13. Consultas de Auditoria
+
+O arquivo [`auditoria.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/auditoria.sql) reúne as consultas usadas para conferir o que aconteceu no sistema e quem fez cada operação. Elas leem a tabela `AUDITORIA`, preenchida automaticamente pelas triggers, e o histórico de status em `MOVIMENTACAO`. Com elas é possível ver, por exemplo, quem alterou o preço de um aparelho e quem autorizou, as decisões das requisições de compra e todo o caminho de um IMEI desde a entrada até a venda. Os registros de auditoria não podem ser alterados nem excluídos (RN-23).
+
+## 14. Potencial para BI e IA
+
+Como cada aparelho é identificado pelo IMEI do começo ao fim e as operações ficam registradas com data, valor e responsável, o banco já serve de base para análises mais avançadas:
+
+- [8.5 Business Intelligence](docs/etapa8/CellGO_Etapa8_BI.docx): proposta de data mart em modelo estrela (4 tabelas de fatos e 6 dimensões), painéis por perfil e um exemplo de cruzamento entre pós-venda e fornecedor de origem
+- [8.6 Futuras Aplicações de IA](docs/etapa8/CellGO_Etapa8_IA.docx): cinco aplicações possíveis (previsão de demanda, sugestão de preço, risco na aquisição, apoio à avaliação de dano e assistente de atendimento), o que o banco já oferece para cada uma e os cuidados para adotar IA
+
+## 15. Histórico e Evolução do Projeto
+
+| Período | O que foi feito |
+|---|---|
+| Setembro/2026 | Caracterização da empresa, problemas identificados, processos de negócio, requisitos funcionais e não funcionais e primeiras versões das regras de negócio |
+| Setembro/2026 | Fluxogramas, entidades, atributos, relacionamentos, cardinalidades, DER com legenda, dicionário de dados, justificativas técnicas e conclusão |
+| Outubro/2026 | Ajustes pedidos na devolutiva |
+| Novembro/2026 | Normalização do modelo, dicionário de dados atualizado, modelo lógico e retirada do boleto das formas de pagamento |
+| Novembro/2026 | Scripts SQL: criação das tabelas e triggers, massa de dados, `SELECT`, `JOIN`, consultas gerenciais, consultas de auditoria, `UPDATE`, `DELETE` e testes das regras |
+| Novembro/2026 | Etapa 8: indicadores, informações gerenciais, tomada de decisão, BI e IA |
+
+O histórico completo de alterações pode ser consultado nos commits de cada branch: [`feature/readme`](https://github.com/RyanHenrique20/CellGO/commits/feature/readme) (documentação) e [`feature/scripts`](https://github.com/RyanHenrique20/CellGO/commits/feature/scripts) (scripts SQL).
+
+## 16. Conclusão
 
 A CellGo Comércio de Celulares Ltda. vende aparelhos novos e seminovos exclusivamente pela internet. Por ser um e-commerce, a empresa não tem loja física, vendedor, comissão nem desconto negociado, e toda a relação com o cliente acontece on-line, do cadastro até o pós-venda. Sem um sistema que integre vendas, estoque, assistência técnica e financeiro, a empresa corre riscos concretos: vender um aparelho que já não está disponível, aceitar uma troca fora da garantia, perder o prazo de um estorno ou deixar uma devolução sem a nota fiscal correta. O problema, portanto, não é de tecnologia, mas de informação que não circula entre as áreas.
 

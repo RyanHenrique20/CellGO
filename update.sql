@@ -219,7 +219,7 @@ UPDATE PAGAMENTO
  WHERE Id_Pagamento = @pagamento;
 
 /* 4.3 Despachar a entrega mais antiga que aguarda envio, exceto as de
-       pedidos com cancelamento solicitado (RN-13) */
+       pedidos com cancelamento solicitado ou concluído (RN-13) */
 SET @cellgo_funcionario = @estoque;
 
 UPDATE ENTREGA
@@ -227,7 +227,7 @@ UPDATE ENTREGA
        Data_Despacho      = NOW(),
        Origem_Atualizacao = 'Manual'
  WHERE Status_Entrega = 'Aguardando envio'
-   AND Id_Pedido NOT IN (SELECT Id_Pedido FROM CANCELAMENTO WHERE Status = 'Solicitado')
+   AND Id_Pedido NOT IN (SELECT Id_Pedido FROM CANCELAMENTO WHERE Status IN ('Solicitado', 'Concluído'))
  ORDER BY Id_Pedido
  LIMIT 1;
 

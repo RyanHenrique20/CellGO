@@ -1,0 +1,771 @@
+// =====================================================================
+// CellGO — Modelo Lógico (DBML)
+// Gerado a partir de sql/ddl/tabelas.sql (MySQL 8) para manter o
+// diagrama igual ao banco: tipos, NOT NULL, DEFAULT, ENUM, UNIQUE,
+// CHECK e as 40 chaves estrangeiras.
+// Para visualizar/editar: cole este arquivo em https://dbdiagram.io/d
+//
+// Leitura dos relacionamentos:
+//   A < B   = um A para muitos B (B guarda a FK)
+//   ?       = lado opcional (ex.: FK que aceita NULL)
+//   A - B   = um para um
+// =====================================================================
+
+Enum tipo_pessoa {
+  "PF"
+  "PJ"
+}
+
+Enum condicao_aparelho {
+  "Novo"
+  "Seminovo"
+}
+
+Enum status_aparelho {
+  "Em quarentena"
+  "Disponível"
+  "Vendido"
+  "Em avaliação"
+  "Em manutenção"
+  "Inativo"
+}
+
+Enum forma_pagamento {
+  "Pix"
+  "Cartão de crédito"
+}
+
+Enum classificacao_dano {
+  "Defeito de fabricação"
+  "Mau uso"
+  "Dano acidental"
+  "Outros"
+}
+
+Enum destino_aparelho {
+  "Disponível"
+  "Em manutenção"
+  "Inativo"
+}
+
+Enum status_troca {
+  "Pendente"
+  "Concluída"
+  "Cancelada"
+}
+
+Enum status_requisicao {
+  "Aguardando Análise Financeira"
+  "Aguardando Aprovação da Diretoria"
+  "Aprovada"
+  "Recusada"
+}
+
+Enum tipo_movimento {
+  "Entrada"
+  "Fim de quarentena"
+  "Venda"
+  "Devolução"
+  "Avaliação"
+  "Manutenção"
+  "Retorno ao estoque"
+  "Inativação"
+}
+
+Table "PERFIL_ACESSO" {
+  "Id_Perfil" INT [pk, not null, increment]
+  "Nome_Perfil" VARCHAR(40) [not null]
+  "Nivel_Acesso" INT [not null]
+
+  Checks {
+    `Nome_Perfil IN (
+        'Vendas e Atendimento',
+        'Estoque e Logística',
+        'Assistência Técnica',
+        'Financeiro/Administrativo',
+        'Diretoria')` [name: 'chk_perfil_nome']
+    `(Nome_Perfil = 'Diretoria' AND Nivel_Acesso = 2)
+        OR (Nome_Perfil <> 'Diretoria' AND Nivel_Acesso = 1)` [name: 'chk_perfil_nivel']
+  }
+
+  Indexes {
+    Nome_Perfil [unique, name: "uq_perfil_nome"]
+  }
+}
+
+Table "FUNCIONARIO" {
+  "Codigo_Funcionario" INT [pk, not null, increment]
+  "Nome" VARCHAR(150) [not null]
+  "Cargo" VARCHAR(50) [not null]
+  "Login" VARCHAR(50) [not null]
+  "Id_Perfil" INT [not null]
+  "Ativo" BOOLEAN [not null, default: TRUE]
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Nome)) > 0` [name: 'chk_funcionario_nome']
+    `CHAR_LENGTH(TRIM(Cargo)) > 0` [name: 'chk_funcionario_cargo']
+    `Login REGEXP '^[A-Za-z0-9._-]{3,50}$'` [name: 'chk_funcionario_login']
+    `Ativo IN (0, 1)` [name: 'chk_funcionario_ativo']
+  }
+
+  Indexes {
+    Login [unique, name: "uq_funcionario_login"]
+  }
+}
+
+Table "FORNECEDOR" {
+  "Cpf_Cnpj_Fornecedor" VARCHAR(14) [pk, not null]
+  "Tipo_Pessoa" tipo_pessoa [not null]
+  "Nome" VARCHAR(150) [not null]
+  "Tipo_Documento" VARCHAR(10)
+  "Numero_Documento" VARCHAR(20)
+  "Telefone_Contato" VARCHAR(11) [not null]
+
+  Checks {
+    `(Tipo_Pessoa = 'PF' AND Cpf_Cnpj_Fornecedor REGEXP '^[0-9]{11}$')
+        OR (Tipo_Pessoa = 'PJ' AND Cpf_Cnpj_Fornecedor REGEXP '^[0-9]{14}$')` [name: 'chk_fornecedor_documento']
+    `CHAR_LENGTH(TRIM(Nome)) > 0` [name: 'chk_fornecedor_nome']
+    `Tipo_Pessoa = 'PJ'
+        OR (Tipo_Documento IN ('RG', 'CNH')
+            AND Numero_Documento IS NOT NULL
+            AND CHAR_LENGTH(TRIM(Numero_Documento)) > 0)` [name: 'chk_fornecedor_doc_foto']
+    `Tipo_Documento IS NULL OR Tipo_Documento IN ('RG', 'CNH')` [name: 'chk_fornecedor_tipo_doc']
+    `Telefone_Contato REGEXP '^[1-9][0-9][0-9]{8,9}$'` [name: 'chk_fornecedor_telefone']
+  }
+}
+
+Table "MODELO" {
+  "Id_Modelo" INT [pk, not null, increment]
+  "Nome_Modelo" VARCHAR(100) [not null]
+  "Marca" VARCHAR(50) [not null]
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Nome_Modelo)) > 0` [name: 'chk_modelo_nome']
+    `CHAR_LENGTH(TRIM(Marca)) > 0` [name: 'chk_modelo_marca']
+  }
+
+  Indexes {
+    Nome_Modelo [unique, name: "uq_modelo_nome"]
+  }
+}
+
+Table "ESPECIFICACAO_APARELHO" {
+  "Id_Especificacao" INT [pk, not null, increment]
+  "Id_Modelo" INT [not null]
+  "Cor" VARCHAR(30) [not null]
+  "Capacidade" INT [not null]
+  "Estoque_Minimo" INT [not null, default: 2]
+  "Limite_Dias_Atencao" INT [not null, default: 31]
+  "Limite_Dias_Critico" INT [not null, default: 61]
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Cor)) > 0` [name: 'chk_especificacao_cor']
+    `Capacidade > 0` [name: 'chk_especificacao_capacidade']
+    `Estoque_Minimo >= 0` [name: 'chk_especificacao_estoque']
+    `Limite_Dias_Atencao > 0` [name: 'chk_especificacao_atencao']
+    `Limite_Dias_Critico > Limite_Dias_Atencao` [name: 'chk_especificacao_critico']
+  }
+
+  Indexes {
+    (Id_Modelo, Cor, Capacidade) [unique, name: "uq_especificacao"]
+  }
+}
+
+Table "AQUISICAO" {
+  "Id_Aquisicao" INT [pk, not null, increment]
+  "Codigo_Funcionario" INT [not null]
+  "Cpf_Cnpj_Fornecedor" VARCHAR(14) [not null]
+  "Data_Aquisicao" DATE [not null]
+  "Tipo_Documento_Compra" VARCHAR(30) [not null]
+  "Numero_Documento_Compra" VARCHAR(50) [not null]
+  "Termo_Responsabilidade_Aceito" BOOLEAN
+  "Valor_Total" DECIMAL(10,2) [not null, default: 0.00]
+  "Status" VARCHAR(20) [not null, default: 'Em avaliação']
+
+  Checks {
+    `Tipo_Documento_Compra IN (
+        'Nota fiscal do fornecedor',
+        'Termo de compra e venda')` [name: 'chk_aquisicao_tipo_doc']
+    `CHAR_LENGTH(TRIM(Numero_Documento_Compra)) > 0` [name: 'chk_aquisicao_num_doc']
+    `Termo_Responsabilidade_Aceito IN (0, 1)` [name: 'chk_aquisicao_termo']
+    `Valor_Total >= 0` [name: 'chk_aquisicao_valor']
+    `Status IN ('Em avaliação', 'Concluída', 'Recusada')` [name: 'chk_aquisicao_status']
+  }
+}
+
+Table "AVALIACAO_ENTRADA" {
+  "Id_Avaliacao_Entrada" INT [pk, not null, increment]
+  "Codigo_Funcionario" INT [not null]
+  "Id_Aquisicao" INT [not null]
+  "Imei_Avaliado" CHAR(15) [not null]
+  "Base_Consultada" VARCHAR(50) [not null]
+  "Resultado_Consulta_Imei" VARCHAR(20) [not null]
+  "Data_Consulta" DATETIME [not null]
+  "Checklist_Bateria" BOOLEAN
+  "Checklist_Tela" BOOLEAN
+  "Checklist_Cameras" BOOLEAN
+  "Checklist_Botoes" BOOLEAN
+  "Checklist_Som" BOOLEAN
+  "Checklist_Conectividade" BOOLEAN
+  "Checklist_Pecas_Originais" BOOLEAN
+  "Bloqueio_Conta" BOOLEAN
+  "Reset_Fabrica_Realizado" BOOLEAN
+  "Resultado" VARCHAR(10) [not null]
+  "Motivo_Recusa" VARCHAR(255)
+  "Data_Reconsulta_Imei" DATETIME
+  "Resultado_Reconsulta_Imei" VARCHAR(20)
+
+  Checks {
+    `Imei_Avaliado REGEXP '^[0-9]{15}$'` [name: 'chk_aval_entrada_imei']
+    `CHAR_LENGTH(TRIM(Base_Consultada)) > 0` [name: 'chk_aval_entrada_base']
+    `Resultado_Consulta_Imei IN (
+        'Regular', 'Roubado/Furtado', 'Bloqueado', 'Adulterado')` [name: 'chk_aval_entrada_consulta']
+    `Resultado_Reconsulta_Imei IS NULL
+        OR Resultado_Reconsulta_Imei IN ('Regular', 'Roubado/Furtado', 'Bloqueado', 'Adulterado')` [name: 'chk_aval_entrada_reconsulta']
+    `Resultado IN ('Aprovado', 'Recusado')` [name: 'chk_aval_entrada_resultado']
+    `(Checklist_Bateria IS NULL OR Checklist_Bateria IN (0, 1))
+        AND (Checklist_Tela IS NULL OR Checklist_Tela IN (0, 1))
+        AND (Checklist_Cameras IS NULL OR Checklist_Cameras IN (0, 1))
+        AND (Checklist_Botoes IS NULL OR Checklist_Botoes IN (0, 1))
+        AND (Checklist_Som IS NULL OR Checklist_Som IN (0, 1))
+        AND (Checklist_Conectividade IS NULL OR Checklist_Conectividade IN (0, 1))
+        AND (Checklist_Pecas_Originais IS NULL OR Checklist_Pecas_Originais IN (0, 1))
+        AND (Bloqueio_Conta IS NULL OR Bloqueio_Conta IN (0, 1))
+        AND (Reset_Fabrica_Realizado IS NULL OR Reset_Fabrica_Realizado IN (0, 1))` [name: 'chk_aval_entrada_booleanos']
+    `(Resultado = 'Recusado' AND Motivo_Recusa IS NOT NULL AND CHAR_LENGTH(TRIM(Motivo_Recusa)) > 0)
+        OR (Resultado = 'Aprovado' AND Motivo_Recusa IS NULL)` [name: 'chk_aval_entrada_motivo']
+    `Resultado <> 'Aprovado'
+        OR (Resultado_Consulta_Imei = 'Regular'
+            AND COALESCE(Checklist_Bateria, 1) = 1
+            AND COALESCE(Checklist_Tela, 1) = 1
+            AND COALESCE(Checklist_Cameras, 1) = 1
+            AND COALESCE(Checklist_Botoes, 1) = 1
+            AND COALESCE(Checklist_Som, 1) = 1
+            AND COALESCE(Checklist_Conectividade, 1) = 1
+            AND COALESCE(Checklist_Pecas_Originais, 1) = 1
+            AND COALESCE(Bloqueio_Conta, 0) = 0
+            AND Reset_Fabrica_Realizado = 1)` [name: 'chk_aval_entrada_aprovado']
+    `Resultado <> 'Recusado' OR Reset_Fabrica_Realizado IS NULL` [name: 'chk_aval_entrada_reset']
+    `(Data_Reconsulta_Imei IS NULL AND Resultado_Reconsulta_Imei IS NULL)
+        OR (Data_Reconsulta_Imei IS NOT NULL AND Resultado_Reconsulta_Imei IS NOT NULL
+            AND Resultado = 'Aprovado'
+            AND Data_Reconsulta_Imei >= Data_Consulta)` [name: 'chk_aval_entrada_reconsulta_par']
+  }
+}
+
+Table "APARELHO" {
+  "Imei" CHAR(15) [pk, not null]
+  "Id_Especificacao" INT [not null]
+  "Id_Avaliacao_Entrada" INT [not null]
+  "Codigo_Funcionario" INT [not null]
+  "Condicao" condicao_aparelho [not null]
+  "Preco_Venda" DECIMAL(10,2) [not null]
+  "Custo_Aquisicao" DECIMAL(10,2) [not null]
+  "Status" status_aparelho [not null]
+  "Data_Entrada" DATE [not null]
+  "Data_Disponivel" DATE
+  "Data_Fim_Quarentena" DATE
+  "Elegivel_Desconto_Pix" BOOLEAN [not null, default: FALSE]
+
+  Checks {
+    `Imei REGEXP '^[0-9]{15}$'` [name: 'chk_aparelho_imei']
+    `Preco_Venda > 0` [name: 'chk_aparelho_preco']
+    `Custo_Aquisicao >= 0` [name: 'chk_aparelho_custo']
+    `Elegivel_Desconto_Pix IN (0, 1)` [name: 'chk_aparelho_pix']
+    `Data_Disponivel IS NULL OR Data_Disponivel >= Data_Entrada` [name: 'chk_aparelho_data_disp']
+    `Status <> 'Disponível' OR Data_Disponivel IS NOT NULL` [name: 'chk_aparelho_disp_data']
+    `Data_Fim_Quarentena IS NULL
+        OR (Condicao = 'Seminovo'
+            AND Data_Fim_Quarentena = DATE_ADD(Data_Entrada, INTERVAL 15 DAY))` [name: 'chk_aparelho_quarentena']
+    `Status <> 'Em quarentena' OR Data_Fim_Quarentena IS NOT NULL` [name: 'chk_aparelho_status_quarentena']
+  }
+
+  Indexes {
+    Id_Avaliacao_Entrada [unique, name: "uq_aparelho_avaliacao"]
+  }
+}
+
+Table "IMAGEM_APARELHO" {
+  "Id_Imagem" INT [pk, not null, increment]
+  "Imei" CHAR(15) [not null]
+  "URL" VARCHAR(500) [not null]
+
+  Checks {
+    `URL REGEXP '^https?://[^ ]+$'` [name: 'chk_imagem_url']
+  }
+
+  Indexes {
+    (Imei, URL) [unique, name: "uq_imagem_url"]
+  }
+}
+
+Table "CLIENTE" {
+  "Cpf_Cnpj" VARCHAR(14) [pk, not null]
+  "Nome" VARCHAR(150) [not null]
+  "Email" VARCHAR(254) [not null]
+  "Data_Nascimento" DATE
+  "Tipo_Pessoa" tipo_pessoa [not null]
+
+  Checks {
+    `(Tipo_Pessoa = 'PF' AND Cpf_Cnpj REGEXP '^[0-9]{11}$')
+        OR (Tipo_Pessoa = 'PJ' AND Cpf_Cnpj REGEXP '^[0-9]{14}$')` [name: 'chk_cliente_documento']
+    `CHAR_LENGTH(TRIM(Nome)) > 0` [name: 'chk_cliente_nome']
+    `Email REGEXP '^[^@ ]+@[^@ ]+\\.[^@ ]+$'` [name: 'chk_cliente_email']
+    `(Tipo_Pessoa = 'PF' AND Data_Nascimento IS NOT NULL)
+        OR (Tipo_Pessoa = 'PJ' AND Data_Nascimento IS NULL)` [name: 'chk_cliente_nascimento']
+    `Data_Nascimento IS NULL OR Data_Nascimento >= '1900-01-01'` [name: 'chk_cliente_nasc_minima']
+  }
+
+  Indexes {
+    Email [unique, name: "uq_cliente_email"]
+  }
+}
+
+Table "ENDERECO" {
+  "Id_Endereco" INT [pk, not null, increment]
+  "Cpf_Cnpj" VARCHAR(14) [not null]
+  "Rua" VARCHAR(150) [not null]
+  "Bairro" VARCHAR(100) [not null]
+  "Cidade" VARCHAR(100) [not null]
+  "CEP" VARCHAR(8) [not null]
+  "Numero" VARCHAR(10) [not null]
+  "Complemento" VARCHAR(100)
+  "Tipo_Endereco" VARCHAR(20) [not null]
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Rua)) > 0
+        AND CHAR_LENGTH(TRIM(Bairro)) > 0
+        AND CHAR_LENGTH(TRIM(Cidade)) > 0
+        AND CHAR_LENGTH(TRIM(Numero)) > 0` [name: 'chk_endereco_textos']
+    `CEP REGEXP '^[0-9]{8}$'` [name: 'chk_endereco_cep']
+    `Tipo_Endereco IN (
+        'Residencial', 'Comercial', 'Entrega', 'Cobrança')` [name: 'chk_endereco_tipo']
+  }
+}
+
+Table "TELEFONE" {
+  "Cpf_Cnpj" VARCHAR(14) [not null]
+  "DDD" INT [not null]
+  "Numero_Telefone" INT [not null]
+
+  Checks {
+    `DDD BETWEEN 11 AND 99` [name: 'chk_telefone_ddd']
+    `Numero_Telefone BETWEEN 20000000 AND 59999999
+        OR Numero_Telefone BETWEEN 900000000 AND 999999999` [name: 'chk_telefone_numero']
+  }
+
+  Indexes {
+    (Cpf_Cnpj, DDD, Numero_Telefone) [pk, name: "pk_telefone"]
+  }
+}
+
+Table "PEDIDO" {
+  "Id_Pedido" INT [pk, not null, increment]
+  "Cpf_Cnpj" VARCHAR(14) [not null]
+  "Data_Pedido" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Status_Pedido" VARCHAR(25) [not null, default: 'Aberto']
+  "Forma_Pagamento" forma_pagamento [not null]
+  "Numero_Parcelas" INT [not null, default: 1]
+  "Valor_Produtos" DECIMAL(10,2) [not null, default: 0.00]
+  "Percentual_Desconto_Pix" DECIMAL(5,2)
+  "Valor_Desconto" DECIMAL(10,2)
+  "Valor_Taxas" DECIMAL(10,2)
+  "Valor_Final" DECIMAL(10,2) [not null, default: 0.00]
+
+  Checks {
+    `Status_Pedido IN (
+        'Aberto', 'Aguardando pagamento', 'Pago', 'Finalizado', 'Cancelado')` [name: 'chk_pedido_status']
+    `(Forma_Pagamento = 'Pix' AND Numero_Parcelas = 1)
+        OR (Forma_Pagamento = 'Cartão de crédito' AND Numero_Parcelas BETWEEN 1 AND 12)` [name: 'chk_pedido_parcelas']
+    `Percentual_Desconto_Pix IS NULL
+        OR (Forma_Pagamento = 'Pix' AND Percentual_Desconto_Pix IN (5, 7, 10))` [name: 'chk_pedido_percentual']
+    `(Percentual_Desconto_Pix IS NULL AND Valor_Desconto IS NULL)
+        OR (Percentual_Desconto_Pix IS NOT NULL AND Valor_Desconto IS NOT NULL)` [name: 'chk_pedido_desconto_par']
+    `Valor_Taxas IS NULL
+        OR (Forma_Pagamento = 'Cartão de crédito' AND Valor_Taxas > 0)` [name: 'chk_pedido_taxas']
+    `Valor_Produtos >= 0
+        AND (Valor_Desconto IS NULL OR (Valor_Desconto > 0 AND Valor_Desconto <= Valor_Produtos))` [name: 'chk_pedido_valores']
+    `Valor_Final = Valor_Produtos - COALESCE(Valor_Desconto, 0) + COALESCE(Valor_Taxas, 0)` [name: 'chk_pedido_valor_final']
+  }
+}
+
+Table "ITEM_PEDIDO" {
+  "Imei" CHAR(15) [not null]
+  "Id_Pedido" INT [not null]
+  "Preco_Unitario" DECIMAL(10,2) [not null]
+  "Data_Inicio_Garantia" DATE [not null]
+  "Data_Fim_Garantia_Loja" DATE [not null]
+  "Data_Fim_Garantia_Fabricante" DATE
+
+  Checks {
+    `Preco_Unitario > 0` [name: 'chk_item_pedido_preco']
+    `Data_Fim_Garantia_Loja = DATE_ADD(Data_Inicio_Garantia, INTERVAL 30 DAY)` [name: 'chk_item_pedido_garantia_loja']
+    `Data_Fim_Garantia_Fabricante IS NULL
+        OR Data_Fim_Garantia_Fabricante > Data_Inicio_Garantia` [name: 'chk_item_pedido_garantia_fab']
+  }
+
+  Indexes {
+    (Id_Pedido, Imei) [pk, name: "pk_item_pedido"]
+  }
+}
+
+Table "PAGAMENTO" {
+  "Id_Pagamento" INT [pk, not null, increment]
+  "Id_Pedido" INT [not null]
+  "Codigo_Transacao" VARCHAR(100)
+  "Data_Tentativa" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Data_Confirmacao" DATETIME
+  "Valor" DECIMAL(10,2) [not null]
+  "Status" VARCHAR(20) [not null, default: 'Pendente']
+  "Comprovante" VARCHAR(100)
+  "Pedido_Aprovado" INT [note: 'Coluna gerada (VIRTUAL): recebe Id_Pedido só quando Status = Aprovado; com o UNIQUE, garante no máximo um pagamento aprovado por pedido']
+
+  Checks {
+    `Status IN (
+        'Pendente', 'Aprovado', 'Recusado', 'Expirado', 'Estornado')` [name: 'chk_pagamento_status']
+    `Valor > 0` [name: 'chk_pagamento_valor']
+    `Data_Confirmacao IS NULL OR Data_Confirmacao >= Data_Tentativa` [name: 'chk_pagamento_datas']
+    `Status NOT IN ('Aprovado', 'Estornado')
+        OR (Data_Confirmacao IS NOT NULL AND Codigo_Transacao IS NOT NULL)` [name: 'chk_pagamento_aprovado']
+    `Status IN ('Aprovado', 'Estornado') OR Data_Confirmacao IS NULL` [name: 'chk_pagamento_nao_aprovado']
+  }
+
+  Indexes {
+    Pedido_Aprovado [unique, name: "uq_pagamento_aprovado"]
+    Codigo_Transacao [unique, name: "uq_pagamento_transacao"]
+  }
+}
+
+Table "CANCELAMENTO" {
+  "Codigo_Cancelamento" INT [pk, not null, increment]
+  "Id_Pedido" INT [not null]
+  "Data_Solicitacao" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Motivo" VARCHAR(255) [not null]
+  "Status" VARCHAR(20) [not null, default: 'Solicitado']
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Motivo)) > 0` [name: 'chk_cancelamento_motivo']
+    `Status IN ('Solicitado', 'Concluído', 'Recusado')` [name: 'chk_cancelamento_status']
+  }
+
+  Indexes {
+    Id_Pedido [unique, name: "uq_cancelamento_pedido"]
+  }
+}
+
+Table "POS_VENDA" {
+  "Id_PosVenda" INT [pk, not null, increment]
+  "Imei" CHAR(15) [not null]
+  "Id_Pedido" INT [not null]
+  "Tipo_Solicitacao" VARCHAR(15) [not null]
+  "Data_Abertura" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Descricao" VARCHAR(500) [not null]
+  "Status" VARCHAR(20) [not null, default: 'Aberta']
+
+  Checks {
+    `Tipo_Solicitacao IN ('Arrependimento', 'Defeito', 'Garantia')` [name: 'chk_pos_venda_tipo']
+    `CHAR_LENGTH(TRIM(Descricao)) > 0` [name: 'chk_pos_venda_descricao']
+    `Status IN ('Aberta', 'Em análise', 'Concluída', 'Recusada')` [name: 'chk_pos_venda_status']
+  }
+}
+
+Table "AVALIACAO_DANO" {
+  "Codigo_Avaliacao" INT [pk, not null, increment]
+  "Id_PosVenda" INT [not null]
+  "Codigo_Funcionario" INT [not null]
+  "Classificacao_Dano" classificacao_dano [not null]
+  "Descricao_Dano" VARCHAR(500) [not null]
+  "Cobertura_Garantia" BOOLEAN [not null]
+  "Destino_Aparelho" destino_aparelho [not null]
+  "Data_Avaliacao" DATE [not null]
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Descricao_Dano)) > 0` [name: 'chk_aval_dano_descricao']
+    `Cobertura_Garantia IN (0, 1)` [name: 'chk_aval_dano_cobertura']
+    `Classificacao_Dano NOT IN ('Mau uso', 'Dano acidental') OR Cobertura_Garantia = 0` [name: 'chk_aval_dano_mau_uso']
+  }
+}
+
+Table "DEVOLUCAO" {
+  "Codigo_Devolucao" INT [pk, not null, increment]
+  "Id_PosVenda" INT [not null]
+  "Data_Devolucao" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Motivo" VARCHAR(255) [not null]
+  "Status" VARCHAR(20) [not null, default: 'Pendente']
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Motivo)) > 0` [name: 'chk_devolucao_motivo']
+    `Status IN ('Pendente', 'Concluída', 'Recusada')` [name: 'chk_devolucao_status']
+  }
+
+  Indexes {
+    Id_PosVenda [unique, name: "uq_devolucao_pos_venda"]
+  }
+}
+
+Table "TROCA" {
+  "Codigo_Troca" INT [pk, not null, increment]
+  "Id_PosVenda" INT [not null]
+  "Imei_Reposicao" CHAR(15) [not null]
+  "Data_Troca" DATE [not null]
+  "Status" status_troca [not null, default: 'Pendente']
+
+  Indexes {
+    Id_PosVenda [unique, name: "uq_troca_pos_venda"]
+  }
+}
+
+Table "NOTA_FISCAL" {
+  "Id_Nota" INT [pk, not null, increment]
+  "Numero_Nota" INT
+  "Id_PosVenda" INT
+  "Id_Nota_Referencia" INT
+  "Codigo_Cancelamento" INT
+  "Id_Pedido" INT
+  "Chave_Acesso" VARCHAR(44)
+  "Tipo_Nota" VARCHAR(20) [not null]
+  "Natureza" VARCHAR(60) [not null]
+  "Status" VARCHAR(20) [not null, default: 'Aguardando emissão']
+  "Data_Emissao" DATETIME
+
+  Checks {
+    `Tipo_Nota IN (
+        'Venda', 'Entrada (Devolução)', 'Saída (Reposição)')` [name: 'chk_nota_tipo']
+    `Status IN (
+        'Aguardando emissão', 'Emitida', 'Pendente', 'Cancelada')` [name: 'chk_nota_status']
+    `CHAR_LENGTH(TRIM(Natureza)) > 0` [name: 'chk_nota_natureza']
+    `Numero_Nota IS NULL OR Numero_Nota > 0` [name: 'chk_nota_numero']
+    `Chave_Acesso IS NULL OR Chave_Acesso REGEXP '^[0-9]{44}$'` [name: 'chk_nota_chave']
+    `(Id_Pedido IS NOT NULL) + (Codigo_Cancelamento IS NOT NULL) + (Id_PosVenda IS NOT NULL) = 1` [name: 'chk_nota_origem']
+    `Tipo_Nota <> 'Venda' OR (Id_Pedido IS NOT NULL AND Id_Nota_Referencia IS NULL)` [name: 'chk_nota_venda']
+    `Tipo_Nota <> 'Entrada (Devolução)'
+        OR (Id_Pedido IS NULL AND Id_Nota_Referencia IS NOT NULL)` [name: 'chk_nota_entrada']
+    `Tipo_Nota <> 'Saída (Reposição)'
+        OR (Id_PosVenda IS NOT NULL AND Id_Nota_Referencia IS NOT NULL)` [name: 'chk_nota_reposicao']
+    `Status NOT IN ('Emitida', 'Cancelada')
+        OR (Numero_Nota IS NOT NULL AND Chave_Acesso IS NOT NULL AND Data_Emissao IS NOT NULL)` [name: 'chk_nota_emitida']
+    `Status NOT IN ('Aguardando emissão', 'Pendente')
+        OR (Numero_Nota IS NULL AND Chave_Acesso IS NULL AND Data_Emissao IS NULL)` [name: 'chk_nota_nao_emitida']
+  }
+
+  Indexes {
+    Numero_Nota [unique, name: "uq_nota_numero"]
+    Chave_Acesso [unique, name: "uq_nota_chave"]
+  }
+}
+
+Table "ITEM_NOTA_FISCAL" {
+  "Imei" CHAR(15) [not null]
+  "Id_Nota" INT [not null]
+  "Valor_Item" DECIMAL(10,2) [not null]
+
+  Checks {
+    `Valor_Item > 0` [name: 'chk_item_nota_valor']
+  }
+
+  Indexes {
+    (Id_Nota, Imei) [pk, name: "pk_item_nota_fiscal"]
+  }
+}
+
+Table "ESTORNO" {
+  "Id_Estorno" INT [pk, not null, increment]
+  "Id_Pagamento" INT [not null]
+  "Codigo_Devolucao" INT
+  "Codigo_Cancelamento" INT
+  "Valor" DECIMAL(10,2) [not null]
+  "Data_Abertura" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Prazo_Limite" DATETIME
+  "Data_Conclusao" DATETIME
+  "Status" VARCHAR(20) [not null, default: 'Pendente']
+
+  Checks {
+    `(Codigo_Devolucao IS NOT NULL AND Codigo_Cancelamento IS NULL)
+        OR (Codigo_Devolucao IS NULL AND Codigo_Cancelamento IS NOT NULL)` [name: 'chk_estorno_origem']
+    `Valor > 0` [name: 'chk_estorno_valor']
+    `Status IN ('Pendente', 'Processado', 'Recusado')` [name: 'chk_estorno_status']
+    `Data_Conclusao IS NULL OR Data_Conclusao >= Data_Abertura` [name: 'chk_estorno_datas']
+    `(Status = 'Pendente' AND Data_Conclusao IS NULL)
+        OR (Status IN ('Processado', 'Recusado') AND Data_Conclusao IS NOT NULL)` [name: 'chk_estorno_conclusao']
+  }
+
+  Indexes {
+    Codigo_Devolucao [unique, name: "uq_estorno_devolucao"]
+    Codigo_Cancelamento [unique, name: "uq_estorno_cancelamento"]
+  }
+}
+
+Table "ENTREGA" {
+  "Codigo_Rastreio" VARCHAR(30) [pk, not null]
+  "Codigo_Troca" INT
+  "Id_Pedido" INT [not null]
+  "Transportadora" VARCHAR(100) [not null]
+  "Status_Entrega" VARCHAR(20) [not null, default: 'Aguardando envio']
+  "Data_Despacho" DATETIME
+  "Data_Entrega" DATETIME
+  "Origem_Atualizacao" VARCHAR(10) [not null, default: 'Manual']
+
+  Checks {
+    `Codigo_Rastreio REGEXP '^[A-Za-z0-9]{8,30}$'` [name: 'chk_entrega_rastreio']
+    `CHAR_LENGTH(TRIM(Transportadora)) > 0` [name: 'chk_entrega_transportadora']
+    `Status_Entrega IN (
+        'Aguardando envio', 'Em transporte', 'Entregue')` [name: 'chk_entrega_status']
+    `Origem_Atualizacao IN ('Automática', 'Manual')` [name: 'chk_entrega_origem']
+    `Status_Entrega <> 'Aguardando envio' OR (Data_Despacho IS NULL AND Data_Entrega IS NULL)` [name: 'chk_entrega_aguardando']
+    `Status_Entrega <> 'Em transporte' OR (Data_Despacho IS NOT NULL AND Data_Entrega IS NULL)` [name: 'chk_entrega_transporte']
+    `Status_Entrega <> 'Entregue' OR (Data_Despacho IS NOT NULL AND Data_Entrega IS NOT NULL)` [name: 'chk_entrega_entregue']
+    `Data_Entrega IS NULL OR Data_Despacho IS NULL OR Data_Entrega >= Data_Despacho` [name: 'chk_entrega_datas']
+  }
+
+  Indexes {
+    Codigo_Troca [unique, name: "uq_entrega_troca"]
+  }
+}
+
+Table "REQUISICAO_COMPRA" {
+  "Id_Requisicao" INT [pk, not null, increment]
+  "Codigo_Funcionario" INT
+  "Id_Especificacao" INT [not null]
+  "Qtd_Atual_Estoque" INT [not null]
+  "Estoque_Minimo" INT [not null]
+  "Parecer_Financeiro" VARCHAR(500)
+  "Data_Abertura" DATE [not null]
+  "Data_Decisao" DATE
+  "Motivo_Recusa" VARCHAR(255)
+  "Status" status_requisicao [not null, default: 'Aguardando Análise Financeira']
+  "Qtd_Sugerida" INT [not null]
+
+  Checks {
+    `Qtd_Atual_Estoque >= 0 AND Estoque_Minimo >= 0 AND Qtd_Sugerida > 0` [name: 'chk_requisicao_qtd']
+    `Data_Decisao IS NULL OR Data_Decisao >= Data_Abertura` [name: 'chk_requisicao_datas']
+    `Status NOT IN ('Aguardando Análise Financeira', 'Aguardando Aprovação da Diretoria')
+        OR (Codigo_Funcionario IS NULL AND Data_Decisao IS NULL AND Motivo_Recusa IS NULL)` [name: 'chk_requisicao_aberta']
+    `Status = 'Aguardando Análise Financeira'
+        OR (Parecer_Financeiro IS NOT NULL AND CHAR_LENGTH(TRIM(Parecer_Financeiro)) > 0)` [name: 'chk_requisicao_parecer']
+    `Status NOT IN ('Aprovada', 'Recusada')
+        OR (Codigo_Funcionario IS NOT NULL AND Data_Decisao IS NOT NULL)` [name: 'chk_requisicao_decidida']
+    `(Status = 'Recusada' AND Motivo_Recusa IS NOT NULL AND CHAR_LENGTH(TRIM(Motivo_Recusa)) > 0)
+        OR (Status <> 'Recusada' AND Motivo_Recusa IS NULL)` [name: 'chk_requisicao_recusa']
+  }
+}
+
+Table "MOVIMENTACAO" {
+  "Numero_Movimentacao" INT [pk, not null, increment]
+  "Codigo_Funcionario" INT
+  "Imei" CHAR(15) [not null]
+  "Tipo_Movimento" tipo_movimento [not null]
+  "Status_Anterior" status_aparelho
+  "Status_Novo" status_aparelho [not null]
+  "Data_Hora" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+
+  Checks {
+    `Status_Anterior IS NULL OR Status_Anterior <> Status_Novo` [name: 'chk_movimentacao_status']
+    `(Tipo_Movimento = 'Entrada') = (Status_Anterior IS NULL)` [name: 'chk_movimentacao_entrada']
+  }
+}
+
+Table "AUDITORIA" {
+  "Id_Auditoria" INT [pk, not null, increment]
+  "Codigo_Funcionario" INT
+  "Codigo_Autorizador" INT
+  "Acao" VARCHAR(50) [not null]
+  "Tabela_Afetada" VARCHAR(50) [not null]
+  "Registro_Id" VARCHAR(50) [not null]
+  "Valor_Anterior" JSON
+  "Valor_Novo" JSON
+  "Data_Hora" DATETIME [not null, default: `CURRENT_TIMESTAMP`]
+  "Descricao" VARCHAR(500)
+
+  Checks {
+    `CHAR_LENGTH(TRIM(Acao)) > 0
+        AND CHAR_LENGTH(TRIM(Tabela_Afetada)) > 0
+        AND CHAR_LENGTH(TRIM(Registro_Id)) > 0` [name: 'chk_auditoria_textos']
+    `Tabela_Afetada IN (
+        'PERFIL_ACESSO','FUNCIONARIO','FORNECEDOR','MODELO','ESPECIFICACAO_APARELHO',
+        'AQUISICAO','AVALIACAO_ENTRADA','APARELHO','IMAGEM_APARELHO','CLIENTE',
+        'ENDERECO','TELEFONE','PEDIDO','ITEM_PEDIDO','PAGAMENTO','CANCELAMENTO',
+        'POS_VENDA','AVALIACAO_DANO','DEVOLUCAO','TROCA','NOTA_FISCAL',
+        'ITEM_NOTA_FISCAL','ESTORNO','ENTREGA','REQUISICAO_COMPRA','MOVIMENTACAO')` [name: 'chk_auditoria_tabela']
+    `Valor_Anterior IS NOT NULL OR Valor_Novo IS NOT NULL` [name: 'chk_auditoria_valores']
+  }
+}
+
+Ref "fk_funcionario_perfil":"PERFIL_ACESSO"."Id_Perfil" <? "FUNCIONARIO"."Id_Perfil"
+
+Ref "fk_especificacao_modelo":"MODELO"."Id_Modelo" <? "ESPECIFICACAO_APARELHO"."Id_Modelo"
+
+Ref "fk_aquisicao_funcionario":"FUNCIONARIO"."Codigo_Funcionario" <? "AQUISICAO"."Codigo_Funcionario"
+
+Ref "fk_aquisicao_fornecedor":"FORNECEDOR"."Cpf_Cnpj_Fornecedor" <? "AQUISICAO"."Cpf_Cnpj_Fornecedor"
+
+Ref "fk_aval_entrada_funcionario":"FUNCIONARIO"."Codigo_Funcionario" <? "AVALIACAO_ENTRADA"."Codigo_Funcionario"
+
+Ref "fk_aval_entrada_aquisicao":"AQUISICAO"."Id_Aquisicao" <? "AVALIACAO_ENTRADA"."Id_Aquisicao"
+
+Ref "fk_aparelho_especificacao":"ESPECIFICACAO_APARELHO"."Id_Especificacao" <? "APARELHO"."Id_Especificacao"
+
+Ref "fk_aparelho_avaliacao":"AVALIACAO_ENTRADA"."Id_Avaliacao_Entrada" -? "APARELHO"."Id_Avaliacao_Entrada"
+
+Ref "fk_aparelho_funcionario":"FUNCIONARIO"."Codigo_Funcionario" <? "APARELHO"."Codigo_Funcionario"
+
+Ref "fk_imagem_aparelho":"APARELHO"."Imei" <? "IMAGEM_APARELHO"."Imei"
+
+Ref "fk_endereco_cliente":"CLIENTE"."Cpf_Cnpj" <? "ENDERECO"."Cpf_Cnpj"
+
+Ref "fk_telefone_cliente":"CLIENTE"."Cpf_Cnpj" <? "TELEFONE"."Cpf_Cnpj"
+
+Ref "fk_pedido_cliente":"CLIENTE"."Cpf_Cnpj" <? "PEDIDO"."Cpf_Cnpj"
+
+Ref "fk_item_pedido_aparelho":"APARELHO"."Imei" <? "ITEM_PEDIDO"."Imei"
+
+Ref "fk_item_pedido_pedido":"PEDIDO"."Id_Pedido" <? "ITEM_PEDIDO"."Id_Pedido"
+
+Ref "fk_pagamento_pedido":"PEDIDO"."Id_Pedido" <? "PAGAMENTO"."Id_Pedido"
+
+Ref "fk_cancelamento_pedido":"PEDIDO"."Id_Pedido" -? "CANCELAMENTO"."Id_Pedido"
+
+Ref "fk_pos_venda_item":"ITEM_PEDIDO".("Id_Pedido", "Imei") <? "POS_VENDA".("Id_Pedido", "Imei")
+
+Ref "fk_aval_dano_pos_venda":"POS_VENDA"."Id_PosVenda" <? "AVALIACAO_DANO"."Id_PosVenda"
+
+Ref "fk_aval_dano_funcionario":"FUNCIONARIO"."Codigo_Funcionario" <? "AVALIACAO_DANO"."Codigo_Funcionario"
+
+Ref "fk_devolucao_pos_venda":"POS_VENDA"."Id_PosVenda" -? "DEVOLUCAO"."Id_PosVenda"
+
+Ref "fk_troca_pos_venda":"POS_VENDA"."Id_PosVenda" -? "TROCA"."Id_PosVenda"
+
+Ref "fk_troca_aparelho":"APARELHO"."Imei" <? "TROCA"."Imei_Reposicao"
+
+Ref "fk_nota_pos_venda":"POS_VENDA"."Id_PosVenda" ?<? "NOTA_FISCAL"."Id_PosVenda"
+
+Ref "fk_nota_referencia":"NOTA_FISCAL"."Id_Nota" ?<? "NOTA_FISCAL"."Id_Nota_Referencia"
+
+Ref "fk_nota_cancelamento":"CANCELAMENTO"."Codigo_Cancelamento" ?<? "NOTA_FISCAL"."Codigo_Cancelamento"
+
+Ref "fk_nota_pedido":"PEDIDO"."Id_Pedido" ?<? "NOTA_FISCAL"."Id_Pedido"
+
+Ref "fk_item_nota_aparelho":"APARELHO"."Imei" <? "ITEM_NOTA_FISCAL"."Imei"
+
+Ref "fk_item_nota_nota":"NOTA_FISCAL"."Id_Nota" <? "ITEM_NOTA_FISCAL"."Id_Nota"
+
+Ref "fk_estorno_pagamento":"PAGAMENTO"."Id_Pagamento" <? "ESTORNO"."Id_Pagamento"
+
+Ref "fk_estorno_devolucao":"DEVOLUCAO"."Codigo_Devolucao" ?-? "ESTORNO"."Codigo_Devolucao"
+
+Ref "fk_estorno_cancelamento":"CANCELAMENTO"."Codigo_Cancelamento" ?-? "ESTORNO"."Codigo_Cancelamento"
+
+Ref "fk_entrega_troca":"TROCA"."Codigo_Troca" ?-? "ENTREGA"."Codigo_Troca"
+
+Ref "fk_entrega_pedido":"PEDIDO"."Id_Pedido" <? "ENTREGA"."Id_Pedido"
+
+Ref "fk_requisicao_funcionario":"FUNCIONARIO"."Codigo_Funcionario" ?<? "REQUISICAO_COMPRA"."Codigo_Funcionario"
+
+Ref "fk_requisicao_especificacao":"ESPECIFICACAO_APARELHO"."Id_Especificacao" <? "REQUISICAO_COMPRA"."Id_Especificacao"
+
+Ref "fk_movimentacao_funcionario":"FUNCIONARIO"."Codigo_Funcionario" ?<? "MOVIMENTACAO"."Codigo_Funcionario"
+
+Ref "fk_movimentacao_aparelho":"APARELHO"."Imei" <? "MOVIMENTACAO"."Imei"
+
+Ref "fk_auditoria_funcionario":"FUNCIONARIO"."Codigo_Funcionario" ?<? "AUDITORIA"."Codigo_Funcionario"
+
+Ref "fk_auditoria_autorizador":"FUNCIONARIO"."Codigo_Funcionario" ?<? "AUDITORIA"."Codigo_Autorizador"

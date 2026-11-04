@@ -4,9 +4,13 @@
 
 ## 7. Modelo Lógico
 
-O modelo lógico mostra cada tabela com os seus campos, tipos e chaves (PK e FK), e as ligações entre as tabelas com as cardinalidades. A cor do cabeçalho indica a área de cada tabela (legenda no canto inferior direito).
+O modelo lógico mostra as 27 tabelas com os seus campos, tipos e chaves (PK e FK), e as 40 ligações entre elas. Ele foi gerado a partir do script [`sql/ddl/tabelas.sql`](../../sql/ddl/tabelas.sql), por isso mostra exatamente o que existe no banco: campos obrigatórios (`NN`), valores padrão, campos únicos e os valores aceitos em cada `ENUM`.
 
 ![Modelo lógico do CellGO](modelo_logico_cellgo.png)
+
+**Como ler as ligações:** o lado com o "pé de galinha" é o lado "muitos" (a tabela que guarda a FK); o traço simples é o lado "um". O círculo indica que o lado é opcional (por exemplo, uma FK que aceita `NULL`, como `NOTA_FISCAL.Id_Pedido`). As ligações um para um aparecem nas FKs que também são `UNIQUE`, como `CANCELAMENTO.Id_Pedido` (cada pedido tem no máximo um cancelamento).
+
+O código-fonte do diagrama está em [`modelo_logico_cellgo.dbml`](modelo_logico_cellgo.dbml). Para visualizar ou editar, basta colar o conteúdo em [dbdiagram.io](https://dbdiagram.io/d).
 
 ### 7.1 Justificativas Técnicas
 

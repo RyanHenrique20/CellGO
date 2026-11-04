@@ -23,6 +23,9 @@
 
 USE cellgo;
 
+-- Desliga trava de segurança (Mysql Workebench) - Usar apenas se der erro 1175
+/*SET SQL_SAFE_UPDATES = 0;*/
+
 
 /* =====================================================================
    1. Cadastro e acesso
@@ -381,3 +384,5 @@ UPDATE AUDITORIA SET Descricao = 'Alterado' LIMIT 1;
 
 -- Limpa a variável de sessão ao final
 SET @cellgo_funcionario = NULL;
+-- Liga trava de segurança (Mysql Workebench)
+/*SET SQL_SAFE_UPDATES = 1*/;

@@ -14,6 +14,27 @@
 | Semestre | 1º Semestre |
 | SGBD | MySQL 8 |
 
+### Organização do repositório
+
+```
+CellGO/
+├── README.md                  ← este documento (porta de entrada do projeto)
+├── docs/
+│   ├── requisitos/            ← requisitos funcionais e não funcionais, regras de negócio e políticas
+│   ├── diagramas/             ← fluxogramas, DER e modelo lógico (imagem)
+│   ├── dicionario-dados/      ← dicionário de dados das 27 tabelas
+│   └── normalizacao/          ← 1FN, 2FN, 3FN e campos calculados mantidos
+├── sql/
+│   ├── ddl/                   ← tabelas.sql e trigger.sql (estrutura do banco)
+│   ├── dados/                 ← insert_validos.sql, update.sql e delete.sql
+│   ├── consultas/             ← select.sql, join.sql e consultas_gerenciais.sql
+│   └── auditoria/             ← auditoria.sql
+├── evidencias/                ← testes das regras (triggers e validações) e documentos da Etapa 8
+└── apresentacao/              ← material da apresentação final
+```
+
+Os arquivos em `docs/` são cópias das seções correspondentes deste README, separadas para facilitar a consulta. A ordem de execução dos scripts está na seção 10.
+
 ## 2. Integrantes
 
 | Nº | Integrante |
@@ -1805,7 +1826,7 @@ flowchart TD
 
 O modelo lógico mostra cada tabela com os seus campos, tipos e chaves (PK e FK), e as ligações entre as tabelas com as cardinalidades. A cor do cabeçalho indica a área de cada tabela (legenda no canto inferior direito).
 
-![Modelo lógico do CellGO](modelo_logico_cellgo.png)
+![Modelo lógico do CellGO](docs/diagramas/modelo_logico_cellgo.png)
 
 ### 7.1 Justificativas Técnicas
 
@@ -2393,65 +2414,65 @@ Consulta do IMEI e checklist técnico de cada aparelho oferecido à loja, regist
 
 ## 10. Implementação SQL
 
-Os scripts ficam na branch [`feature/scripts`](https://github.com/RyanHenrique20/CellGO/tree/feature/scripts) e foram feitos para MySQL 8. A estrutura do banco está dividida em dois arquivos:
+Os scripts ficam na pasta [`sql/`](sql) e foram feitos para MySQL 8. A estrutura do banco está dividida em dois arquivos:
 
 | Arquivo | O que faz |
 |---|---|
-| [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql) | Cria o banco `cellgo` e as 27 tabelas do modelo lógico, com chaves primárias e estrangeiras, restrições `CHECK` e colunas calculadas |
-| [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql) | Cria as 67 triggers que aplicam as regras de negócio direto no banco: controle de status por IMEI, desconto Pix pela faixa de preço, permissões da Diretoria, registro automático em `MOVIMENTACAO` e `AUDITORIA` e bloqueio de exclusão de dados históricos |
-| [`update.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/update.sql) | Exemplos de alteração de registros (`UPDATE` com cálculo, subconsulta e `JOIN`), sempre informando o funcionário responsável em `@cellgo_funcionario` |
-| [`delete.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/delete.sql) | Exemplos de exclusão permitida e de exclusões que o banco barra de propósito, seguindo a política de não apagar dados fiscais e de auditoria |
+| [`tabelas.sql`](sql/ddl/tabelas.sql) | Cria o banco `cellgo` e as 27 tabelas do modelo lógico, com chaves primárias e estrangeiras, restrições `CHECK` e colunas calculadas |
+| [`trigger.sql`](sql/ddl/trigger.sql) | Cria as 67 triggers que aplicam as regras de negócio direto no banco: controle de status por IMEI, desconto Pix pela faixa de preço, permissões da Diretoria, registro automático em `MOVIMENTACAO` e `AUDITORIA` e bloqueio de exclusão de dados históricos |
+| [`update.sql`](sql/dados/update.sql) | Exemplos de alteração de registros (`UPDATE` com cálculo, subconsulta e `JOIN`), sempre informando o funcionário responsável em `@cellgo_funcionario` |
+| [`delete.sql`](sql/dados/delete.sql) | Exemplos de exclusão permitida e de exclusões que o banco barra de propósito, seguindo a política de não apagar dados fiscais e de auditoria |
 
 Para comprovar que as regras funcionam, há dois arquivos de teste. Cada teste roda dentro de uma transação desfeita no final, então o banco não é alterado:
 
 | Arquivo | O que testa |
 |---|---|
-| [`testes_triggers.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_triggers.sql) | Se as triggers aceitam as operações corretas e barram as erradas (135 testes) |
-| [`testes_validacoes.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_validacoes.sql) | Se as restrições das tabelas barram dados preenchidos de forma errada (171 testes) |
+| [`testes_triggers.sql`](evidencias/testes_triggers.sql) | Se as triggers aceitam as operações corretas e barram as erradas (135 testes) |
+| [`testes_validacoes.sql`](evidencias/testes_validacoes.sql) | Se as restrições das tabelas barram dados preenchidos de forma errada (171 testes) |
 
 **Ordem de execução**
 
 1. `DROP DATABASE IF EXISTS cellgo;` (só quando for rodar de novo)
-2. [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql)
-3. [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql)
-4. [`insert_validos.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/insert_validos.sql)
-5. [`select.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/select.sql)
-6. [`join.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/join.sql)
-7. [`consultas_gerenciais.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/consultas_gerenciais.sql)
-8. [`auditoria.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/auditoria.sql)
-9. [`update.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/update.sql)
-10. [`delete.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/delete.sql). A parte 5 tem erros intencionais, que mostram o banco barrando exclusões proibidas. Por isso é preciso rodar com "continuar em caso de erro" ou executar esses comandos um por um
+2. [`tabelas.sql`](sql/ddl/tabelas.sql)
+3. [`trigger.sql`](sql/ddl/trigger.sql)
+4. [`insert_validos.sql`](sql/dados/insert_validos.sql)
+5. [`select.sql`](sql/consultas/select.sql)
+6. [`join.sql`](sql/consultas/join.sql)
+7. [`consultas_gerenciais.sql`](sql/consultas/consultas_gerenciais.sql)
+8. [`auditoria.sql`](sql/auditoria/auditoria.sql)
+9. [`update.sql`](sql/dados/update.sql)
+10. [`delete.sql`](sql/dados/delete.sql). A parte 5 tem erros intencionais, que mostram o banco barrando exclusões proibidas. Por isso é preciso rodar com "continuar em caso de erro" ou executar esses comandos um por um
 
-Os testes devem rodar em um banco limpo: `DROP DATABASE`, [`tabelas.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/tabelas.sql), [`trigger.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/trigger.sql), [`testes_triggers.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_triggers.sql) e [`testes_validacoes.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/testes_validacoes.sql).
+Os testes devem rodar em um banco limpo: `DROP DATABASE`, [`tabelas.sql`](sql/ddl/tabelas.sql), [`trigger.sql`](sql/ddl/trigger.sql), [`testes_triggers.sql`](evidencias/testes_triggers.sql) e [`testes_validacoes.sql`](evidencias/testes_validacoes.sql).
 
 ## 11. Massa de Dados
 
-O arquivo [`insert_validos.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/insert_validos.sql) carrega os dados de teste do projeto. Os `INSERT` seguem a ordem em que as operações aconteceriam na loja: fornecedores e aquisições, avaliação de entrada, cadastro dos aparelhos, pedidos, pagamentos, notas fiscais, entregas e pós-venda.
+O arquivo [`insert_validos.sql`](sql/dados/insert_validos.sql) carrega os dados de teste do projeto. Os `INSERT` seguem a ordem em que as operações aconteceriam na loja: fornecedores e aquisições, avaliação de entrada, cadastro dos aparelhos, pedidos, pagamentos, notas fiscais, entregas e pós-venda.
 
 Parte dos dados não é digitada, e sim calculada pelas triggers. É o caso dos valores do pedido e do desconto Pix, do valor total da aquisição e do histórico em `MOVIMENTACAO`. Assim, a massa de dados também serve para mostrar as regras de negócio funcionando. Ela inclui casos que dão certo e casos com problema, como um pedido cancelado, um cancelamento recusado, uma devolução por arrependimento, uma garantia negada por mau uso e aparelhos recusados na avaliação de entrada por IMEI irregular.
 
-Para consultar os dados carregados, use [`select.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/select.sql) (consultas em uma tabela, com filtros, ordenação e agregação) e [`join.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/join.sql) (consultas que juntam várias tabelas).
+Para consultar os dados carregados, use [`select.sql`](sql/consultas/select.sql) (consultas em uma tabela, com filtros, ordenação e agregação) e [`join.sql`](sql/consultas/join.sql) (consultas que juntam várias tabelas).
 
 ## 12. Consultas Gerenciais
 
-O arquivo [`consultas_gerenciais.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/consultas_gerenciais.sql) reúne as consultas que respondem perguntas de quem decide, como quanto foi vendido, quais modelos dão mais lucro e o que precisa ser reposto. Elas usam `JOIN`, `GROUP BY` e funções de agregação (`SUM`, `COUNT`, `AVG`) e consideram como venda apenas os pedidos Pagos ou Finalizados.
+O arquivo [`consultas_gerenciais.sql`](sql/consultas/consultas_gerenciais.sql) reúne as consultas que respondem perguntas de quem decide, como quanto foi vendido, quais modelos dão mais lucro e o que precisa ser reposto. Elas usam `JOIN`, `GROUP BY` e funções de agregação (`SUM`, `COUNT`, `AVG`) e consideram como venda apenas os pedidos Pagos ou Finalizados.
 
 Os indicadores e relatórios gerenciais da Etapa 8 também foram calculados direto no banco e estão documentados em:
 
-- [8.1 e 8.2 Indicadores](docs/etapa8/CellGO_Etapa8_Indicadores.docx): margem bruta por modelo, tempo em estoque por IMEI e taxa de recusa por fornecedor, com a consulta SQL de cada um
-- [8.3 Informações Gerenciais](docs/etapa8/CellGO_Etapa8_Informacoes_Gerenciais.docx): painel de vendas, situação do pós-venda e dos estornos e histórico completo do cliente
-- [8.4 Tomada de Decisão](docs/etapa8/CellGO_Etapa8_Tomada_de_Decisao.docx): quatro decisões apoiadas pelos dados e como cada uma fica registrada no banco
+- [8.1 e 8.2 Indicadores](evidencias/etapa8/CellGO_Etapa8_Indicadores.docx): margem bruta por modelo, tempo em estoque por IMEI e taxa de recusa por fornecedor, com a consulta SQL de cada um
+- [8.3 Informações Gerenciais](evidencias/etapa8/CellGO_Etapa8_Informacoes_Gerenciais.docx): painel de vendas, situação do pós-venda e dos estornos e histórico completo do cliente
+- [8.4 Tomada de Decisão](evidencias/etapa8/CellGO_Etapa8_Tomada_de_Decisao.docx): quatro decisões apoiadas pelos dados e como cada uma fica registrada no banco
 
 ## 13. Consultas de Auditoria
 
-O arquivo [`auditoria.sql`](https://github.com/RyanHenrique20/CellGO/blob/feature/scripts/auditoria.sql) reúne as consultas usadas para conferir o que aconteceu no sistema e quem fez cada operação. Elas leem a tabela `AUDITORIA`, preenchida automaticamente pelas triggers, e o histórico de status em `MOVIMENTACAO`. Com elas é possível ver, por exemplo, quem alterou o preço de um aparelho e quem autorizou, as decisões das requisições de compra e todo o caminho de um IMEI desde a entrada até a venda. Os registros de auditoria não podem ser alterados nem excluídos (RN-23).
+O arquivo [`auditoria.sql`](sql/auditoria/auditoria.sql) reúne as consultas usadas para conferir o que aconteceu no sistema e quem fez cada operação. Elas leem a tabela `AUDITORIA`, preenchida automaticamente pelas triggers, e o histórico de status em `MOVIMENTACAO`. Com elas é possível ver, por exemplo, quem alterou o preço de um aparelho e quem autorizou, as decisões das requisições de compra e todo o caminho de um IMEI desde a entrada até a venda. Os registros de auditoria não podem ser alterados nem excluídos (RN-23).
 
 ## 14. Potencial para BI e IA
 
 Como cada aparelho é identificado pelo IMEI do começo ao fim e as operações ficam registradas com data, valor e responsável, o banco já serve de base para análises mais avançadas:
 
-- [8.5 Business Intelligence](docs/etapa8/CellGO_Etapa8_BI.docx): proposta de data mart em modelo estrela (4 tabelas de fatos e 6 dimensões), painéis por perfil e um exemplo de cruzamento entre pós-venda e fornecedor de origem
-- [8.6 Futuras Aplicações de IA](docs/etapa8/CellGO_Etapa8_IA.docx): cinco aplicações possíveis (previsão de demanda, sugestão de preço, risco na aquisição, apoio à avaliação de dano e assistente de atendimento), o que o banco já oferece para cada uma e os cuidados para adotar IA
+- [8.5 Business Intelligence](evidencias/etapa8/CellGO_Etapa8_BI.docx): proposta de data mart em modelo estrela (4 tabelas de fatos e 6 dimensões), painéis por perfil e um exemplo de cruzamento entre pós-venda e fornecedor de origem
+- [8.6 Futuras Aplicações de IA](evidencias/etapa8/CellGO_Etapa8_IA.docx): cinco aplicações possíveis (previsão de demanda, sugestão de preço, risco na aquisição, apoio à avaliação de dano e assistente de atendimento), o que o banco já oferece para cada uma e os cuidados para adotar IA
 
 ## 15. Histórico e Evolução do Projeto
 
